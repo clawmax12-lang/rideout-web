@@ -1,0 +1,48 @@
+name: Deploy to GitHub Pages
+
+# Deploys the static site to GitHub Pages on every push to main.
+# Enable it under: Settings → Pages → Source = "GitHub Actions".
+# Note: Pages on a PRIVATE repo requires GitHub Pro/Team. If you deploy on
+# Vercel/Netlify/Cloudflare Pages instead, you can delete this workflow.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Stage site (exclude repo meta + archive)
+        run: |
+          mkdir -p _site
+          rsync -a \
+            --exclude='.git' \
+            --exclude='archive' \
+            --exclude='.github' \
+            --exclude='scripts' \
+            --exclude='docs' \
+            --exclude='node_modules' \
+            ./ _site/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

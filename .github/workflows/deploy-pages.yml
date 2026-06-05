@@ -1,13 +1,13 @@
 name: Deploy to GitHub Pages
 
-# Deploys the static site to GitHub Pages on every push to main.
-# Enable it under: Settings → Pages → Source = "GitHub Actions".
-# Note: Pages on a PRIVATE repo requires GitHub Pro/Team. If you deploy on
-# Vercel/Netlify/Cloudflare Pages instead, you can delete this workflow.
+# Deploys the static site to GitHub Pages.
+# This runs MANUALLY only (Actions tab → "Deploy to GitHub Pages" → Run workflow)
+# so it never fails before Pages is configured.
+# To enable: Settings → Pages → Source = "GitHub Actions", then run it — or add a
+# `push:` trigger below. Note: Pages on a PRIVATE repo requires GitHub Pro/Team.
+# Using Vercel/Netlify/Cloudflare Pages instead? You can delete this workflow.
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:

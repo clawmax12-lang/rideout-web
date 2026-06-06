@@ -258,6 +258,10 @@ a[data-framer-name="Logo"] img{object-fit:contain!important;object-position:cent
 @media (max-width:809.98px){
   section[data-framer-name="Hero Section"]{ padding-bottom: 8px !important; }
   section[data-framer-name="Image Section"]{ padding-top: 6px !important; margin-top: -16px !important; }
+  /* Center the wavy scroll badge in the CTA->carousel gap. On mobile this element is
+     position:relative (top:0), so a NEGATIVE top shifts it UP (a positive top pushes it
+     down off-screen — that was the earlier bug). Verified headlessly: mid-point on gap center. */
+  [data-framer-name="Badge Wrapper"]{ top: -24px !important; }
 }
 </style></head>
 <body>

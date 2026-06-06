@@ -240,7 +240,26 @@ a[data-framer-name="Logo"]{width:40px!important;min-width:40px!important;max-wid
 a[data-framer-name="Logo"] img{object-fit:contain!important;object-position:center!important}
 /* RideOut closing brand mark in the footer (footer is dark -> white mark) */
 .ro-footer-mark{display:flex;align-items:center;justify-content:flex-start;margin:0 0 -14px}
-.ro-footer-mark img{width:44px;height:44px;display:block;opacity:.92}</style></head>
+.ro-footer-mark img{width:44px;height:44px;display:block;opacity:.92}</style>
+<style id="ro-mobile-ui">
+/* === RideOut mobile UI: frosted navbar + lifted hero photo strip === */
+/* Frosted/translucent navbar. The header is position:fixed on tablet/phone (and
+   absolute-at-top on desktop), so a translucent background + backdrop blur turns the
+   flat white bar into a glass bar that picks up the hero blue and blurs content on scroll. */
+[data-framer-name="Header"]{
+  background: rgba(255,255,255,.55) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(16px) !important;
+  backdrop-filter: saturate(180%) blur(16px) !important;
+  border-bottom: 1px solid rgba(17,24,39,.07) !important;
+  box-shadow: 0 6px 24px rgba(17,24,39,.06) !important;
+}
+/* Phone: close the dead gap under the hero so ~a third of the photo carousel peeks
+   above the fold instead of sitting almost entirely off-screen. margin-top is the tuning knob. */
+@media (max-width:809.98px){
+  section[data-framer-name="Hero Section"]{ padding-bottom: 8px !important; }
+  section[data-framer-name="Image Section"]{ padding-top: 6px !important; margin-top: -16px !important; }
+}
+</style></head>
 <body>
 	
 	<!-- Start of bodyStart -->

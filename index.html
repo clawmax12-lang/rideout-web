@@ -243,9 +243,7 @@ a[data-framer-name="Logo"] img{object-fit:contain!important;object-position:cent
 .ro-footer-mark img{width:44px;height:44px;display:block;opacity:.92}</style>
 <style id="ro-mobile-ui">
 /* === RideOut mobile UI: frosted navbar + lifted hero photo strip === */
-/* Frosted/translucent navbar. The header is position:fixed on tablet/phone (and
-   absolute-at-top on desktop), so a translucent background + backdrop blur turns the
-   flat white bar into a glass bar that picks up the hero blue and blurs content on scroll. */
+/* Desktop/tablet navbar: subtle frosted glass. Mobile is overridden to transparent below. */
 [data-framer-name="Header"]{
   background: rgba(255,255,255,.55) !important;
   -webkit-backdrop-filter: saturate(180%) blur(16px) !important;
@@ -256,6 +254,14 @@ a[data-framer-name="Logo"] img{object-fit:contain!important;object-position:cent
 /* Phone: close the dead gap under the hero so ~a third of the photo carousel peeks
    above the fold instead of sitting almost entirely off-screen. margin-top is the tuning knob. */
 @media (max-width:809.98px){
+  /* Navbar: no background — let the hero blue show through so the bar is seamless with the hero. */
+  [data-framer-name="Header"], [data-framer-name="Phone Closed"]{
+    background: transparent !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+  }
   section[data-framer-name="Hero Section"]{ padding-bottom: 8px !important; }
   section[data-framer-name="Image Section"]{ padding-top: 6px !important; margin-top: -16px !important; }
   /* Center the wavy scroll badge in the CTA->carousel gap. On mobile this element is

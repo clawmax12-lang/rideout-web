@@ -242,15 +242,7 @@ a[data-framer-name="Logo"] img{object-fit:contain!important;object-position:cent
 .ro-footer-mark{display:flex;align-items:center;justify-content:flex-start;margin:0 0 -14px}
 .ro-footer-mark img{width:44px;height:44px;display:block;opacity:.92}</style>
 <style id="ro-mobile-ui">
-/* === RideOut mobile UI: frosted navbar + lifted hero photo strip === */
-/* Desktop/tablet navbar: subtle frosted glass. Mobile is overridden to transparent below. */
-[data-framer-name="Header"]{
-  background: rgba(255,255,255,.55) !important;
-  -webkit-backdrop-filter: saturate(180%) blur(16px) !important;
-  backdrop-filter: saturate(180%) blur(16px) !important;
-  border-bottom: 1px solid rgba(17,24,39,.07) !important;
-  box-shadow: 0 6px 24px rgba(17,24,39,.06) !important;
-}
+/* === RideOut mobile-only UI tweaks (desktop & tablet untouched) === */
 /* Phone: close the dead gap under the hero so ~a third of the photo carousel peeks
    above the fold instead of sitting almost entirely off-screen. margin-top is the tuning knob. */
 @media (max-width:809.98px){

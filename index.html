@@ -240,7 +240,38 @@ a[data-framer-name="Logo"]{width:40px!important;min-width:40px!important;max-wid
 a[data-framer-name="Logo"] img{object-fit:contain!important;object-position:center!important}
 /* RideOut closing brand mark in the footer (footer is dark -> white mark) */
 .ro-footer-mark{display:flex;align-items:center;justify-content:flex-start;margin:0 0 -14px}
-.ro-footer-mark img{width:44px;height:44px;display:block;opacity:.92}</style></head>
+.ro-footer-mark img{width:44px;height:44px;display:block;opacity:.92}</style>
+<style id="ro-mobile-ui">
+/* === RideOut mobile UI: frosted navbar + lifted hero photo strip === */
+/* Desktop/tablet navbar: subtle frosted glass. Mobile is overridden to transparent below. */
+[data-framer-name="Header"]{
+  background: rgba(255,255,255,.55) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(16px) !important;
+  backdrop-filter: saturate(180%) blur(16px) !important;
+  border-bottom: 1px solid rgba(17,24,39,.07) !important;
+  box-shadow: 0 6px 24px rgba(17,24,39,.06) !important;
+}
+/* Phone: close the dead gap under the hero so ~a third of the photo carousel peeks
+   above the fold instead of sitting almost entirely off-screen. margin-top is the tuning knob. */
+@media (max-width:809.98px){
+  /* Navbar: no background — let the hero blue show through so the bar is seamless with the hero. */
+  [data-framer-name="Header"], [data-framer-name="Phone Closed"]{
+    background: transparent !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+  }
+  /* Lift hero content up: trim the top padding (was 150px) to kill the dead space under
+     the transparent navbar and pull the whole photo carousel into view above the fold. */
+  section[data-framer-name="Hero Section"]{ padding-top: 100px !important; padding-bottom: 8px !important; }
+  section[data-framer-name="Image Section"]{ padding-top: 6px !important; margin-top: -16px !important; }
+  /* Center the wavy scroll badge in the CTA->carousel gap. On mobile this element is
+     position:relative (top:0), so a NEGATIVE top shifts it UP (a positive top pushes it
+     down off-screen — that was the earlier bug). Verified headlessly: mid-point on gap center. */
+  [data-framer-name="Badge Wrapper"]{ top: -24px !important; }
+}
+</style></head>
 <body>
 	
 	<!-- Start of bodyStart -->

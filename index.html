@@ -262,7 +262,9 @@ a[data-framer-name="Logo"] img{object-fit:contain!important;object-position:cent
     box-shadow: none !important;
     border-bottom: none !important;
   }
-  section[data-framer-name="Hero Section"]{ padding-bottom: 8px !important; }
+  /* Lift hero content up: trim the top padding (was 150px) to kill the dead space under
+     the transparent navbar and pull the whole photo carousel into view above the fold. */
+  section[data-framer-name="Hero Section"]{ padding-top: 100px !important; padding-bottom: 8px !important; }
   section[data-framer-name="Image Section"]{ padding-top: 6px !important; margin-top: -16px !important; }
   /* Center the wavy scroll badge in the CTA->carousel gap. On mobile this element is
      position:relative (top:0), so a NEGATIVE top shifts it UP (a positive top pushes it

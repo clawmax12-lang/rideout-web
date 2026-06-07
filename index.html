@@ -262,6 +262,11 @@ a[data-framer-name="Logo"] img{object-fit:contain!important;object-position:cent
      position:relative (top:0), so a NEGATIVE top shifts it UP (a positive top pushes it
      down off-screen — that was the earlier bug). Verified headlessly: mid-point on gap center. */
   [data-framer-name="Badge Wrapper"]{ top: -24px !important; }
+  /* "Vad är en cykelfest?" ticket: iOS Safari ignores overflow-clip-margin, so the
+     Sticky container's overflow:clip slices the rotated ticket's top overhang (~15px).
+     Nudge it down so it sits fully inside the clip — keeps the tilt, no clip reliance.
+     Verified by simulating Safari (clip-margin:0). Desktop/tablet unaffected. */
+  .framer-1hiqcko-container{ transform: translateY(22px) rotate(-8deg) !important; }
 }
 </style></head>
 <body>

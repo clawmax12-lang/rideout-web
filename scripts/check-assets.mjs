@@ -18,9 +18,10 @@ import { join, extname } from "node:path";
 
 const ROOT = process.cwd();
 const TEXT = new Set([".html", ".htm", ".mjs", ".js", ".css", ".json", ".svg", ".webmanifest", ".xml"]);
-// `cta-embed/` is a self-contained vendored Framer sub-site (its own assets/ tree,
-// loaded only inside an iframe); its internal asset graph is not part of the main site.
-const SKIP_DIRS = new Set([".git", "archive", "node_modules", ".github", "cta-embed"]);
+// `cta-embed/` and `app-embed/` are self-contained vendored Framer sub-sites (own
+// assets/ trees, loaded only inside iframes); their internal asset graphs are not
+// part of the main site.
+const SKIP_DIRS = new Set([".git", "archive", "node_modules", ".github", "cta-embed", "app-embed"]);
 // Longer/overlapping extensions first; the trailing boundary lookahead also
 // prevents `.json` from matching as `.js`, `.jpeg` as `.jpg`, etc.
 const EXT = "webmanifest|woff2|woff|jpeg|jpg|json|mjs|svg|png|gif|webp|avif|ico|mp4|webm|mov|m4v|ttf|otf|eot|css|txt|xml|js";

@@ -412,3 +412,45 @@ When the goal is to borrow components/animations (not iframe a whole section):
 - **Localize** for exploration → `/tmp/<name>-local` (re-derive after recycles).
 - **Implement** only the chosen components, **self-owned**, into our site — committing just
   those assets. Keep the repo clean; don't commit a whole localized template we only sample.
+
+---
+
+## 13. Session-3 addenda — making a CMS-driven Echo section interactive (app-embed)
+
+Shipped: **app-embed/** = Echo's "Features 2" scroll showcase (sticky card, 3 steps,
+pattern bgs purple/blue/green) embedded in place of our old Event Section (hidden via
+first-paint CSS — never deleted from SSR). Copy = RideOut app-sell steps; headings
+Boldonse caps, body Geist; Echo's UI widgets hidden; our transparent phone overlaid on
+every BG card. Parent scrubber = `ro-app-*` (message key `roApp`), coexists with the
+CTA scrubber (`roCta`). Two lazy iframes work fine on one page.
+
+New gotchas (all hit, all solved):
+1. **`.framercms` CMS data**: the localizer doesn't download these and rewrites their
+   `new URL(rel, base)` bases to relative strings → "Invalid base URL" → on Echo this
+   made the whole UI non-interactive. Fix: fetch the pristine chunk from the CDN to read
+   the original `framerusercontent.com/modules/<a>/<b>/<Name>.js` base, download the
+   `.framercms` files next to the module copies in `m/phosphor-icons/`, and rewrite the
+   broken calls to `new URL('./m/phosphor-icons/<file>', import.meta.url)`.
+2. **Range loader**: Framer's CMS reader requests byte ranges via a `?range=` QUERY param
+   (CDN feature). Static hosts return the full file → "Unexpected response length" crash.
+   Patch the minified `Po(e,t)` loader: drop the range param + length check, slice the
+   full buffer locally (`u.write(e.from, l.subarray(e.from, e.to))`). Files are KB-sized.
+3. **On-demand phosphor icons** (e.g. FAQ's `Plus.js@0.0.57`): lazy-loaded at runtime,
+   not in PHOSPHOR_SEEDS → 404. Fetch the shim from `framer.com/m/phosphor-icons/<name>`,
+   then its real module, rewrite the shim's import to the local copy. The `@version`
+   filename has no usable extension → **octet-stream + nosniff kills it in production**:
+   fixed via vercel.json header rule (`/(.*)\.js@(.*)` → text/javascript) + serve.py
+   guess_type override. (This also latently affected cta-embed's hidden footer icons.)
+4. **Variant-bound widget layers**: the sticky card's wrapper renames per step
+   (IMG 1→IMG 2→IMG 3) and each variant mounts its own widget layer — hiding "UI 1/2/3"
+   isn't enough. Catch-all: `[data-framer-name^="IMG "]>*:not([data-framer-name^="BG "]):not(.ro-phone){display:none}`.
+   Note `elementsFromPoint` SKIPS pointer-events:none elements — force
+   `*{pointer-events:auto}` temporarily when x-raying ghost pixels.
+5. **Mobile uses separate card instances** (three standalone "BG 1" blocks, no IMG
+   wrapper) → inject the overlay into every `[data-framer-name^="BG "]` lacking one
+   (desktop gets 3 identical stacked phones = visually constant through crossfades).
+6. **Cut-out halo**: a device render on gray keeps a soft shadow halo after border
+   flood-fill — invisible on light bg, ugly on colored patterns. Strip per-row from each
+   side: clear neutral-gray bright pixels until the first dark (frame) pixel.
+7. Echo leftovers to hide inside the section: `a[data-framer-name="Black"]` (Get started).
+   Echo nav is `relative` 74px → `visibility:hidden`. Echo section bg = `#f7f7f7`.

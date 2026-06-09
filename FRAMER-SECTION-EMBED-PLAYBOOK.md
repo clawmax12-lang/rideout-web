@@ -347,3 +347,68 @@ Run headless against `tools/serve.py` for **both** the embed page and our `index
 - `templates-source/*.zip` — the source exports. `cta-embed/` — the shipped CTA embed.
 - Preview URL: `https://rideout-site-git-claude-epic-di-06bdd3-clawmax12-langs-projects.vercel.app`
   (behind Vercel auth — user-viewable, not headless-able).
+
+---
+
+## 11. Session-2 addenda (more hard-won lessons)
+
+**Container recycling (important).** The cloud container recycles between turns. When
+it does: `/tmp` is wiped (working copies, Playwright scripts, extracted images all
+gone) and the repo working tree resets to a **stale** commit. Recover with:
+```
+git fetch origin <branch> main
+git reset --hard origin/<branch>      # working tree was clean = safe
+```
+Then re-create `/tmp` working copies from committed sources (re-run the localizer on the
+committed zip; re-`tools/serve.py`). **Commit + push frequently** so nothing is ever only
+in `/tmp`. The uploads dir (`~/.claude/uploads/...`) persists across recycles; `/tmp` does not.
+
+**`main` diverges under you.** Other sessions/people push to `main` (e.g. an efterfest
+video swap; a `check-assets.mjs` tweak). Before pushing to main: `git fetch origin main`;
+if `git merge-base --is-ancestor origin/main HEAD` is false, `git merge origin/main` first
+(different files → clean merge), then push. Never force-push main.
+
+**Font swaps (subheading/buttons/headings).** Find the target font via the *computed*
+`font-family` of the site's buttons/body (Playwright). Self-host the woff2:
+- a *new* font (e.g. **Boldonse**): grab the Google Fonts CSS with a Chrome UA to get the
+  gstatic woff2 URLs (latin + latin-ext), download into `<embed>/assets/fonts/`.
+- a font we *already* use (e.g. **Geist**): copy our own `assets/fonts/*.woff2` into the embed.
+Add `@font-face` (with the real unicode-ranges) and override the Framer style preset, e.g.
+`section.<sec> .framer-styles-preset-XXXX{font-family:'Geist'!important}`. Find the preset
+class from the element's `className` (`framer-styles-preset-…`). **Display faces need air:**
+Boldonse all-caps overlapped/squashed at `line-height:1.08; letter-spacing:-0.01em` — use
+`line-height:~1.45; letter-spacing:+0.02em`. Use `clamp()` for size so it fits desktop +
+mobile. Only weight 400 exists for Boldonse → set `font-weight:400` to avoid synthetic bold.
+
+**Recolour the background to match our site.** Sample the target colour (e.g. hero
+`getComputedStyle(hero).backgroundColor` → our sky-blue `#98cdea`). Recolour html/body +
+the Framer root wrappers behind the section (`.framer-MBuSv`, `.framer-P7IPm` for habitline)
++ the edge masks + the parent scrubber containers — otherwise white shows through.
+
+**Scroll-tie an element's opacity.** A cloud/element that looks wrong *at rest* on the new
+bg (e.g. a wide flat cloud band that was invisible on white) → fade it in with scroll:
+in the embed rAF loop compute `p = clamp(-sectionRect.top/(ctaH-ih),0,1)` and set the
+element's `opacity` so it builds up as the reveal progresses.
+
+**The localizer's `new URL` bug.** The localizer rewrites absolute asset URLs to *relative*
+paths; code doing `new URL('./x.framercms', '<relative>')` then throws "Invalid base URL".
+On habitline this only broke the CMS (caught, harmless). On **echo** it bubbled up as
+"Made UI non-interactive due to an error" — breaking accordion/carousel/appear. When
+implementing an *interactive* component self-owned, fix it: find the chunk doing
+`new URL(rel, badBase)` and give it an absolute base (e.g. `document.baseURI`) or neutralize
+the collection loader. (For static/visual borrowing, SSR still renders fine.)
+
+**Pasted images aren't files.** A user-pasted image lives as base64 in the transcript
+(`~/.claude/projects/<proj>/<session>.jsonl`, the last `image` content block); decode it.
+The user's "Downloads"/local path is NOT reachable from the container.
+
+## 12. Borrowing *details* (not whole sections) — organization
+
+When the goal is to borrow components/animations (not iframe a whole section):
+- **Source** zip → `templates-source/<name>-pageexport.zip` (committed; the localized copy
+  is always re-derivable from it, so it need not be committed).
+- **Catalog** → `docs/inspiration/<name>/README.md` (committed): what the site is, the
+  borrowable components/animations, localization status, and any gotchas.
+- **Localize** for exploration → `/tmp/<name>-local` (re-derive after recycles).
+- **Implement** only the chosen components, **self-owned**, into our site — committing just
+  those assets. Keep the repo clean; don't commit a whole localized template we only sample.

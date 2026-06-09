@@ -165,12 +165,20 @@ footer,#overlay,#__framer-badge-container,.framer-karqbq,.framer-xxhg1r-containe
      if(/Made in Framer|Create a free website|Get it for FREE/i.test(t) && e.offsetParent!==null){ e.style.setProperty('display','none','important'); }
    });
  }
+ var band=null;
  function frame(){
    ensure(); var e=cta(); if(!e){requestAnimationFrame(frame);return;}
    var r=e.getBoundingClientRect(), ih=innerHeight;
    topM.style.height=Math.max(0,Math.ceil(r.top))+'px';
    var below=Math.max(0,Math.ceil(ih-r.bottom));
    botM.style.top=(ih-below)+'px'; botM.style.height=below+'px';
+   /* fade the wide foreground cloud bank in with the scroll: clean fluffy sky before the reveal,
+      builds up as the phone rises (so it no longer looks like a flat white band at rest) */
+   if(band===null) band=[].slice.call(document.querySelectorAll('img[src*="c5yKOUx"]'));
+   var runway=Math.max(1, r.height-ih);
+   var p=Math.max(0,Math.min(1, -r.top/runway));
+   var op=Math.max(0,Math.min(1,(p-0.08)/0.45)).toFixed(3);
+   band.forEach(function(im){ im.style.setProperty('opacity', op, 'important'); });
    requestAnimationFrame(frame);
  }
  function report(){var e=cta();if(!e)return;hidePromo();try{parent.postMessage({roCta:1,ctaTop:Math.round(e.offsetTop),ctaH:Math.round(e.getBoundingClientRect().height),ih:innerHeight},'*');}catch(_){}}

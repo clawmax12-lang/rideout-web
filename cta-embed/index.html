@@ -165,16 +165,21 @@ section.framer-ujanuw a[data-framer-name^="Default"] .framer-styles-preset-1k95b
    if(!topM){topM=document.createElement('div');topM.id='ro-mask-top';topM.className='ro-mask';document.body.appendChild(topM);}
    if(!botM){botM=document.createElement('div');botM.id='ro-mask-bot';botM.className='ro-mask';document.body.appendChild(botM);}
  }
+ var hpN=0;
  function hidePromo(){
+   if(hpN++>18) return;
    document.querySelectorAll('body *').forEach(function(e){
      var c=getComputedStyle(e); if(c.position!=='fixed'&&c.position!=='sticky')return;
      var t=(e.innerText||'').trim();
      if(/Made in Framer|Create a free website|Get it for FREE/i.test(t) && e.offsetParent!==null){ e.style.setProperty('display','none','important'); }
    });
  }
- var band=null;
+ var band=null,_ly=-1,_lih=-1,_fc=0;
  function frame(){
    ensure(); var e=cta(); if(!e){requestAnimationFrame(frame);return;}
+   _fc++;
+   if(window.scrollY===_ly && innerHeight===_lih && (_fc%30)!==0){requestAnimationFrame(frame);return;}
+   _ly=window.scrollY; _lih=innerHeight;
    var r=e.getBoundingClientRect(), ih=innerHeight;
    topM.style.height=Math.max(0,Math.ceil(r.top))+'px';
    var below=Math.max(0,Math.ceil(ih-r.bottom));

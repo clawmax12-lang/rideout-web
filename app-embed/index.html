@@ -143,6 +143,10 @@ section.framer-1lr98a4 .framer-styles-preset-7c3tn1,section.framer-1lr98a4 .fram
 section.framer-1lr98a4 .framer-styles-preset-mja16w,section.framer-1lr98a4 .framer-styles-preset-mja16w *{font-family:'Geist',sans-serif!important}
 .ro-phone{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:88%;width:auto;z-index:10;pointer-events:none;filter:drop-shadow(0 24px 48px rgba(0,0,0,0.28))}
 .ro-hl{transition:color .15s linear}
+.ro-bullets{margin-top:26px;display:flex;flex-direction:column;gap:16px;max-width:440px}
+.ro-bullet{display:flex;align-items:center;gap:14px;font-family:'Geist',sans-serif;font-size:15.5px;line-height:1.45;color:#1a1a1a;font-weight:500}
+.ro-bullet .ic{flex:none;width:40px;height:40px;border-radius:10px;background:#fff;border:2px solid #111;box-shadow:3px 3px 0 #111;display:flex;align-items:center;justify-content:center}
+.ro-bullet svg{width:21px;height:21px;stroke:#111;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 section.framer-1lr98a4,.framer-dsWie{background:transparent!important}
 section.framer-1lr98a4 [data-framer-name^="BG "]{border:3px solid #111!important;box-shadow:12px 12px 0 #111!important;border-radius:16px!important}
 [data-framer-name^="IMG "],.framer-1a1btad{overflow:visible!important}
@@ -162,6 +166,48 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
        var im=document.createElement('img'); im.className='ro-phone'; im.src='assets/img/rideout-phone.png'; im.alt='';
        w.appendChild(im);
      }
+   });
+ }
+ var RO_ICONS={
+   zap:'<svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>',
+   chef:'<svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.2"/><path d="M5 21c.8-4 3.4-6 7-6s6.2 2 7 6"/></svg>',
+   users:'<svg viewBox="0 0 24 24"><circle cx="8.5" cy="8" r="3"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M3.5 19c.6-3 2.5-4.6 5-4.6s4.4 1.6 5 4.6M14 18.6c.4-2 1.6-3.2 3.3-3.2 1.6 0 2.8 1 3.2 3"/></svg>',
+   key:'<svg viewBox="0 0 24 24"><circle cx="8" cy="14" r="4"/><path d="M11 11 20 2m-4 1 3 3m-6 0 2.5 2.5"/></svg>',
+   route:'<svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="5" r="2.2"/><path d="M8 19h7a4 4 0 0 0 0-8H9a4 4 0 0 1 0-8h7" stroke-dasharray="3 2.4"/></svg>',
+   flag:'<svg viewBox="0 0 24 24"><path d="M5 21V4m0 1h12l-3 4 3 4H5"/></svg>',
+   radar:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M5.5 5.5a9 9 0 0 1 13 0M8 8.2a5.4 5.4 0 0 1 8 0"/></svg>',
+   bell:'<svg viewBox="0 0 24 24"><path d="M6 17h12c-1.4-1.4-2-3-2-5.5 0-3-1.6-5-4-5s-4 2-4 5c0 2.5-.6 4.1-2 5.5z"/><path d="M10.5 20a1.8 1.8 0 0 0 3 0"/></svg>',
+   trophy:'<svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0V4zM8 5H5a3 3 0 0 0 3 4M16 5h3a3 3 0 0 1-3 4M12 13v4m-3 3h6m-5-3h4"/></svg>'
+ };
+ var RO_BULLETS=[
+  {re:/knapptryck/i, items:[
+    ['zap','Schemat klart på minuter — inte veckor.'],
+    ['chef','Rättvist fördelat: alla är värd för exakt en rätt.'],
+    ['users','Nya ansikten vid varje bord, automatiskt.']]},
+  {re:/uträknat/i, items:[
+    ['key','Skattjakt mellan stoppen — kvällen blir ett spel.'],
+    ['route','Rutter anpassade efter ert kvarter.'],
+    ['flag','Sista ledtråden leder alla till efterfesten.']]},
+  {re:/handen, live/i, items:[
+    ['radar','Livekarta över alla lag, hela kvällen.'],
+    ['bell','Notiser når varje gäst på sekunden.'],
+    ['trophy','Leaderboard, quiz och omröstningar inbyggt.']]}
+ ];
+ function bullets(){
+   document.querySelectorAll('section.framer-1lr98a4 h3').forEach(function(h){
+     var blk=null; for(var i=0;i<RO_BULLETS.length;i++){ if(RO_BULLETS[i].re.test(h.textContent)){blk=RO_BULLETS[i];break;} }
+     if(!blk) return;
+     var wrap=h.closest('[data-framer-name="Content"]'); if(!wrap) return;
+     if(wrap.querySelector('.ro-bullets')) return;
+     var box=document.createElement('div'); box.className='ro-bullets';
+     blk.items.forEach(function(it){
+       var row=document.createElement('div'); row.className='ro-bullet';
+       var ic=document.createElement('span'); ic.className='ic'; ic.innerHTML=RO_ICONS[it[0]];
+       var tx=document.createElement('span'); tx.textContent=it[1];
+       row.appendChild(ic); row.appendChild(tx); box.appendChild(row);
+     });
+     var pwrap=wrap.querySelector('.framer-vm4d9q');
+     if(pwrap) pwrap.insertAdjacentElement('afterend', box); else wrap.appendChild(box);
    });
  }
  var curtains=null, curStep=0;
@@ -237,6 +283,7 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
    var below=Math.max(0,Math.ceil(ih-r.bottom));
    botM.style.top=(ih-below)+'px'; botM.style.height=below+'px';
    phone();
+   bullets();
    curtainFrame(ih);
    if(hlReady) highlight(ih);
    requestAnimationFrame(frame);

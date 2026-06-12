@@ -99,15 +99,16 @@ for (let y = H; y >= 0; y -= step * 2) {
 }
 await page.waitForTimeout(400);
 
-// Pull section anchors so we can attribute jank to the section the user named.
-const anchors = await page.evaluate(() => {
-  const pos = (sel) => { const e = document.querySelector(sel); return e ? Math.round(e.getBoundingClientRect().top + scrollY) : null; };
-  return {
-    app: pos("#ro-app-scroll"),
-    manifesto: pos("#ro-manifesto"),
-    cta: pos("#ro-cta-scroll"),
-    docH: document.body.scrollHeight,
-  };
+// Pull every section's real top so we can attribute jank precisely (not crude ranges).
+const sections = await page.evaluate(() => {
+  const out = [];
+  document.querySelectorAll('section[data-framer-name],#ro-app-embed,#ro-manifesto,#ro-cta-embed').forEach((e) => {
+    const r = e.getBoundingClientRect();
+    if (r.height < 1) return;
+    out.push({ name: e.id || e.getAttribute("data-framer-name"), top: Math.round(r.top + scrollY) });
+  });
+  out.sort((a, b) => a.top - b.top);
+  return { list: out, docH: document.body.scrollHeight };
 });
 
 const perf = await page.evaluate(() => window.__perf);
@@ -121,17 +122,12 @@ const frames = perf.frames.filter((f) => f.gap > 0 && f.gap < 2000);
 const jank50 = frames.filter((f) => f.gap > 50).length;   // ~3+ frames dropped at 60fps
 const jank100 = frames.filter((f) => f.gap > 100).length;  // visible hitch
 
+// A task is attributed to the section occupying the viewport center when it fired.
 const sectionName = (y) => {
-  const a = anchors, vh = VIEW.height;
-  if (a.app != null && y >= a.app - vh && y <= a.app + (a.manifesto != null ? a.manifesto : a.docH)) {
-    if (a.manifesto != null && y >= a.manifesto - vh) {
-      if (a.cta != null && y >= a.cta - vh) return "cta";
-      return "manifesto";
-    }
-    return "app-section";
-  }
-  if (a.cta != null && y >= a.cta - vh) return "cta";
-  return "other";
+  const center = y + VIEW.height / 2;
+  let name = "top";
+  for (const s of sections.list) { if (s.top <= center) name = s.name; else break; }
+  return name;
 };
 const bySection = {};
 for (const t of tasks) {
@@ -152,7 +148,7 @@ const result = {
   url: URL, device: DEVICE, throttle: THROTTLE,
   totalBlockingTime: tbt, longestTask: longest, longTaskCount: tasks.length,
   frameGaps50: jank50, frameGaps100: jank100, framesObserved: frames.length,
-  bySection, budget: BUDGET, pass: fails.length === 0, fails,
+  bySection, sections: sections.list, budget: BUDGET, pass: fails.length === 0, fails,
 };
 
 console.log(`\n  PERF AUDIT — ${DEVICE} @ ${THROTTLE}x CPU throttle`);

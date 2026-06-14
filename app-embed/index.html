@@ -267,7 +267,7 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
    document.querySelectorAll('section.framer-1lr98a4 h3').forEach(function(el){
      var r=el.getBoundingClientRect(); if(!r.width) return;
      var words=splitWords(el); if(!words.length) return;
-     var vh=ih,top=r.top; if(flatMode){try{var fe=window.frameElement; if(fe){top=fe.getBoundingClientRect().top+r.top; vh=(parent&&parent.innerHeight)||ih;}}catch(e){}} var p=(vh*0.80 - top)/(vh*0.45); p=p<0?0:(p>1?1:p);
+     var vh=ih,top=r.top; if(flatMode){try{var fe=window.frameElement; if(fe){top=fe.getBoundingClientRect().top+r.top; vh=(parent&&parent.innerHeight)||ih;}}catch(e){}} var p=flatMode?(vh*0.85 - top)/(vh*0.35):(vh*0.80 - top)/(vh*0.45); p=p<0?0:(p>1?1:p);
      var rgb=el.__roRgb;
      for(var i=0;i<words.length;i++){
        var wa=p*words.length - i; wa=wa<0?0:(wa>1?1:wa);

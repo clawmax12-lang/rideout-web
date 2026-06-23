@@ -282,13 +282,10 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
 .ro-wl[data-btn="dark"]{--wl-accent:#191919;}
 .ro-wl *{box-sizing:border-box;}
 
-/* small heading — modest vs the Boldonse hero title */
-.ro-wl-h{display:inline-flex;align-items:center;gap:9px;margin:0;
-  font-size:13px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
-  color:rgba(25,25,25,.62);}
-.ro-wl-h::before{content:"";width:8px;height:8px;border-radius:50%;
-  background:var(--wl-accent);box-shadow:0 0 0 3px rgba(239,223,92,.30);}
-.ro-wl[data-btn="dark"] .ro-wl-h::before{background:#191919;box-shadow:0 0 0 3px rgba(25,25,25,.14);}
+/* subheading — subtle & minimal, Inter regular (secondary font) */
+.ro-wl-h{margin:0;font-family:"Inter",system-ui,-apple-system,sans-serif;
+  font-size:15px;font-weight:400;line-height:1.45;letter-spacing:-.01em;
+  color:rgba(25,25,25,.5);text-align:center;}
 
 /* email field — white pill with the RideOut signature HARD OFFSET */
 .ro-wl-form{width:100%;margin:0;}
@@ -776,12 +773,12 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   function animateCount(to,pop){
     if(!countEl)return;
     if(reduce){countEl.textContent=fmt(to);curCount=to;if(pop)flash();return;}
-    var from=curCount,start=null,dur=(to-from)>1?1200:450;
+    var from=curCount,start=null,dur=(to-from)>1?2000:600;
     function step(ts){
       if(start==null)start=ts;
-      var p=Math.min(1,(ts-start)/dur),e=1-Math.pow(1-p,3);
+      var p=Math.min(1,(ts-start)/dur),e=p>=1?1:1-Math.pow(2,-10*p); /* easeOutExpo — premium settle */
       countEl.textContent=fmt(from+(to-from)*e);
-      if(p<1)requestAnimationFrame(step);else{curCount=to;if(pop)flash();}
+      if(p<1)requestAnimationFrame(step);else{countEl.textContent=fmt(to);curCount=to;if(pop)flash();}
     }
     requestAnimationFrame(step);
   }

@@ -275,7 +275,7 @@ a[data-framer-name="Logo"] img{object-fit:contain!important;object-position:cent
 /* === RideOut hero waitlist — replaces the inert "Skapa er cykelfest" CTA (Phase 1: mocked data) === */
 a[data-framer-name="Button White/Blue"]{display:none!important}
 
-.ro-wl{--wl-ink:#191919;--wl-accent:#efdf5c;--wl-green:#a1e9a1;
+.ro-wl{--wl-ink:#191919;--wl-accent:#efdf5c;--wl-green:#a1e9a1;--wl-cr:14px;
   width:100%;max-width:480px;margin:8px auto 0;box-sizing:border-box;
   display:flex;flex-direction:column;align-items:center;gap:16px;
   font-family:"Geist","Inter",system-ui,-apple-system,sans-serif;}
@@ -314,20 +314,39 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
 .ro-wl-btn:hover{transform:translateY(-1px);filter:brightness(1.04);}
 .ro-wl-btn:active{transform:translateY(1px);}
 .ro-wl-btn>span{display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:opacity .2s ease;}
-.ro-wl-btn .ro-wl-spin,.ro-wl-btn .ro-wl-check{position:absolute;inset:0;opacity:0;pointer-events:none;}
+.ro-wl-btn .ro-wl-spin{position:absolute;inset:0;opacity:0;pointer-events:none;}
 .ro-wl-btn.is-loading .ro-wl-label{opacity:0;}
 .ro-wl-btn.is-loading .ro-wl-spin{opacity:1;}
-.ro-wl-btn.is-done{background:var(--wl-green)!important;color:#143a14!important;}
-.ro-wl-btn.is-done .ro-wl-label,.ro-wl-btn.is-done .ro-wl-spin{opacity:0;}
-.ro-wl-btn.is-done .ro-wl-check{opacity:1;}
 .ro-wl-label svg{margin-left:1px;}
 .ro-wl-spin i{display:block;width:18px;height:18px;border:2.5px solid rgba(25,25,25,.28);border-top-color:#191919;border-radius:50%;animation:ro-wl-rot .7s linear infinite;}
 .ro-wl[data-btn="dark"] .ro-wl-spin i{border-color:rgba(255,255,255,.32);border-top-color:#fff;}
 @keyframes ro-wl-rot{to{transform:rotate(360deg)}}
-.ro-wl-check svg{width:22px;height:22px;fill:none;stroke:#143a14;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
-  stroke-dasharray:26;stroke-dashoffset:26;}
-.ro-wl-btn.is-done .ro-wl-check svg{animation:ro-wl-draw .45s ease forwards;}
-@keyframes ro-wl-draw{to{stroke-dashoffset:0}}
+
+/* SUCCESS — the yellow button fills the whole field (slides over it), then settles to green and stamps a check */
+.ro-wl-field.is-done .ro-wl-input{opacity:0;transform:translateX(-10px);transition:opacity .22s ease,transform .34s ease;}
+.ro-wl-field.is-done .ro-wl-btn{opacity:0;transition:opacity .14s linear;}
+.ro-wl-cover{position:absolute;inset:0;border-radius:var(--wl-cr);overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--wl-accent);opacity:0;pointer-events:none;
+  clip-path:inset(0 0 0 100% round var(--wl-cr));
+  transition:opacity .14s linear,background .4s ease;}
+.ro-wl-field.is-done .ro-wl-cover{opacity:1;animation:ro-wl-fill .46s cubic-bezier(.16,1,.3,1) forwards;}
+.ro-wl-field.is-settled .ro-wl-cover{background:var(--wl-green);}
+@keyframes ro-wl-fill{from{clip-path:inset(0 0 0 var(--cl,60%) round var(--wl-cr));}
+  to{clip-path:inset(0 0 0 0 round var(--wl-cr));}}
+/* one-time premium sheen sweeping across the fill */
+.ro-wl-cover::after{content:"";position:absolute;top:0;bottom:0;left:0;width:55%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:translateX(-180%) skewX(-12deg);opacity:0;}
+.ro-wl-field.is-done .ro-wl-cover::after{animation:ro-wl-sheen .85s ease .14s;}
+@keyframes ro-wl-sheen{0%{transform:translateX(-180%) skewX(-12deg);opacity:0;}
+  22%{opacity:1;}58%{opacity:1;}100%{transform:translateX(280%) skewX(-12deg);opacity:0;}}
+/* the check stamps in with a spring once the fill is nearly full */
+.ro-wl-cover svg{width:24px;height:24px;fill:none;stroke:#143a14;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:26;stroke-dashoffset:26;transform:scale(.5);opacity:0;}
+.ro-wl-field.is-done .ro-wl-cover svg{animation:ro-wl-check .52s cubic-bezier(.34,1.56,.64,1) .26s forwards;}
+@keyframes ro-wl-check{0%{stroke-dashoffset:26;transform:scale(.5);opacity:0;}
+  28%{opacity:1;}100%{stroke-dashoffset:0;transform:scale(1);opacity:1;}}
 
 /* social proof row */
 .ro-wl-social{display:flex;align-items:center;justify-content:center;gap:12px;min-height:34px;flex-wrap:wrap;}
@@ -349,7 +368,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
 .ro-wl-msg.err{color:#8a2b2b;}
 
 @media (max-width:599px){
-  .ro-wl{max-width:none;gap:14px;}
+  .ro-wl{max-width:none;gap:14px;--wl-cr:12px;}
   .ro-wl-field{border-radius:14px;padding:5px 5px 5px 16px;box-shadow:5px 5px 0 var(--wl-ink);}
   .ro-wl-field:focus-within{box-shadow:3px 3px 0 var(--wl-ink);}
   .ro-wl-input{font-size:16px;padding:12px 0;}
@@ -359,9 +378,11 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
 }
 
 @media (prefers-reduced-motion:reduce){
-  .ro-wl-field,.ro-wl-btn,.ro-wl-btn>span,.ro-wl-msg{transition:none!important;}
-  .ro-wl-spin i,.ro-wl-check svg,.ro-wl-count.pop,.ro-wl-field.ro-shake{animation:none!important;}
-  .ro-wl-check svg{stroke-dashoffset:0!important;}
+  .ro-wl-field,.ro-wl-btn,.ro-wl-btn>span,.ro-wl-msg,.ro-wl-cover,.ro-wl-input{transition:none!important;}
+  .ro-wl-spin i,.ro-wl-count.pop,.ro-wl-field.ro-shake{animation:none!important;}
+  .ro-wl-field.is-done .ro-wl-cover{animation:none!important;clip-path:inset(0 round var(--wl-cr))!important;}
+  .ro-wl-field.is-done .ro-wl-cover svg{animation:none!important;stroke-dashoffset:0!important;transform:none!important;opacity:1!important;}
+  .ro-wl-cover::after{display:none!important;}
 }
 </style></head>
 <body>
@@ -775,19 +796,24 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   function showMsg(msg,text,isErr){msg.textContent=text;msg.classList.toggle("err",!!isErr);msg.classList.add("show");}
 
   function submit(form,input,btn,msg){
+    var field=form.querySelector(".ro-wl-field");
     var email=(input.value||"").trim();
     if(!EMAIL_RE.test(email)){
-      var f=form.querySelector(".ro-wl-field");
-      f.classList.remove("ro-shake");void f.offsetWidth;f.classList.add("ro-shake");
+      field.classList.remove("ro-shake");void field.offsetWidth;field.classList.add("ro-shake");
       input.focus();return;
     }
-    if(btn.classList.contains("is-loading")||btn.classList.contains("is-done"))return;
+    if(btn.classList.contains("is-loading")||field.classList.contains("is-done"))return;
     btn.classList.add("is-loading");
     function done(state){
-      btn.classList.remove("is-loading");btn.classList.add("is-done");
+      btn.classList.remove("is-loading");
       input.setAttribute("disabled","");
+      /* fill start = the button's left edge, so the yellow grows out from where the button sits */
+      field.style.setProperty("--cl",(reduce?0:btn.offsetLeft)+"px");
+      field.classList.add("is-done");
+      if(reduce){field.classList.add("is-settled");}
+      else{setTimeout(function(){field.classList.add("is-settled");},480);}
       if(state==="dup"){showMsg(msg,"Du är redan med! 🎉",false);}
-      else{showMsg(msg,"Du är med på listan! 🚴",false);animateCount(curCount+1,true);}
+      else{animateCount(curCount+1,true);}
     }
     function fail(){btn.classList.remove("is-loading");showMsg(msg,"Något gick fel – försök igen.",true);}
     if(MOCK){setTimeout(function(){done("ok");},900);return;}
@@ -826,8 +852,10 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
     input.type="email";input.name="email";input.placeholder="din@epost.se";
     input.setAttribute("autocomplete","email");input.setAttribute("aria-label","E-postadress");
     var btn=el("button","ro-wl-btn");btn.type="submit";
-    btn.innerHTML='<span class="ro-wl-label">Gå med '+ARROW+'</span><span class="ro-wl-spin"><i></i></span><span class="ro-wl-check">'+CHECK+'</span>';
-    field.appendChild(input);field.appendChild(btn);form.appendChild(field);
+    btn.innerHTML='<span class="ro-wl-label">Gå med '+ARROW+'</span><span class="ro-wl-spin"><i></i></span>';
+    field.appendChild(input);field.appendChild(btn);
+    var cover=el("div","ro-wl-cover");cover.innerHTML=CHECK;field.appendChild(cover);
+    form.appendChild(field);
     var msg=el("p","ro-wl-msg");form.appendChild(msg);
     wl.appendChild(form);
 

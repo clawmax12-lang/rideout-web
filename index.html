@@ -755,17 +755,18 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
 (function(){
   "use strict";
   /* ---------- config ---------- */
-  var MOCK = true;                /* Phase 1: no backend. Phase 2 flips this to false. */
-  var MOCK_COUNT = 1247;          /* placeholder so the count stagger is visible on the preview */
-  var SUPABASE_URL = "";          /* Phase 2 */
-  var SUPABASE_ANON_KEY = "";     /* Phase 2 — safe client-side because RLS is insert-only */
-  var AVATARS = [];               /* Phase 1: empty -> placeholder circles. Phase 2: fill with the 3 avatar image paths. */
+  var MOCK = false;               /* Phase 2: live Supabase backend */
+  var SUPABASE_URL = "https://sjesxyievpxkcmsunjfp.supabase.co";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqZXN4eWlldnB4a2Ntc3VuamZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyNzgyODQsImV4cCI6MjA5Nzg1NDI4NH0.tEedczjLIWZgXl0RMOjT8c-3z8V6HAH1_9rioD3zPPw";
+  var AVATARS = [];               /* fill with the 3 avatar image paths when the founder sends them */
+  var COUNT_BASE = 0;             /* optional social-proof baseline added to the real count (founder's call) */
+  var COUNT_MIN_SHOW = 10;        /* below this total, show "bli bland de första" instead of a tiny number */
 
   var reduce=false; try{reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
   var btnDark=/[?&]btn=dark/.test(location.search);
   var EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   var SVGNS="http://www.w3.org/2000/svg";
-  var built=false, countEl=null, curCount=0;
+  var built=false, countEl=null, curCount=0, roTotal=0, socialTxtEl=null;
 
   function el(tag,cls,html){var n=document.createElement(tag);if(cls)n.className=cls;if(html!=null)n.innerHTML=html;return n;}
   function fmt(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g," ");} /* sv thousands = nbsp */
@@ -838,7 +839,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
         field.classList.add("is-collapsed");
       },reduce?60:1500);
       if(state==="dup"){showMsg(msg,"Du är redan med! 🎉",false);}
-      else{animateCount(curCount+1,true);}
+      else{roTotal+=1;paintSocial(roTotal,true);}
     }
     function fail(){btn.classList.remove("is-loading");showMsg(msg,"Något gick fel – försök igen.",true);}
     if(MOCK){setTimeout(function(){done("ok");},900);return;}
@@ -850,12 +851,26 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
     .catch(fail);
   }
 
+  /* paint the social-proof line: real number once we have a credible total, else an inviting "be first" */
+  function paintSocial(total,pop){
+    if(!socialTxtEl)return;
+    if(total>=COUNT_MIN_SHOW){
+      if(!socialTxtEl.querySelector(".ro-wl-count")){
+        socialTxtEl.innerHTML='Gå med <span class="ro-wl-count">'+fmt(curCount)+'</span>+ andra på väntelistan';
+        countEl=socialTxtEl.querySelector(".ro-wl-count");
+      }
+      animateCount(total,pop);
+    }else{
+      countEl=null;curCount=total;
+      socialTxtEl.textContent="Bli bland de första på väntelistan";
+    }
+  }
+
   function loadCount(){
-    if(MOCK){animateCount(MOCK_COUNT,false);return;}
     fetch(SUPABASE_URL+"/rest/v1/rpc/get_waitlist_count",{method:"POST",headers:{
       "apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+SUPABASE_ANON_KEY,"Content-Type":"application/json"},body:"{}"})
     .then(function(r){return r.ok?r.json():null;})
-    .then(function(n){if(n!=null&&!isNaN(+n))animateCount(+n,false);})
+    .then(function(n){if(n!=null&&!isNaN(+n)){roTotal=COUNT_BASE+(+n);paintSocial(roTotal,false);}})
     .catch(function(){});
   }
 
@@ -889,9 +904,9 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
     var social=el("div","ro-wl-social");
     var avs=el("div","ro-wl-avatars");makeAvatars(avs);social.appendChild(avs);
     var txt=el("p","ro-wl-count-txt");
-    txt.innerHTML='Gå med <span class="ro-wl-count">0</span>+ andra på väntelistan';
+    txt.textContent="Bli bland de första på väntelistan";
     social.appendChild(txt);wl.appendChild(social);
-    countEl=txt.querySelector(".ro-wl-count");curCount=0;
+    socialTxtEl=txt;countEl=null;curCount=0;
 
     if(slot.parentNode)slot.parentNode.insertBefore(wl,slot.nextSibling);
     built=true;

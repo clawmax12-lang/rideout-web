@@ -759,7 +759,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   var SUPABASE_URL = "https://sjesxyievpxkcmsunjfp.supabase.co";
   var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqZXN4eWlldnB4a2Ntc3VuamZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyNzgyODQsImV4cCI6MjA5Nzg1NDI4NH0.tEedczjLIWZgXl0RMOjT8c-3z8V6HAH1_9rioD3zPPw";
   var AVATARS = ["assets/avatars/av1.webp","assets/avatars/av2.webp","assets/avatars/av3.webp"]; /* founder's 3 real avatars (cropped+optimized) */
-  var COUNT_BASE = 0;             /* optional social-proof baseline added to the real count (founder's call) */
+  var COUNT_BASE = 23;            /* social-proof baseline added to the real count (founder's call) */
   var COUNT_MIN_SHOW = 10;        /* below this total, show "bli bland de första" instead of a tiny number */
 
   var reduce=false; try{reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
@@ -907,6 +907,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
     txt.textContent="Bli bland de första på väntelistan";
     social.appendChild(txt);wl.appendChild(social);
     socialTxtEl=txt;countEl=null;curCount=0;
+    roTotal=COUNT_BASE;paintSocial(roTotal,false); /* show baseline immediately (resilient if the count RPC fails); loadCount then adds real signups on top */
 
     if(slot.parentNode)slot.parentNode.insertBefore(wl,slot.nextSibling);
     built=true;

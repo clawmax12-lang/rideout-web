@@ -6,7 +6,7 @@
 
 ## Objective
 
-Make the RideOut site (`rideout-web`, branch work only) measurably faster and free of
+Make the Tablehopp site (`rideout-web`, branch work only) measurably faster and free of
 main-thread jank — the "laggy, buggy, can't-put-your-finger-on-it" feel the founder saw
 on a real iPhone, concentrated when scrolling past the app-showcase, manifesto, and
 clouds-CTA sections. Reduce blocking time and dropped frames without changing how the

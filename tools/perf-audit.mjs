@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Objective performance harness for the RideOut site — the spine of the /review loop.
+ * Objective performance harness for the Tablehopp site — the spine of the /review loop.
  *
  * Headless verification gives FALSE GREENS on perceptual/iOS bugs (proven the hard
  * way: every jank caught tonight passed automated checks). So this measures only what

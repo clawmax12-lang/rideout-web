@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Add a Sitemap line once the production domain is set, e.g.:
-# Sitemap: https://rideout.example/sitemap.xml
+# Sitemap: https://tablehopp.app/sitemap.xml

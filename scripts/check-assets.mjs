@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Asset-integrity check for the RideOut marketing site.
+ * Asset-integrity check for the Tablehopp marketing site.
  *
  * Scans the shipped text files (HTML / JS / CSS / JSON / SVG) for asset
  * references of the form `assets/<dir>/...<ext>` and fails if any referenced

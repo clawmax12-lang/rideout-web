@@ -1,8 +1,8 @@
-# RideOut — Marketing Site
+# Tablehopp — Marketing Site
 
 [![CI](https://github.com/clawmax12-lang/rideout-web/actions/workflows/ci.yml/badge.svg)](https://github.com/clawmax12-lang/rideout-web/actions/workflows/ci.yml)
 
-Marketing / landing site for the **RideOut iOS app** — a Swedish *cykelfest*
+Marketing / landing site for the **Tablehopp iOS app** — a Swedish *cykelfest*
 (progressive dinner on bikes). A **self-contained static website**: plain
 HTML + CSS + JS + assets, **no build step, no backend**. Deployable to any
 static host as-is.
@@ -55,7 +55,7 @@ any of these work with near-zero config. Each needs `.mjs` served as
 
 ```
 .
-├── index.html              # the site (SSR markup + all RideOut customizations)
+├── index.html              # the site (SSR markup + all Tablehopp customizations)
 ├── assets/                 # img, media, fonts, scripts (hydration chunk), data, styles
 ├── docs/                   # repo docs (preview image)
 ├── scripts/check-assets.mjs# asset-integrity checker (CI)
@@ -75,7 +75,7 @@ any of these work with near-zero config. Each needs `.mjs` served as
 
 ## Maintenance (the short version)
 
-Framer **re-hydrates** the DOM and overwrites direct edits, so all RideOut
+Framer **re-hydrates** the DOM and overwrites direct edits, so all Tablehopp
 changes are **idempotent injected blocks** (`<script id="ro-…">` / `<style>`) that
 re-apply on load + a 250 ms interval (+ a `MutationObserver` for the hero). Rules:
 
@@ -92,7 +92,7 @@ Full details, the list of customizations, and gotchas: **[HANDOFF.md](HANDOFF.md
 
 - [ ] **Contact form** is a neutralized stub — wire it to a real endpoint/backend.
 - [ ] **Domain**: update `<link rel="canonical">`, `og:url`, and social meta (currently `eventin.framer.website`).
-- [ ] **OG/Twitter image + title/description** tuned for the RideOut app.
+- [ ] **OG/Twitter image + title/description** tuned for the Tablehopp app.
 - [ ] Confirm host serves `.mjs` as `text/javascript` (configs do this).
 - [ ] Optional: top marquee still drops Ä/Å on a few words (e.g. "ÄTA" → "AT").
 - [ ] Optional: add `robots.txt` `Sitemap:` line + `sitemap.xml` once the domain is set.
@@ -101,4 +101,4 @@ Full details, the list of customizations, and gotchas: **[HANDOFF.md](HANDOFF.md
 
 ## License
 
-**Proprietary** — © 2026 RideOut. All rights reserved. See [LICENSE](LICENSE).
+**Proprietary** — © 2026 Tablehopp. All rights reserved. See [LICENSE](LICENSE).

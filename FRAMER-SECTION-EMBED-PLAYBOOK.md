@@ -198,7 +198,7 @@ footer,#overlay,#__framer-badge-container,.framer-karqbq,.framer-xxhg1r-containe
    var scroll=document.createElement("div");scroll.id="ro-cta-scroll";
    var pin=document.createElement("div");pin.id="ro-cta-pin";
    var frame=document.createElement("iframe");frame.id="ro-cta-frame";
-   frame.title="RideOut";frame.setAttribute("scrolling","no");frame.loading="lazy";
+   frame.title="Tablehopp";frame.setAttribute("scrolling","no");frame.loading="lazy";
    pin.appendChild(frame);scroll.appendChild(pin);sec.appendChild(scroll);
    a.parentNode.insertBefore(sec,a.nextSibling);wire(scroll,frame);return true;}
  function start(){var n=0,iv=setInterval(function(){if(build()||++n>60)clearInterval(iv);},250);}
@@ -328,7 +328,7 @@ Run headless against `tools/serve.py` for **both** the embed page and our `index
   transparent cut-out; cropped to content and padded to the slot's aspect (**0.654**), phone
   aligned to top so the screen stays above the cloud band. Applied to **both** srcset
   variants (`Yxyz…291e1a.png` 669w + `Yxyz…0230d4.png` 1046w). Screen will be replaced with
-  the real RideOut app UI once the app is ready.
+  the real Tablehopp app UI once the app is ready.
 - **Covered the forearm cutoff** at the final scroll state by **baking the scene's own fluffy
   cloud (`vK…`) + an alpha feather onto the phone image** at the wrist — so the hand emerges
   from a cloud at every scroll position. (Capping the scrub didn't work: the QR only reveals
@@ -419,7 +419,7 @@ When the goal is to borrow components/animations (not iframe a whole section):
 
 Shipped: **app-embed/** = Echo's "Features 2" scroll showcase (sticky card, 3 steps,
 pattern bgs purple/blue/green) embedded in place of our old Event Section (hidden via
-first-paint CSS — never deleted from SSR). Copy = RideOut app-sell steps; headings
+first-paint CSS — never deleted from SSR). Copy = Tablehopp app-sell steps; headings
 Boldonse caps, body Geist; Echo's UI widgets hidden; our transparent phone overlaid on
 every BG card. Parent scrubber = `ro-app-*` (message key `roApp`), coexists with the
 CTA scrubber (`roCta`). Two lazy iframes work fine on one page.

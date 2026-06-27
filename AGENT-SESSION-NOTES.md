@@ -1,4 +1,4 @@
-# RideOut-web — Session state & hard-won agent lessons
+# Tablehopp-web — Session state & hard-won agent lessons
 
 _Last updated: 2026-06-16. Read this FIRST before touching this repo again._
 

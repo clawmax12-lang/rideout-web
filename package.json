@@ -2,7 +2,7 @@
   "name": "rideout-web",
   "version": "1.0.0",
   "private": true,
-  "description": "RideOut — marketing site (Swedish cykelfest landing page) for the RideOut iOS app. Static Framer export, deploy-ready.",
+  "description": "Tablehopp — marketing site (Swedish cykelfest landing page) for the Tablehopp iOS app. Static Framer export, deploy-ready.",
   "scripts": {
     "dev": "npx --yes serve@14 . -l 8770",
     "start": "npm run dev",

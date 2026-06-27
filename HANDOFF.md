@@ -1,6 +1,6 @@
 # HANDOFF — how this site works (read before editing)
 
-This repo is the **marketing site for the RideOut iOS app** (Swedish *cykelfest*
+This repo is the **marketing site for the Tablehopp iOS app** (Swedish *cykelfest*
 landing page). It is a **self-contained static site**: plain HTML + CSS + JS +
 assets, **no build step, no backend**. The site files live at the **repo root**
 (`index.html` + `assets/`).
@@ -27,7 +27,7 @@ screenshot tools render this Framer page blank; verify in a real browser.)
 ## How it works (the important part)
 
 Framer **re-hydrates** the DOM on load and **overwrites direct DOM edits**. So every
-RideOut customization is an **idempotent injected block** that re-applies itself:
+Tablehopp customization is an **idempotent injected block** that re-applies itself:
 
 - All custom blocks are `<script>` / `<style>` with ids prefixed **`ro-`** or
   **`rideout-`**, near the end of `<head>` and before `</body>`. They re-run on
@@ -41,8 +41,8 @@ RideOut customization is an **idempotent injected block** that re-applies itself
   hero swap has a JS guard (`ro-hero-mark`) that pins the correct image regardless.
 
 ### Customizations (`ro-*` blocks)
-- Nav logo + footer brand mark → the RideOut mark (`assets/img/rideout-logo.svg` / `-white.svg`).
-- Hero decoration → dashed RideOut mark (`assets/img/rideout-hero-mark.png`, replaced a star).
+- Nav logo + footer brand mark → the Tablehopp mark (`assets/img/rideout-logo.svg` / `-white.svg`).
+- Hero decoration → dashed Tablehopp mark (`assets/img/rideout-hero-mark.png`, replaced a star).
 - Favicon → simplified small-size variant (`rideout-favicon.svg` + `-white` + PNG 16/32/48) + apple-touch.
 - 6-question FAQ accordion in the footer.
 - Swedish Ä/Å diacritic clipping fix (`overflow-clip-margin`).

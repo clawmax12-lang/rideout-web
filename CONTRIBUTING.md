@@ -1,6 +1,6 @@
 # Contributing
 
-Internal RideOut repo. Quick rules so edits don't break the Framer export.
+Internal Tablehopp repo. Quick rules so edits don't break the Framer export.
 
 ## Setup
 
@@ -16,7 +16,7 @@ Hard-reload (Cmd/Ctrl+Shift+R) after edits — the hashed `.mjs` chunk caches ha
 This is a **Framer static export** that re-hydrates the DOM. **Read
 [HANDOFF.md](HANDOFF.md) first.** In short:
 
-1. All RideOut changes live in **idempotent `ro-*` injected blocks** in
+1. All Tablehopp changes live in **idempotent `ro-*` injected blocks** in
    `index.html`. Edit/extend those — don't hand-edit hydrated DOM and expect it
    to persist. Reverting a feature = delete its block.
 2. **Swapping a managed image/video** = change the path in **both** `index.html`

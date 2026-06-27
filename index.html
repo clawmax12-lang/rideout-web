@@ -843,11 +843,10 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
     }
     function fail(){btn.classList.remove("is-loading");showMsg(msg,"Något gick fel – försök igen.",true);}
     if(MOCK){setTimeout(function(){done("ok");},900);return;}
-    fetch(SUPABASE_URL+"/rest/v1/waitlist",{method:"POST",headers:{
-      "apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+SUPABASE_ANON_KEY,
-      "Content-Type":"application/json","Prefer":"return=minimal"},
-      body:JSON.stringify({email:email,source:"hero"})})
-    .then(function(r){if(r.status===201)done("ok");else if(r.status===409)done("dup");else fail();})
+    fetch("/api/join",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({email:email})})
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(d){if(!d){fail();return;}done(d.dup?"dup":"ok");})
     .catch(fail);
   }
 
@@ -895,7 +894,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
     var btn=el("button","ro-wl-btn");btn.type="submit";
     btn.innerHTML='<span class="ro-wl-label">Gå med '+ARROW+'</span><span class="ro-wl-spin"><i></i></span>';
     field.appendChild(input);field.appendChild(btn);
-    var note=el("span","ro-wl-note");note.innerHTML='<span>Du är med! 🎉</span>';field.appendChild(note); /* "Kolla inkorgen" (+MAIL) återställs när Resend-mejlet är live */
+    var note=el("span","ro-wl-note");note.innerHTML=MAIL+'<span>Kolla inkorgen</span>';field.appendChild(note); /* welcome-mejlet skickas via /api/join (Resend) */
     var cover=el("div","ro-wl-cover");cover.innerHTML='<span class="ro-wl-checkwrap">'+CHECK+'</span>';field.appendChild(cover);
     form.appendChild(field);
     var msg=el("p","ro-wl-msg");form.appendChild(msg);

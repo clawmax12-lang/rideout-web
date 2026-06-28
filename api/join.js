@@ -6,12 +6,12 @@ const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const FROM = "Tablehopp <hej@tablehopp.app>";
 const REPLY_TO = "hej@tablehopp.app";
-const SUBJECT = "You're in.";
-const UNSUB = "mailto:hej@tablehopp.app?subject=unsubscribe";
+const SUBJECT = "Du är in.";
+const UNSUB = "mailto:hej@tablehopp.app?subject=avsluta";
 
-const WELCOME_HTML = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+const WELCOME_HTML = `<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#bfe2f1;-webkit-font-smoothing:antialiased;">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#bfe2f1;font-size:1px;line-height:1px;">Thanks for hopping on — here's what happens next, and how to get your first dinner party free.</div>
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#bfe2f1;font-size:1px;line-height:1px;">Tack f&ouml;r att du hoppade p&aring; &mdash; h&auml;r &auml;r vad som h&auml;nder nu, och hur du k&ouml;r din f&ouml;rsta cykelfest gratis.</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#bfe2f1;padding:42px 16px;font-family:Arial,Helvetica,'Segoe UI',sans-serif;">
 <tr><td align="center">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:524px;background:#ffffff;border:2px solid #191919;border-radius:20px;box-shadow:9px 9px 0 #191919;overflow:hidden;">
@@ -19,36 +19,36 @@ const WELCOME_HTML = `<!doctype html><html lang="en"><head><meta charset="utf-8"
       <img src="https://tablehopp.app/assets/img/tablehopp-logo-email.png" width="60" height="60" alt="Tablehopp" style="display:block;border:0;outline:none;">
     </td></tr>
     <tr><td style="padding:24px 34px 8px;">
-      <h1 style="margin:0 0 26px;font-size:42px;line-height:.98;font-weight:900;letter-spacing:-.02em;color:#191919;text-transform:uppercase;">You're<br>in.</h1>
-      <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Hey!</p>
-      <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Thanks for hopping on the waitlist — seriously, it means a lot this early.</p>
-      <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">I'm <strong>William</strong>, and I'm building Tablehopp. The idea's simple: a dinner party on bikes. You have the starter at one neighbour's place, ride on to the main course at the next, dessert at a third — and solve clues between stops. One night, a handful of stops, the whole crew.</p>
+      <h1 style="margin:0 0 26px;font-size:42px;line-height:.98;font-weight:900;letter-spacing:-.02em;color:#191919;text-transform:uppercase;">Du &auml;r<br>in.</h1>
+      <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Hej!</p>
+      <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Tack f&ouml;r att du hoppade p&aring; v&auml;ntelistan &mdash; p&aring; riktigt, det betyder mycket s&aring; h&auml;r tidigt.</p>
+      <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Jag heter <strong>William</strong> och jag bygger Tablehopp. Id&eacute;n &auml;r enkel: en cykelfest. Ni &auml;ter f&ouml;rr&auml;tt hos en granne, trampar vidare till varmr&auml;tten hos n&auml;sta och efterr&auml;tten hos en tredje &mdash; och l&ouml;ser ledtr&aring;dar p&aring; v&auml;gen. En kv&auml;ll, flera stopp, hela g&auml;nget.</p>
     </td></tr>
     <tr><td style="padding:10px 34px 0;">
-      <p style="margin:0 0 6px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#9a8a1f;">What happens now</p>
-      <p style="margin:0 0 26px;font-size:17px;line-height:1.6;color:#222;">We're opening city by city. You'll get an email the second yours goes live — no nagging, only when it's real.</p>
+      <p style="margin:0 0 6px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#9a8a1f;">Vad h&auml;nder nu</p>
+      <p style="margin:0 0 26px;font-size:17px;line-height:1.6;color:#222;">Vi &ouml;ppnar stad f&ouml;r stad. Du f&aring;r ett mejl s&aring; fort din &auml;r ig&aring;ng &mdash; inget tjat, bara n&auml;r det &auml;r skarpt.</p>
     </td></tr>
     <tr><td style="padding:0 34px 8px;">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eaf6fc;border:2px solid #191919;border-radius:16px;box-shadow:5px 5px 0 #191919;">
         <tr><td style="padding:22px 22px 24px;">
-          <p style="margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#191919;">Bring your crew</p>
-          <p style="margin:0 0 18px;font-size:16px;line-height:1.55;color:#222;">The more people you bring, the higher you climb our <strong>leaderboard</strong>. Whoever tops it gets their <strong>first dinner party completely free</strong>. Start now — share the link:</p>
-          <a href="https://tablehopp.app" style="display:inline-block;background:#efdf5c;color:#191919;border:2px solid #191919;border-radius:12px;box-shadow:4px 4px 0 #191919;padding:13px 22px;font-size:16px;font-weight:800;text-decoration:none;">Share tablehopp.app&nbsp;&nbsp;↗</a>
+          <p style="margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#191919;">Dra med g&auml;nget</p>
+          <p style="margin:0 0 18px;font-size:16px;line-height:1.55;color:#222;">Ju fler du tipsar, desto h&ouml;gre hamnar du p&aring; v&aring;r <strong>leaderboard</strong>. Den som toppar k&ouml;r sin <strong>f&ouml;rsta cykelfest helt gratis</strong>. B&ouml;rja redan nu &mdash; dela l&auml;nken:</p>
+          <a href="https://tablehopp.app" style="display:inline-block;background:#efdf5c;color:#191919;border:2px solid #191919;border-radius:12px;box-shadow:4px 4px 0 #191919;padding:13px 22px;font-size:16px;font-weight:800;text-decoration:none;">Dela tablehopp.app&nbsp;&nbsp;↗</a>
         </td></tr>
       </table>
     </td></tr>
     <tr><td style="padding:26px 34px 34px;">
-      <p style="margin:0;font-size:17px;line-height:1.6;color:#222;">See you in the saddle.<br><strong>// William</strong>, founder</p>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:#222;">Vi ses p&aring; sadeln.<br><strong>// William</strong>, grundare</p>
     </td></tr>
     <tr><td style="background:#fafafa;border-top:2px solid #191919;padding:18px 34px;">
-      <p style="margin:0;font-size:12px;line-height:1.5;color:#8a8a8a;">You're getting this because you joined the Tablehopp waitlist. Questions? Email <a href="mailto:hej@tablehopp.app" style="color:#191919;">hej@tablehopp.app</a>. &nbsp;·&nbsp; <a href="${UNSUB}" style="color:#8a8a8a;">Unsubscribe</a></p>
+      <p style="margin:0;font-size:12px;line-height:1.5;color:#8a8a8a;">Du f&aring;r det h&auml;r mejlet f&ouml;r att du gick med i Tablehopps v&auml;ntelista. Undrar du n&aring;got? Maila <a href="mailto:hej@tablehopp.app" style="color:#191919;">hej@tablehopp.app</a>. &nbsp;·&nbsp; <a href="${UNSUB}" style="color:#8a8a8a;">Avregistrera</a></p>
     </td></tr>
   </table>
-  <p style="max-width:524px;margin:16px auto 0;font-size:11px;color:#5b7f92;text-align:center;">Tablehopp · the dinner party on bikes · tablehopp.app</p>
+  <p style="max-width:524px;margin:16px auto 0;font-size:11px;color:#5b7f92;text-align:center;">Tablehopp · cykelfesten · tablehopp.app</p>
 </td></tr></table>
 </body></html>`;
 
-const WELCOME_TEXT = "Hey!\n\nThanks for hopping on the waitlist — seriously, it means a lot this early.\n\nI'm William, and I'm building Tablehopp. The idea's simple: a dinner party on bikes. You have the starter at one neighbour's place, ride on to the main course at the next, dessert at a third — and solve clues between stops. One night, a handful of stops, the whole crew.\n\nWHAT HAPPENS NOW\nWe're opening city by city. You'll get an email the second yours goes live — no nagging, only when it's real.\n\nBRING YOUR CREW\nThe more people you bring, the higher you climb our leaderboard. Whoever tops it gets their first dinner party completely free. Start now — share the link: https://tablehopp.app\n\nSee you in the saddle.\n// William, founder\n\n—\nYou're getting this because you joined the Tablehopp waitlist. Questions? hej@tablehopp.app. To unsubscribe, reply with 'unsubscribe'.";
+const WELCOME_TEXT = "Hej!\n\nTack för att du hoppade på väntelistan — på riktigt, det betyder mycket så här tidigt.\n\nJag heter William och jag bygger Tablehopp. Idén är enkel: en cykelfest. Ni äter förrätt hos en granne, trampar vidare till varmrätten hos nästa och efterrätten hos en tredje — och löser ledtrådar på vägen. En kväll, flera stopp, hela gänget.\n\nVAD HÄNDER NU\nVi öppnar stad för stad. Du får ett mejl så fort din är igång — inget tjat, bara när det är skarpt.\n\nDRA MED GÄNGET\nJu fler du tipsar, desto högre hamnar du på vår leaderboard. Den som toppar kör sin första cykelfest helt gratis. Börja redan nu — dela länken: https://tablehopp.app\n\nVi ses på sadeln.\n// William, grundare\n\n—\nDu får det här mejlet för att du gick med i Tablehopps väntelista. Undrar du något? hej@tablehopp.app. Vill du avsluta? Svara med 'avsluta'.";
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") { res.status(405).json({ error: "method_not_allowed" }); return; }

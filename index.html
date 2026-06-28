@@ -990,18 +990,24 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   /* Framer re-hydrates content from its (Swedish) bundle and overwrites Weglot's
      translation. Re-apply the chosen language across the hydration window + on
      scroll (lazy sections) so the translation sticks. */
-  var mo=null;
+  var mo=null,deb=null;
   function observe(){if(mo)try{mo.observe(document.body,{childList:true,subtree:true,characterData:true});}catch(e){}}
   function reapply(){try{if(window.Weglot&&Weglot.initialized){var c=Weglot.getCurrentLang&&Weglot.getCurrentLang();
-    if(c&&c!=="sv"){if(mo)mo.disconnect();Weglot.switchTo(c);if(mo)setTimeout(observe,120);}}}catch(e){}}
+    if(c&&c!=="sv"){if(mo)mo.disconnect();Weglot.switchTo(c);if(mo)setTimeout(observe,150);}}}catch(e){}}
+  function schedule(){clearTimeout(deb);deb=setTimeout(reapply,250);}
   function startFix(t){
     if(window.Weglot&&Weglot.initialized){
-      /* Watch the DOM: the moment Framer re-hydrates Swedish, re-apply immediately
-         (disconnect during switchTo so it doesn't retrigger itself). Stops after 14s. */
-      try{mo=new MutationObserver(function(){if(mo)mo.disconnect();reapply();});observe();
-        setTimeout(function(){try{if(mo){mo.disconnect();mo=null;}}catch(e){}},14000);}catch(e){}
-      [400,900,1600,2600,4000,6000].forEach(function(ms){setTimeout(reapply,ms);});
-      var st;addEventListener("scroll",function(){clearTimeout(st);st=setTimeout(reapply,300);},{passive:true});
+      /* Framer lazy-mounts/re-renders sections on scroll (in Swedish), so translate for the
+         WHOLE session, not just the load window: re-apply whenever the DOM changes
+         (debounced) and whenever new sections scroll into view. Disconnect during switchTo
+         so it can't retrigger itself. */
+      try{mo=new MutationObserver(schedule);observe();}catch(e){}
+      try{if("IntersectionObserver" in window){
+        var io=new IntersectionObserver(function(es){for(var i=0;i<es.length;i++){if(es[i].isIntersecting){schedule();break;}}},{rootMargin:"300px"});
+        var secs=document.querySelectorAll("section,[data-framer-name]");for(var j=0;j<secs.length;j++)io.observe(secs[j]);
+      }}catch(e){}
+      [400,900,1600,2600,4000,6000,9000].forEach(function(ms){setTimeout(reapply,ms);});
+      var st;addEventListener("scroll",function(){clearTimeout(st);st=setTimeout(reapply,200);},{passive:true});
       try{Weglot.on("languageChanged",function(){setTimeout(reapply,250);});}catch(e){}
     }else if(t<100){setTimeout(function(){startFix(t+1);},250);}
   }

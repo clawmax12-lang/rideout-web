@@ -951,4 +951,17 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   if(document.readyState!=="loading")build();else document.addEventListener("DOMContentLoaded",build);
   addEventListener("load",build);
   var n=0,iv=setInterval(function(){build();if(++n>40)clearInterval(iv);},400);
+
+  /* Framer re-hydrates content from its (Swedish) bundle and overwrites Weglot's
+     translation. Re-apply the chosen language across the hydration window + on
+     scroll (lazy sections) so the translation sticks. */
+  function reapply(){try{if(window.Weglot&&Weglot.initialized){var c=Weglot.getCurrentLang&&Weglot.getCurrentLang();if(c&&c!=="sv")Weglot.switchTo(c);}}catch(e){}}
+  function startFix(t){
+    if(window.Weglot&&Weglot.initialized){
+      [700,1500,2600,4000,6000,9000].forEach(function(ms){setTimeout(reapply,ms);});
+      var st;addEventListener("scroll",function(){clearTimeout(st);st=setTimeout(reapply,350);},{passive:true});
+      try{Weglot.on("languageChanged",function(){setTimeout(reapply,400);});}catch(e){}
+    }else if(t<80){setTimeout(function(){startFix(t+1);},300);}
+  }
+  startFix(0);
 })();</script></body></html>

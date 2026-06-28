@@ -971,7 +971,13 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
       var w=document.createElement("div");w.className="ro-lang wg-notranslate";w.setAttribute("translate","no");w.setAttribute("data-wg-notranslate","");
       w.innerHTML='<button type="button" data-l="sv">SV</button><span class="sep">/</span><button type="button" data-l="en">EN</button>';
       w.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("button");if(!b)return;
-        var l=b.getAttribute("data-l");if(window.Weglot&&Weglot.switchTo){Weglot.switchTo(l);}});
+        var l=b.getAttribute("data-l");
+        var cur=(window.Weglot&&Weglot.getCurrentLang&&Weglot.getCurrentLang())||"sv";
+        if(l===cur)return;
+        if(window.Weglot&&Weglot.switchTo){try{Weglot.switchTo(l);}catch(err){}
+          /* Weglot+Framer don't fully re-translate live; reload through the known-good
+             full-translation path (the anti-FOUC splash covers the EN reload). */
+          setTimeout(function(){location.reload();},150);}});
       document.body.appendChild(w);
     }
     if(window.Weglot&&Weglot.initialized&&!bound){bound=true;try{Weglot.on("languageChanged",mark);}catch(e){}}

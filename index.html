@@ -922,4 +922,33 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   addEventListener("load",boot);
   var n=0,iv=setInterval(function(){if(!document.querySelector(".ro-wl")){built=false;build();}if(++n>40)clearInterval(iv);},300);
 })();
-</script></body></html>
+</script>
+<script id="ro-lang">(function(){
+  "use strict";
+  /* Hide Weglot's default corner widget and add a clean, minimal SV/EN switch wired to Weglot. */
+  var css='.weglot-container{display:none!important;}'
+    +'.ro-lang{position:fixed;top:20px;right:78px;z-index:2147483000;display:flex;align-items:center;gap:7px;'
+    +'font-family:"Inter",system-ui,-apple-system,sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em;}'
+    +'.ro-lang button{background:none;border:0;margin:0;padding:2px;cursor:pointer;font:inherit;color:rgba(25,25,25,.42);line-height:1;-webkit-tap-highlight-color:transparent;}'
+    +'.ro-lang button:hover{color:#191919;}.ro-lang button.on{color:#191919;}'
+    +'.ro-lang .sep{color:rgba(25,25,25,.28);}'
+    +'@media(max-width:599px){.ro-lang{top:16px;right:62px;font-size:12px;}}';
+  var st=document.createElement("style");st.id="ro-lang-css";st.textContent=css;document.head.appendChild(st);
+  var bound=false;
+  function mark(){try{var cur=(window.Weglot&&Weglot.getCurrentLang&&Weglot.getCurrentLang())||"sv";
+    var bs=document.querySelectorAll(".ro-lang button");for(var i=0;i<bs.length;i++){bs[i].classList.toggle("on",bs[i].getAttribute("data-l")===cur);}}catch(e){}}
+  function build(){
+    if(!document.querySelector(".ro-lang")){
+      var w=document.createElement("div");w.className="ro-lang wg-notranslate";w.setAttribute("translate","no");w.setAttribute("data-wg-notranslate","");
+      w.innerHTML='<button type="button" data-l="sv">SV</button><span class="sep">/</span><button type="button" data-l="en">EN</button>';
+      w.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("button");if(!b)return;
+        var l=b.getAttribute("data-l");if(window.Weglot&&Weglot.switchTo){Weglot.switchTo(l);}});
+      document.body.appendChild(w);
+    }
+    if(window.Weglot&&Weglot.initialized&&!bound){bound=true;try{Weglot.on("languageChanged",mark);}catch(e){}}
+    mark();
+  }
+  if(document.readyState!=="loading")build();else document.addEventListener("DOMContentLoaded",build);
+  addEventListener("load",build);
+  var n=0,iv=setInterval(function(){build();if(++n>40)clearInterval(iv);},400);
+})();</script></body></html>

@@ -6,7 +6,7 @@ const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const FROM = "Tablehopp <hej@tablehopp.app>";
 const REPLY_TO = "hej@tablehopp.app";
-const SUBJECT = "Du är in.";
+const SUBJECT = "Du är inne!";
 const UNSUB = "mailto:hej@tablehopp.app?subject=avsluta";
 
 const WELCOME_HTML = `<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -19,7 +19,7 @@ const WELCOME_HTML = `<!doctype html><html lang="sv"><head><meta charset="utf-8"
       <img src="https://tablehopp.app/assets/img/tablehopp-logo-email.png" width="60" height="60" alt="Tablehopp" style="display:block;border:0;outline:none;">
     </td></tr>
     <tr><td style="padding:24px 34px 8px;">
-      <h1 style="margin:0 0 26px;font-size:42px;line-height:.98;font-weight:900;letter-spacing:-.02em;color:#191919;text-transform:uppercase;">Du &auml;r<br>in.</h1>
+      <h1 style="margin:0 0 26px;font-size:42px;line-height:.98;font-weight:900;letter-spacing:-.02em;color:#191919;text-transform:uppercase;">Du &auml;r<br>inne!</h1>
       <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Hej!</p>
       <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Tack f&ouml;r att du hoppade p&aring; v&auml;ntelistan &mdash; p&aring; riktigt, det betyder mycket s&aring; h&auml;r tidigt.</p>
       <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Jag heter <strong>William</strong> och jag bygger Tablehopp. Id&eacute;n &auml;r enkel: en cykelfest. Ni &auml;ter f&ouml;rr&auml;tt hos en granne, trampar vidare till varmr&auml;tten hos n&auml;sta och efterr&auml;tten hos en tredje &mdash; och l&ouml;ser ledtr&aring;dar p&aring; v&auml;gen. En kv&auml;ll, flera stopp, hela g&auml;nget.</p>

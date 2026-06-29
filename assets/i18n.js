@@ -67,16 +67,36 @@
   if(TOP){
     onReady(function(){
       if(document.querySelector(".ro-lang"))return;
-      var css='.ro-lang{position:fixed;top:20px;right:78px;z-index:2147483000;display:flex;align-items:center;gap:7px;font-family:"Inter",system-ui,-apple-system,sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em}'
-        +'.ro-lang button{background:none;border:0;margin:0;padding:2px;cursor:pointer;font:inherit;color:rgba(25,25,25,.42);line-height:1;-webkit-tap-highlight-color:transparent}'
-        +'.ro-lang button:hover{color:#191919}.ro-lang button.on{color:#191919}.ro-lang .sep{color:rgba(25,25,25,.28)}'
-        +'@media(max-width:599px){.ro-lang{top:16px;right:62px;font-size:12px}}';
+      /* Segmented pill toggle. Translucent blurred backdrop so it stays legible over
+         every section (hero blue, white, manifesto blue, green, dark footer) — the bare
+         dark text used to vanish over dark sections. */
+      var css='.ro-lang{position:fixed;top:14px;right:16px;z-index:2147483000;display:flex;align-items:center;gap:1px;padding:4px;border-radius:999px;background:rgba(255,255,255,.66);-webkit-backdrop-filter:blur(12px) saturate(1.35);backdrop-filter:blur(12px) saturate(1.35);border:1px solid rgba(25,25,25,.10);box-shadow:0 4px 14px rgba(25,25,25,.12);font-family:"Inter",system-ui,-apple-system,sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.02em;transition:opacity .3s ease,transform .3s cubic-bezier(.4,0,.2,1);will-change:transform,opacity}'
+        +'.ro-lang button{-webkit-appearance:none;appearance:none;background:none;border:0;margin:0;cursor:pointer;font:inherit;padding:4px 10px;border-radius:999px;line-height:1;color:rgba(25,25,25,.5);transition:color .18s ease,background .18s ease;-webkit-tap-highlight-color:transparent}'
+        +'.ro-lang button:hover{color:#191919}.ro-lang button.on{color:#191919;background:#fff;box-shadow:0 1px 3px rgba(25,25,25,.16)}'
+        +'.ro-lang.ro-lang--off{opacity:0;transform:translateY(-170%);pointer-events:none}'
+        +'@media(max-width:599px){.ro-lang{top:12px;right:12px;font-size:12px}.ro-lang button{padding:4px 9px}}'
+        +'@media(prefers-reduced-motion:reduce){.ro-lang{transition:opacity .2s ease}.ro-lang.ro-lang--off{transform:none}}';
       var st=document.createElement("style");st.id="ro-lang-css";st.textContent=css;document.head.appendChild(st);
-      var w=document.createElement("div");w.className="ro-lang";w.setAttribute("translate","no");
-      w.innerHTML='<button type="button" data-l="sv">SV</button><span class="sep">/</span><button type="button" data-l="en">EN</button>';
+      var w=document.createElement("div");w.className="ro-lang";w.setAttribute("translate","no");w.setAttribute("aria-label",lang==="en"?"Language":"Språk");
+      w.innerHTML='<button type="button" data-l="sv">SV</button><button type="button" data-l="en">EN</button>';
       var bs=w.querySelectorAll("button");for(var i=0;i<bs.length;i++)bs[i].classList.toggle("on",bs[i].getAttribute("data-l")===lang);
       w.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("button");if(!b)return;var l=b.getAttribute("data-l");if(l===lang)return;try{localStorage.setItem("thlang",l);}catch(e){}location.reload();});
       document.body.appendChild(w);
+      /* Follow the auto-hiding Framer header (data-nce-nav-scroll): when it slides out of
+         view on scroll-down, the switcher slides away with it and returns together on
+         scroll-up / at the top. We mirror the header's actual rendered position, so it
+         stays in sync regardless of Framer's own thresholds, and degrades to
+         always-visible if the header never hides. */
+      var navEl=document.querySelector('[data-framer-name="Header"]'),q=false;
+      function syncNav(){q=false;
+        if(navEl&&!navEl.isConnected)navEl=document.querySelector('[data-framer-name="Header"]');
+        if(!navEl)return;
+        var r=navEl.getBoundingClientRect(),y=window.pageYOffset||document.documentElement.scrollTop||0;
+        w.classList.toggle("ro-lang--off", r.bottom<=2 && y>4);
+      }
+      function onScr(){if(q)return;q=true;requestAnimationFrame(syncNav);}
+      addEventListener("scroll",onScr,{passive:true});addEventListener("resize",onScr,{passive:true});
+      setTimeout(syncNav,0);
     });
   }
 })();

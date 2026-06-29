@@ -55,6 +55,10 @@
   if(lang==="en"){
     onReady(function(){
       applyAll();startObserver();
+      /* Belt-and-suspenders for client-rendered content (esp. the app-embed/cta-embed
+         iframes, which Framer hydrates late): re-apply on an interval for ~12s so the
+         bullets/feature text reliably translate regardless of hydration timing. */
+      var _n=0,_iv=setInterval(function(){applyAll();if(++_n>26)clearInterval(_iv);},450);
       if(TOP){
         if(!document.getElementById("th-splash")){var d=document.createElement("div");d.id="th-splash";d.innerHTML='<div class="d"></div>';document.body.appendChild(d);}
         function reveal(){document.documentElement.classList.remove("th-hide");var x=document.getElementById("th-splash");if(x){x.classList.add("hide");setTimeout(function(){if(x.parentNode)x.parentNode.removeChild(x);},420);}}

@@ -164,7 +164,7 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
  function phone(){
    document.querySelectorAll('section.framer-1lr98a4 [data-framer-name^="BG "]').forEach(function(w){
      if(!w.querySelector('.ro-phone')){
-       var im=document.createElement('img'); im.className='ro-phone'; im.src='assets/img/rideout-phone.png'; im.alt='';
+       var RO_SCREENS={'BG 1':'assets/img/rideout-phone-program.png','BG 2':'assets/img/rideout-phone-ledtradar.png','BG 3':'assets/img/rideout-phone-poang.png'}; var im=document.createElement('img'); im.className='ro-phone'; im.src=(RO_SCREENS[w.getAttribute('data-framer-name')]||'assets/img/rideout-phone.png'); im.alt='';
        w.appendChild(im);
      }
    });

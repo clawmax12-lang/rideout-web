@@ -765,6 +765,10 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   var reduce=false; try{reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
   var btnDark=/[?&]btn=dark/.test(location.search);
   var EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  /* current site language (SV/EN) — same detection as assets/i18n.js, so the
+     welcome email goes out in the language the visitor is actually reading. */
+  var WL_LANG=(function(){var l=null;try{l=localStorage.getItem("thlang");}catch(e){}
+    if(l==="en"||l==="sv")return l;var n=(navigator.language||"sv").toLowerCase();return /^en/.test(n)?"en":"sv";})();
   var SVGNS="http://www.w3.org/2000/svg";
   var built=false, countEl=null, curCount=0, roTotal=0, socialTxtEl=null;
 
@@ -844,7 +848,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
     function fail(){btn.classList.remove("is-loading");showMsg(msg,"Något gick fel – försök igen.",true);}
     if(MOCK){setTimeout(function(){done("ok");},900);return;}
     fetch("/api/join",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({email:email})})
+      body:JSON.stringify({email:email,lang:WL_LANG})})
     .then(function(r){return r.ok?r.json():null;})
     .then(function(d){if(!d){fail();return;}done(d.dup?"dup":"ok");})
     .catch(fail);

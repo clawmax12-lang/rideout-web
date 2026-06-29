@@ -7,7 +7,9 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const FROM = "Tablehopp <hej@tablehopp.app>";
 const REPLY_TO = "hej@tablehopp.app";
 const SUBJECT = "Du är inne!";
+const SUBJECT_EN = "You're in!";
 const UNSUB = "mailto:hej@tablehopp.app?subject=avsluta";
+const UNSUB_EN = "mailto:hej@tablehopp.app?subject=unsubscribe";
 
 const WELCOME_HTML = `<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#bfe2f1;-webkit-font-smoothing:antialiased;">
@@ -48,7 +50,54 @@ const WELCOME_HTML = `<!doctype html><html lang="sv"><head><meta charset="utf-8"
 </td></tr></table>
 </body></html>`;
 
+const WELCOME_HTML_EN = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#bfe2f1;-webkit-font-smoothing:antialiased;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#bfe2f1;font-size:1px;line-height:1px;">Thanks for hopping on &mdash; here's what happens next, and how to run your first progressive dinner for free.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#bfe2f1;padding:42px 16px;font-family:Arial,Helvetica,'Segoe UI',sans-serif;">
+<tr><td align="center">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:524px;background:#ffffff;border:2px solid #191919;border-radius:20px;box-shadow:9px 9px 0 #191919;overflow:hidden;">
+    <tr><td align="center" style="padding:32px 34px 4px;">
+      <img src="https://tablehopp.app/assets/img/tablehopp-logo-email.png" width="60" height="60" alt="Tablehopp" style="display:block;border:0;outline:none;">
+    </td></tr>
+    <tr><td style="padding:24px 34px 8px;">
+      <h1 style="margin:0 0 26px;font-size:42px;line-height:.98;font-weight:900;letter-spacing:-.02em;color:#191919;text-transform:uppercase;">You're<br>in!</h1>
+      <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Hi there!</p>
+      <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Thanks for joining the waitlist &mdash; truly, it means a lot this early.</p>
+      <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">I'm <strong>William</strong>, and I'm building Tablehopp. The idea is simple: a progressive dinner on bikes. You have the starter at one neighbor's place, pedal on to the main course at the next and dessert at a third &mdash; solving clues along the way. One evening, several stops, the whole crew.</p>
+    </td></tr>
+    <tr><td style="padding:10px 34px 0;">
+      <p style="margin:0 0 6px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#9a8a1f;">What happens next</p>
+      <p style="margin:0 0 26px;font-size:17px;line-height:1.6;color:#222;">We're opening city by city. You'll get an email the moment yours goes live &mdash; no spam, only when it's for real.</p>
+    </td></tr>
+    <tr><td style="padding:0 34px 8px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eaf6fc;border:2px solid #191919;border-radius:16px;box-shadow:5px 5px 0 #191919;">
+        <tr><td style="padding:22px 22px 24px;">
+          <p style="margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#191919;">Bring the crew</p>
+          <p style="margin:0 0 18px;font-size:16px;line-height:1.55;color:#222;">The more friends you invite, the higher you climb our <strong>leaderboard</strong>. Whoever tops it runs their <strong>first progressive dinner completely free</strong>. Start now &mdash; share the link:</p>
+          <a href="https://tablehopp.app" style="display:inline-block;background:#efdf5c;color:#191919;border:2px solid #191919;border-radius:12px;box-shadow:4px 4px 0 #191919;padding:13px 22px;font-size:16px;font-weight:800;text-decoration:none;">Share tablehopp.app&nbsp;&nbsp;↗</a>
+        </td></tr>
+      </table>
+    </td></tr>
+    <tr><td style="padding:26px 34px 34px;">
+      <p style="margin:0;font-size:17px;line-height:1.6;color:#222;">See you in the saddle.<br><strong>// William</strong>, founder</p>
+    </td></tr>
+    <tr><td style="background:#fafafa;border-top:2px solid #191919;padding:18px 34px;">
+      <p style="margin:0;font-size:12px;line-height:1.5;color:#8a8a8a;">You're getting this email because you joined Tablehopp's waitlist. Got a question? Email <a href="mailto:hej@tablehopp.app" style="color:#191919;">hej@tablehopp.app</a>. &nbsp;·&nbsp; <a href="${UNSUB_EN}" style="color:#8a8a8a;">Unsubscribe</a></p>
+    </td></tr>
+  </table>
+  <p style="max-width:524px;margin:16px auto 0;font-size:11px;color:#5b7f92;text-align:center;">Tablehopp · the progressive dinner · tablehopp.app</p>
+</td></tr></table>
+</body></html>`;
+
 const WELCOME_TEXT = "Hej!\n\nTack för att du hoppade på väntelistan — på riktigt, det betyder mycket så här tidigt.\n\nJag heter William och jag bygger Tablehopp. Idén är enkel: en cykelfest. Ni äter förrätt hos en granne, trampar vidare till varmrätten hos nästa och efterrätten hos en tredje — och löser ledtrådar på vägen. En kväll, flera stopp, hela gänget.\n\nVAD HÄNDER NU\nVi öppnar stad för stad. Du får ett mejl så fort din är igång — inget tjat, bara när det är skarpt.\n\nDRA MED GÄNGET\nJu fler du tipsar, desto högre hamnar du på vår leaderboard. Den som toppar kör sin första cykelfest helt gratis. Börja redan nu — dela länken: https://tablehopp.app\n\nVi ses på sadeln.\n// William, grundare\n\n—\nDu får det här mejlet för att du gick med i Tablehopps väntelista. Undrar du något? hej@tablehopp.app. Vill du avsluta? Svara med 'avsluta'.";
+
+const WELCOME_TEXT_EN = "Hi there!\n\nThanks for joining the waitlist — truly, it means a lot this early.\n\nI'm William, and I'm building Tablehopp. The idea is simple: a progressive dinner on bikes. You have the starter at one neighbor's place, pedal on to the main course at the next and dessert at a third — solving clues along the way. One evening, several stops, the whole crew.\n\nWHAT HAPPENS NEXT\nWe're opening city by city. You'll get an email the moment yours goes live — no spam, only when it's for real.\n\nBRING THE CREW\nThe more friends you invite, the higher you climb our leaderboard. Whoever tops it runs their first progressive dinner completely free. Start now — share the link: https://tablehopp.app\n\nSee you in the saddle.\n// William, founder\n\n—\nYou're getting this email because you joined Tablehopp's waitlist. Got a question? hej@tablehopp.app. Want out? Reply with 'unsubscribe'.";
+
+// pick the welcome email by the visitor's site language (defaults to Swedish)
+const CONTENT = {
+  sv: { subject: SUBJECT, html: WELCOME_HTML, text: WELCOME_TEXT, unsub: UNSUB },
+  en: { subject: SUBJECT_EN, html: WELCOME_HTML_EN, text: WELCOME_TEXT_EN, unsub: UNSUB_EN },
+};
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") { res.status(405).json({ error: "method_not_allowed" }); return; }
@@ -64,15 +113,28 @@ module.exports = async (req, res) => {
   try { data = JSON.parse(raw || "{}"); } catch (e) {}
   const email = String((data && data.email) || "").trim().toLowerCase();
   if (!EMAIL_RE.test(email)) { res.status(400).json({ error: "invalid_email" }); return; }
+  // visitor's site language; anything other than "en" is treated as Swedish
+  const lang = (data && data.lang) === "en" ? "en" : "sv";
 
-  // 1) save to Supabase (anon insert; RLS is insert-only)
-  let dup = false;
-  try {
-    const ins = await fetch(SUPABASE_URL + "/rest/v1/waitlist", {
+  // 1) save to Supabase (anon insert; RLS is insert-only). We store the language
+  //    so future city-launch emails can also go out in the right one. If the
+  //    `lang` column hasn't been added to the table yet, retry without it so a
+  //    missing column can never block a signup.
+  function insert(withLang) {
+    const row = withLang ? { email: email, source: "hero", lang: lang } : { email: email, source: "hero" };
+    return fetch(SUPABASE_URL + "/rest/v1/waitlist", {
       method: "POST",
       headers: { apikey: SUPABASE_ANON, Authorization: "Bearer " + SUPABASE_ANON, "Content-Type": "application/json", Prefer: "return=minimal" },
-      body: JSON.stringify({ email: email, source: "hero" }),
+      body: JSON.stringify(row),
     });
+  }
+  let dup = false;
+  try {
+    let ins = await insert(true);
+    if (ins.status === 400) { // most likely the `lang` column doesn't exist yet
+      let body = ""; try { body = await ins.text(); } catch (e) {}
+      if (/lang/.test(body)) ins = await insert(false);
+    }
     if (ins.status === 409) dup = true;
     else if (ins.status !== 201) { res.status(502).json({ error: "db_error" }); return; }
   } catch (e) { res.status(502).json({ error: "db_unreachable" }); return; }
@@ -81,19 +143,20 @@ module.exports = async (req, res) => {
   if (!dup) {
     const key = process.env.RESEND_API_KEY;
     if (key) {
+      const c = CONTENT[lang] || CONTENT.sv;
       try {
         await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: { Authorization: "Bearer " + key, "Content-Type": "application/json" },
           body: JSON.stringify({
-            from: FROM, to: [email], reply_to: REPLY_TO, subject: SUBJECT,
-            html: WELCOME_HTML, text: WELCOME_TEXT,
-            headers: { "List-Unsubscribe": "<" + UNSUB + ">" },
+            from: FROM, to: [email], reply_to: REPLY_TO, subject: c.subject,
+            html: c.html, text: c.text,
+            headers: { "List-Unsubscribe": "<" + c.unsub + ">" },
           }),
         });
       } catch (e) { /* never fail the signup if the email hiccups */ }
     }
   }
 
-  res.status(200).json({ ok: true, dup: dup });
+  res.status(200).json({ ok: true, dup: dup, lang: lang });
 };

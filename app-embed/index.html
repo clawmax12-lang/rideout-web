@@ -161,10 +161,11 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
    if(!topM){topM=document.createElement('div');topM.id='ro-mask-top';topM.className='ro-mask';document.body.appendChild(topM);}
    if(!botM){botM=document.createElement('div');botM.id='ro-mask-bot';botM.className='ro-mask';document.body.appendChild(botM);}
  }
+ var RO_BYSTEP={1:'assets/img/rideout-phone-program.png',2:'assets/img/rideout-phone-ledtradar.png',3:'assets/img/rideout-phone-poang.png'};
  function phone(){
    document.querySelectorAll('section.framer-1lr98a4 [data-framer-name^="BG "]').forEach(function(w){
      if(!w.querySelector('.ro-phone')){
-       var im=document.createElement('img'); im.className='ro-phone'; im.src='assets/img/rideout-phone.png'; im.alt='';
+       var im=document.createElement('img'); im.className='ro-phone'; im.src=RO_BYSTEP[1]; im.alt='';
        w.appendChild(im);
      }
    });
@@ -237,7 +238,7 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
    ensureCurtains();
    var st=activeStep(ih);
    if(st!==curStep){
-     curStep=st;
+     curStep=st; var _src=RO_BYSTEP[st]||RO_BYSTEP[1]; document.querySelectorAll('section.framer-1lr98a4 .ro-phone').forEach(function(im){if(im.getAttribute('src')!==_src)im.src=_src;});
      for(var i=1;i<3;i++){
        curtains[i].style.transform = (st>=i+1)?'translateY(0%)':'translateY(100%)';
      }

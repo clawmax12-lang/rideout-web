@@ -312,10 +312,16 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
  }
  function report(){var e=sec();if(!e)return;try{parent.postMessage({roApp:1,secTop:Math.round(e.offsetTop),secH:Math.round(e.getBoundingClientRect().height),ih:innerHeight},'*');}catch(_){}}
  function injectFlatPhones(){
-   document.querySelectorAll('section.framer-1lr98a4 [data-framer-name^="BG "]').forEach(function(w){
+   /* On mobile Framer hydration renames all 3 cards to "BG 1", so the data-framer-name
+      is useless here — assign each card its screen by VISUAL ORDER instead
+      (top = Program = step 1, middle = Ledtrådar = 2, bottom = Poäng = 3). */
+   var cards=[].slice.call(document.querySelectorAll('section.framer-1lr98a4 [data-framer-name^="BG "]'))
+     .filter(function(w){var r=w.getBoundingClientRect();return r.width>0&&r.height>0;})
+     .sort(function(a,b){var ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();return (ra.top-rb.top)||(ra.left-rb.left);});
+   cards.forEach(function(w,i){
      var im=w.querySelector('.ro-phone');
      if(!im){im=document.createElement('img');im.className='ro-phone';im.alt='';w.appendChild(im);}
-     var src=RO_BYSTEP[bgNum(w)]||RO_BYSTEP[1];
+     var src=RO_BYSTEP[Math.min(3,i+1)]||RO_BYSTEP[1];
      if(im.getAttribute('src')!==src)im.src=src;
    });
  }

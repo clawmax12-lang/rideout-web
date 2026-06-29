@@ -155,7 +155,6 @@ section.framer-1lr98a4 [data-framer-name^="BG "]{border:3px solid #111!important
 section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
 </style><script id="ro-app-embed-js">
 (function(){
- var RO_LNG=(function(){var l=null;try{l=localStorage.getItem('thlang');}catch(e){}if(l==='en'||l==='sv')return l;var n=(navigator.language||'sv').toLowerCase();return /^en/.test(n)?'en':'sv';})();
  var topM,botM;
  function sec(){return document.querySelector('section.framer-1lr98a4');}
  function ensure(){
@@ -184,17 +183,17 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
  };
  var RO_BULLETS=[
   {re:/knapptryck/i, items:[
-    ['zap','Schemat klart på minuter — inte veckor.','The schedule is ready in minutes — not weeks.'],
-    ['chef','Rättvist fördelat: alla är värd för exakt en rätt.','Split fairly: everyone hosts exactly one course.'],
-    ['users','Nya ansikten vid varje bord, automatiskt.','New faces at every table, automatically.']]},
+    ['zap','Schemat klart på minuter — inte veckor.'],
+    ['chef','Rättvist fördelat: alla är värd för exakt en rätt.'],
+    ['users','Nya ansikten vid varje bord, automatiskt.']]},
   {re:/uträknat/i, items:[
-    ['key','Skattjakt mellan stoppen — kvällen blir ett spel.','A treasure hunt between stops — the evening becomes a game.'],
-    ['route','Rutter anpassade efter ert kvarter.','Routes tailored to your neighborhood.'],
-    ['flag','Sista ledtråden leder alla till efterfesten.','The final clue leads everyone to the after-party.']]},
+    ['key','Skattjakt mellan stoppen — kvällen blir ett spel.'],
+    ['route','Rutter anpassade efter ert kvarter.'],
+    ['flag','Sista ledtråden leder alla till efterfesten.']]},
   {re:/handen, live/i, items:[
-    ['radar','Livekarta över alla lag, hela kvällen.','Live map of every team, all evening.'],
-    ['bell','Notiser når varje gäst på sekunden.','Notifications reach every guest in seconds.'],
-    ['trophy','Leaderboard, quiz och omröstningar inbyggt.','Leaderboard, quizzes and polls built in.']]}
+    ['radar','Livekarta över alla lag, hela kvällen.'],
+    ['bell','Notiser når varje gäst på sekunden.'],
+    ['trophy','Leaderboard, quiz och omröstningar inbyggt.']]}
  ];
  function bullets(){
    document.querySelectorAll('section.framer-1lr98a4 h3').forEach(function(h){
@@ -206,7 +205,7 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
      blk.items.forEach(function(it){
        var row=document.createElement('div'); row.className='ro-bullet';
        var ic=document.createElement('span'); ic.className='ic'; ic.innerHTML=RO_ICONS[it[0]];
-       var tx=document.createElement('span'); tx.textContent=(RO_LNG==='en'&&it[2])?it[2]:it[1];
+       var tx=document.createElement('span'); tx.textContent=it[1];
        row.appendChild(ic); row.appendChild(tx); box.appendChild(row);
      });
      var pwrap=wrap.querySelector('.framer-vm4d9q');

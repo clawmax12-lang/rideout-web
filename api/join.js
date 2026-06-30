@@ -13,9 +13,10 @@ const UNSUB_EN = "mailto:hej@tablehopp.app?subject=unsubscribe";
 const SITE = "https://tablehopp.app";
 const LEADERBOARD = SITE + "/leaderboard";
 
-// Welcome emails are functions of `share` (the recipient's personal referral link),
-// so every signup gets their own link plus a button to the live leaderboard.
-const htmlSv = (share) => `<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+// Welcome emails are functions of `s` (from links() below: the personal landing link,
+// the live share page, and prefilled WhatsApp/SMS/email share URLs) so every signup gets
+// a clean, one-tap way to refer friends straight from the email — no raw URL to copy.
+const htmlSv = (s) => `<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#bfe2f1;-webkit-font-smoothing:antialiased;">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#bfe2f1;font-size:1px;line-height:1px;">Tack f&ouml;r att du hoppade p&aring; &mdash; h&auml;r &auml;r vad som h&auml;nder nu, och hur du k&ouml;r din f&ouml;rsta cykelfest gratis.</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#bfe2f1;padding:42px 16px;font-family:Arial,Helvetica,'Segoe UI',sans-serif;">
@@ -38,9 +39,15 @@ const htmlSv = (share) => `<!doctype html><html lang="sv"><head><meta charset="u
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eaf6fc;border:2px solid #191919;border-radius:16px;box-shadow:5px 5px 0 #191919;">
         <tr><td style="padding:22px 22px 24px;">
           <p style="margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#191919;">Dra med g&auml;nget</p>
-          <p style="margin:0 0 14px;font-size:16px;line-height:1.55;color:#222;">Ju fler v&auml;nner du v&auml;rvar, desto h&ouml;gre klättrar du p&aring; topplistan &mdash; och den som toppar k&ouml;r sin <strong>f&ouml;rsta cykelfest helt gratis</strong>. Det h&auml;r &auml;r din personliga l&auml;nk, dela den:</p>
-          <p style="margin:0 0 18px;font-size:14px;line-height:1.5;word-break:break-all;background:#ffffff;border:2px solid #191919;border-radius:10px;padding:12px 14px;color:#191919;font-weight:700;">${share}</p>
-          <a href="${LEADERBOARD}" style="display:inline-block;background:#efdf5c;color:#191919;border:2px solid #191919;border-radius:12px;box-shadow:4px 4px 0 #191919;padding:13px 22px;font-size:16px;font-weight:800;text-decoration:none;">Se topplistan&nbsp;&nbsp;→</a>
+          <p style="margin:0 0 18px;font-size:16px;line-height:1.55;color:#222;">Ju fler v&auml;nner du f&aring;r med, desto h&ouml;gre klättrar du p&aring; topplistan &mdash; och den som toppar k&ouml;r sin <strong>f&ouml;rsta cykelfest helt gratis</strong>.</p>
+          <a href="${he(s.page)}" style="display:block;text-align:center;background:#efdf5c;color:#191919;border:2px solid #191919;border-radius:12px;box-shadow:4px 4px 0 #191919;padding:15px 22px;font-size:17px;font-weight:800;text-decoration:none;">Dela din l&auml;nk&nbsp;&nbsp;→</a>
+          <p style="margin:18px 0 9px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5b7f92;text-align:center;">eller dela direkt</p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+            <td width="33.33%" style="padding-right:5px;"><a href="${he(s.wa)}" style="display:block;text-align:center;background:#ffffff;border:2px solid #191919;border-radius:10px;padding:11px 4px;font-size:14px;font-weight:700;text-decoration:none;color:#191919;">WhatsApp</a></td>
+            <td width="33.33%" style="padding:0 5px;"><a href="${he(s.sms)}" style="display:block;text-align:center;background:#ffffff;border:2px solid #191919;border-radius:10px;padding:11px 4px;font-size:14px;font-weight:700;text-decoration:none;color:#191919;">SMS</a></td>
+            <td width="33.33%" style="padding-left:5px;"><a href="${he(s.mail)}" style="display:block;text-align:center;background:#ffffff;border:2px solid #191919;border-radius:10px;padding:11px 4px;font-size:14px;font-weight:700;text-decoration:none;color:#191919;">Mejl</a></td>
+          </tr></table>
+          <p style="margin:14px 0 0;font-size:12px;line-height:1.5;color:#8a9aa3;text-align:center;">Funkar inte knapparna? Din l&auml;nk: <a href="${he(s.link)}" style="color:#5b7f92;font-weight:700;text-decoration:none;">${s.linkText}</a></p>
         </td></tr>
       </table>
     </td></tr>
@@ -55,7 +62,7 @@ const htmlSv = (share) => `<!doctype html><html lang="sv"><head><meta charset="u
 </td></tr></table>
 </body></html>`;
 
-const htmlEn = (share) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+const htmlEn = (s) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#bfe2f1;-webkit-font-smoothing:antialiased;">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#bfe2f1;font-size:1px;line-height:1px;">Thanks for hopping on &mdash; here's what happens next, and how to run your first progressive dinner for free.</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#bfe2f1;padding:42px 16px;font-family:Arial,Helvetica,'Segoe UI',sans-serif;">
@@ -78,9 +85,15 @@ const htmlEn = (share) => `<!doctype html><html lang="en"><head><meta charset="u
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eaf6fc;border:2px solid #191919;border-radius:16px;box-shadow:5px 5px 0 #191919;">
         <tr><td style="padding:22px 22px 24px;">
           <p style="margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#191919;">Bring the crew</p>
-          <p style="margin:0 0 14px;font-size:16px;line-height:1.55;color:#222;">The more friends you refer, the higher you climb the leaderboard &mdash; and whoever tops it runs their <strong>first progressive dinner completely free</strong>. This is your personal link, share it:</p>
-          <p style="margin:0 0 18px;font-size:14px;line-height:1.5;word-break:break-all;background:#ffffff;border:2px solid #191919;border-radius:10px;padding:12px 14px;color:#191919;font-weight:700;">${share}</p>
-          <a href="${LEADERBOARD}" style="display:inline-block;background:#efdf5c;color:#191919;border:2px solid #191919;border-radius:12px;box-shadow:4px 4px 0 #191919;padding:13px 22px;font-size:16px;font-weight:800;text-decoration:none;">See the leaderboard&nbsp;&nbsp;→</a>
+          <p style="margin:0 0 18px;font-size:16px;line-height:1.55;color:#222;">The more friends you bring, the higher you climb the leaderboard &mdash; and whoever tops it runs their <strong>first progressive dinner completely free</strong>.</p>
+          <a href="${he(s.page)}" style="display:block;text-align:center;background:#efdf5c;color:#191919;border:2px solid #191919;border-radius:12px;box-shadow:4px 4px 0 #191919;padding:15px 22px;font-size:17px;font-weight:800;text-decoration:none;">Share your link&nbsp;&nbsp;→</a>
+          <p style="margin:18px 0 9px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5b7f92;text-align:center;">or share directly</p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+            <td width="33.33%" style="padding-right:5px;"><a href="${he(s.wa)}" style="display:block;text-align:center;background:#ffffff;border:2px solid #191919;border-radius:10px;padding:11px 4px;font-size:14px;font-weight:700;text-decoration:none;color:#191919;">WhatsApp</a></td>
+            <td width="33.33%" style="padding:0 5px;"><a href="${he(s.sms)}" style="display:block;text-align:center;background:#ffffff;border:2px solid #191919;border-radius:10px;padding:11px 4px;font-size:14px;font-weight:700;text-decoration:none;color:#191919;">SMS</a></td>
+            <td width="33.33%" style="padding-left:5px;"><a href="${he(s.mail)}" style="display:block;text-align:center;background:#ffffff;border:2px solid #191919;border-radius:10px;padding:11px 4px;font-size:14px;font-weight:700;text-decoration:none;color:#191919;">Email</a></td>
+          </tr></table>
+          <p style="margin:14px 0 0;font-size:12px;line-height:1.5;color:#8a9aa3;text-align:center;">Buttons not working? Your link: <a href="${he(s.link)}" style="color:#5b7f92;font-weight:700;text-decoration:none;">${s.linkText}</a></p>
         </td></tr>
       </table>
     </td></tr>
@@ -95,20 +108,43 @@ const htmlEn = (share) => `<!doctype html><html lang="en"><head><meta charset="u
 </td></tr></table>
 </body></html>`;
 
-const textSv = (share) => "Hej!\n\nTack för att du hoppade på väntelistan — på riktigt, det betyder mycket så här tidigt.\n\nJag heter William och jag bygger Tablehopp. Idén är enkel: en cykelfest. Ni äter förrätt hos en granne, trampar vidare till varmrätten hos nästa och efterrätten hos en tredje — och löser ledtrådar på vägen. En kväll, flera stopp, hela gänget.\n\nVAD HÄNDER NU\nVi öppnar stad för stad. Du får ett mejl så fort din är igång — inget tjat, bara när det är skarpt.\n\nDRA MED GÄNGET\nJu fler vänner du värvar, desto högre klättrar du på topplistan. Den som toppar kör sin första cykelfest helt gratis.\nDin personliga länk: " + share + "\nSe topplistan: " + LEADERBOARD + "\n\nVi ses på sadeln.\n// William, grundare\n\n—\nDu får det här mejlet för att du gick med i Tablehopps väntelista. Undrar du något? hej@tablehopp.app. Vill du avsluta? Svara med 'avsluta'.";
+const textSv = (s) => "Hej!\n\nTack för att du hoppade på väntelistan — på riktigt, det betyder mycket så här tidigt.\n\nJag heter William och jag bygger Tablehopp. Idén är enkel: en cykelfest. Ni äter förrätt hos en granne, trampar vidare till varmrätten hos nästa och efterrätten hos en tredje — och löser ledtrådar på vägen. En kväll, flera stopp, hela gänget.\n\nVAD HÄNDER NU\nVi öppnar stad för stad. Du får ett mejl så fort din är igång — inget tjat, bara när det är skarpt.\n\nDRA MED GÄNGET\nJu fler vänner du värvar, desto högre klättrar du på topplistan. Den som toppar kör sin första cykelfest helt gratis.\nDin personliga länk: " + s.link + "\nSe topplistan: " + LEADERBOARD + "\n\nVi ses på sadeln.\n// William, grundare\n\n—\nDu får det här mejlet för att du gick med i Tablehopps väntelista. Undrar du något? hej@tablehopp.app. Vill du avsluta? Svara med 'avsluta'.";
 
-const textEn = (share) => "Hi there!\n\nThanks for joining the waitlist — truly, it means a lot this early.\n\nI'm William, and I'm building Tablehopp. The idea is simple: a progressive dinner on bikes. You have the starter at one neighbor's place, pedal on to the main course at the next and dessert at a third — solving clues along the way. One evening, several stops, the whole crew.\n\nWHAT HAPPENS NEXT\nWe're opening city by city. You'll get an email the moment yours goes live — no spam, only when it's for real.\n\nBRING THE CREW\nThe more friends you refer, the higher you climb the leaderboard. Whoever tops it runs their first progressive dinner completely free.\nYour personal link: " + share + "\nSee the leaderboard: " + LEADERBOARD + "\n\nSee you in the saddle.\n// William, founder\n\n—\nYou're getting this email because you joined Tablehopp's waitlist. Got a question? hej@tablehopp.app. Want out? Reply with 'unsubscribe'.";
+const textEn = (s) => "Hi there!\n\nThanks for joining the waitlist — truly, it means a lot this early.\n\nI'm William, and I'm building Tablehopp. The idea is simple: a progressive dinner on bikes. You have the starter at one neighbor's place, pedal on to the main course at the next and dessert at a third — solving clues along the way. One evening, several stops, the whole crew.\n\nWHAT HAPPENS NEXT\nWe're opening city by city. You'll get an email the moment yours goes live — no spam, only when it's for real.\n\nBRING THE CREW\nThe more friends you refer, the higher you climb the leaderboard. Whoever tops it runs their first progressive dinner completely free.\nYour personal link: " + s.link + "\nSee the leaderboard: " + LEADERBOARD + "\n\nSee you in the saddle.\n// William, founder\n\n—\nYou're getting this email because you joined Tablehopp's waitlist. Got a question? hej@tablehopp.app. Want out? Reply with 'unsubscribe'.";
 
-// build the welcome email for a language + personal share link
-function content(lang, share) {
-  if (lang === "en") return { subject: SUBJECT_EN, html: htmlEn(share), text: textEn(share), unsub: UNSUB_EN };
-  return { subject: SUBJECT, html: htmlSv(share), text: textSv(share), unsub: UNSUB };
+// build the welcome email for a language + a referral code (may be null)
+function content(lang, code) {
+  const s = links(lang, code);
+  if (lang === "en") return { subject: SUBJECT_EN, html: htmlEn(s), text: textEn(s), unsub: UNSUB_EN };
+  return { subject: SUBJECT, html: htmlSv(s), text: textSv(s), unsub: UNSUB };
 }
 
 function genCode() {
   return (Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 8)).slice(0, 12);
 }
 function shareUrl(code) { return code ? (SITE + "/?ref=" + encodeURIComponent(code)) : SITE; }
+function sharePage(code) { return code ? (LEADERBOARD + "?ref=" + encodeURIComponent(code)) : LEADERBOARD; }
+// escape bare ampersands so query-string hrefs are valid inside the HTML email
+function he(u) { return String(u).replace(/&/g, "&amp;"); }
+function shareMsg(lang, link) {
+  return lang === "en"
+    ? "I just joined the Tablehopp waitlist — a progressive dinner on bikes where the crew bikes between neighbors for the starter, main and dessert. Come along: " + link
+    : "Jag har gått med i Tablehopps väntelista — en cykelfest där gänget cyklar runt och äter förrätt, varmrätt och efterrätt hos olika grannar. Häng med: " + link;
+}
+// all the share-related links for one signup, ready to drop into the email
+function links(lang, code) {
+  const link = shareUrl(code);
+  const msg = shareMsg(lang, link);
+  const subj = lang === "en" ? "Come join Tablehopp 🚲" : "Häng med på Tablehopp 🚲";
+  return {
+    link: link,
+    linkText: link.replace(/^https?:\/\//, ""),
+    page: sharePage(code),
+    wa: "https://wa.me/?text=" + encodeURIComponent(msg),
+    sms: "sms:?&body=" + encodeURIComponent(msg),
+    mail: "mailto:?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(msg),
+  };
+}
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") { res.status(405).json({ error: "method_not_allowed" }); return; }
@@ -167,7 +203,7 @@ module.exports = async (req, res) => {
   if (!dup) {
     const key = process.env.RESEND_API_KEY;
     if (key) {
-      const c = content(lang, shareUrl(stored ? refCode : null));
+      const c = content(lang, stored ? refCode : null);
       try {
         await fetch("https://api.resend.com/emails", {
           method: "POST",

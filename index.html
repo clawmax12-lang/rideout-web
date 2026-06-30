@@ -288,19 +288,13 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   color:#1a1a1a;text-align:center;}
 
 /* email field — white pill with the Tablehopp signature HARD OFFSET */
-.ro-wl-form{width:100%;margin:0;display:flex;flex-direction:column;gap:12px;}
+.ro-wl-form{width:100%;margin:0;}
 .ro-wl-field{position:relative;display:flex;align-items:center;gap:8px;width:100%;
   background:#fff;border:2px solid var(--wl-ink);border-radius:16px;padding:6px 6px 6px 20px;
   box-shadow:6px 6px 0 var(--wl-ink);
   transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s cubic-bezier(.34,1.56,.64,1);}
 .ro-wl-field:focus-within{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--wl-ink);}
 .ro-wl-field.ro-shake{animation:ro-wl-shake .4s ease;}
-/* name field — same signature pill as the email field, no button */
-.ro-wl-name{display:flex;align-items:center;width:100%;background:#fff;border:2px solid var(--wl-ink);border-radius:16px;padding:6px 20px;
-  box-shadow:6px 6px 0 var(--wl-ink);
-  transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s cubic-bezier(.34,1.56,.64,1);}
-.ro-wl-name:focus-within{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--wl-ink);}
-.ro-wl-name.ro-shake{animation:ro-wl-shake .4s ease;}
 @keyframes ro-wl-shake{10%,90%{transform:translateX(-2px)}30%,70%{transform:translateX(4px)}50%{transform:translateX(-7px)}}
 
 .ro-wl-input{flex:1 1 auto;min-width:0;border:0;outline:0;background:transparent;
@@ -819,14 +813,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
 
   function submit(form,input,btn,msg){
     var field=form.querySelector(".ro-wl-field");
-    var namefield=form.querySelector(".ro-wl-name");
-    var nameInput=namefield?namefield.querySelector("input"):null;
-    var name=(nameInput&&nameInput.value||"").trim();
     var email=(input.value||"").trim();
-    if(name.length<1){
-      if(namefield){namefield.classList.remove("ro-shake");void namefield.offsetWidth;namefield.classList.add("ro-shake");}
-      if(nameInput)nameInput.focus();return;
-    }
     if(!EMAIL_RE.test(email)){
       field.classList.remove("ro-shake");void field.offsetWidth;field.classList.add("ro-shake");
       input.focus();return;
@@ -835,7 +822,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
     btn.classList.add("is-loading");
     function done(state){
       btn.classList.remove("is-loading");
-      input.setAttribute("disabled","");if(nameInput)nameInput.setAttribute("disabled","");
+      input.setAttribute("disabled","");
       var cover=field.querySelector(".ro-wl-cover");
       var cr=14;try{cr=parseFloat(getComputedStyle(field).getPropertyValue("--wl-cr"))||14;}catch(e){}
       /* measure the button so the fill grows out of it and later collapses back into it */
@@ -866,7 +853,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
     function fail(){btn.classList.remove("is-loading");showMsg(msg,"Något gick fel – försök igen.",true);}
     if(MOCK){setTimeout(function(){done("ok");},900);return;}
     fetch("/api/join",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({email:email,name:name,lang:WL_LANG,ref:WL_REF})})
+      body:JSON.stringify({email:email,lang:WL_LANG,ref:WL_REF})})
     .then(function(r){return r.ok?r.json():null;})
     .then(function(d){if(!d){fail();return;}done(d.dup?"dup":"ok");})
     .catch(fail);
@@ -918,12 +905,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
     field.appendChild(input);field.appendChild(btn);
     var note=el("span","ro-wl-note");note.innerHTML=MAIL+'<span>Kolla inkorgen</span>';field.appendChild(note); /* welcome-mejlet skickas via /api/join (Resend) */
     var cover=el("div","ro-wl-cover");cover.innerHTML='<span class="ro-wl-checkwrap">'+CHECK+'</span>';field.appendChild(cover);
-    var nameWrap=el("div","ro-wl-name");
-    var nameInput=el("input","ro-wl-input");
-    nameInput.type="text";nameInput.name="name";nameInput.placeholder=(WL_LANG==="en"?"First name":"Förnamn");
-    nameInput.setAttribute("autocomplete","given-name");nameInput.setAttribute("aria-label",WL_LANG==="en"?"First name":"Förnamn");nameInput.setAttribute("maxlength","40");
-    nameWrap.appendChild(nameInput);
-    form.appendChild(nameWrap);form.appendChild(field);
+    form.appendChild(field);
     var msg=el("p","ro-wl-msg");form.appendChild(msg);
     wl.appendChild(form);
 

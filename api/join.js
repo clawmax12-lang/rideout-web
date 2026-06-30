@@ -126,8 +126,6 @@ module.exports = async (req, res) => {
   if (!EMAIL_RE.test(email)) { res.status(400).json({ error: "invalid_email" }); return; }
   // visitor's site language; anything other than "en" is treated as Swedish
   const lang = (data && data.lang) === "en" ? "en" : "sv";
-  // first name (shown on the public leaderboard); trimmed + length-capped
-  const name = String((data && data.name) || "").replace(/\s+/g, " ").trim().slice(0, 40);
   // referral: this signup's own code, and the code that referred them (if any)
   const refCode = genCode();
   const referredBy = (data && typeof data.ref === "string" && data.ref.trim()) ? data.ref.trim().slice(0, 40) : null;
@@ -137,8 +135,7 @@ module.exports = async (req, res) => {
   //    missing column can never block a signup. `stored` tracks whether ref_code
   //    actually landed (so we only hand out a personal link that will attribute).
   const rows = [
-    { email: email, source: "hero", lang: lang, name: name, ref_code: refCode, referred_by: referredBy },
-    { email: email, source: "hero", lang: lang, name: name },
+    { email: email, source: "hero", lang: lang, ref_code: refCode, referred_by: referredBy },
     { email: email, source: "hero", lang: lang },
     { email: email, source: "hero" },
   ];

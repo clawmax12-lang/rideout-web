@@ -10,6 +10,9 @@
   function norm(s){return (s||"").replace(/\s+/g," ").trim();}
   var lang=(function(){var l=null;try{l=localStorage.getItem("thlang");}catch(e){}
     if(l==="en"||l==="sv")return l;var n=(navigator.language||"sv").toLowerCase();return /^en/.test(n)?"en":"sv";})();
+  /* mark <html> so CSS can target EN-only (e.g. the hero shrinks only in English,
+     where the copy is longer; Swedish keeps its original big hero). */
+  try{if(lang==="en"&&document.documentElement)document.documentElement.classList.add("th-en");}catch(e){}
   var TOP=(window.top===window.self);
 
   /* ---- apply dictionary (only in EN) ----

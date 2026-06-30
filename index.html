@@ -769,6 +769,11 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
      welcome email goes out in the language the visitor is actually reading. */
   var WL_LANG=(function(){var l=null;try{l=localStorage.getItem("thlang");}catch(e){}
     if(l==="en"||l==="sv")return l;var n=(navigator.language||"sv").toLowerCase();return /^en/.test(n)?"en":"sv";})();
+  /* referral: capture ?ref=CODE (a friend's link) and remember it across navigation,
+     so it's attached to the signup even if they browse before joining. */
+  var WL_REF=(function(){var r="";try{var m=location.search.match(/[?&]ref=([^&]+)/);if(m)r=decodeURIComponent(m[1]);}catch(e){}
+    try{if(r){localStorage.setItem("thref",r);}else{r=localStorage.getItem("thref")||"";}}catch(e){}
+    return (r||"").replace(/[^a-zA-Z0-9]/g,"").slice(0,40);})();
   var SVGNS="http://www.w3.org/2000/svg";
   var built=false, countEl=null, curCount=0, roTotal=0, socialTxtEl=null;
 
@@ -848,7 +853,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
     function fail(){btn.classList.remove("is-loading");showMsg(msg,"Något gick fel – försök igen.",true);}
     if(MOCK){setTimeout(function(){done("ok");},900);return;}
     fetch("/api/join",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({email:email,lang:WL_LANG})})
+      body:JSON.stringify({email:email,lang:WL_LANG,ref:WL_REF})})
     .then(function(r){return r.ok?r.json():null;})
     .then(function(d){if(!d){fail();return;}done(d.dup?"dup":"ok");})
     .catch(fail);

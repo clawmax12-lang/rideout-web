@@ -31,10 +31,6 @@
   .lang button.on{color:var(--ink);background:#fff;box-shadow:0 1px 3px rgba(25,25,25,.16)}
 
   .hero{text-align:center;margin:4px 0 28px}
-  .livepill{display:inline-flex;align-items:center;gap:7px;background:#fff;border:2px solid var(--ink);border-radius:999px;
-    padding:6px 14px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;box-shadow:3px 3px 0 var(--ink);margin-bottom:18px}
-  .livepill .dot{width:8px;height:8px;border-radius:50%;background:#1fae54;animation:pulse 1.8s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(31,174,84,.5)}70%{box-shadow:0 0 0 8px rgba(31,174,84,0)}100%{box-shadow:0 0 0 0 rgba(31,174,84,0)}}
   h1{font-family:'Boldonse',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(32px,9vw,52px);line-height:1.02;letter-spacing:-.02em;margin:0 0 16px}
   .sub{font-size:16px;line-height:1.6;color:#1d4253;margin:0 auto;max-width:420px;font-weight:500}
   .sub b{font-weight:500;background:#EEFF2E;padding:.02em .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
@@ -69,11 +65,10 @@
   ol.board li{display:flex;align-items:center;gap:14px;padding:13px 6px;border-bottom:1.5px solid #eef4f8}
   ol.board li:last-child{border-bottom:0}
   ol.board li.me{background:#fffbe8;border:2px solid var(--ink);border-radius:12px;padding:13px 12px;margin:6px 0}
-  .rk{flex:none;width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);background:#fff;
-    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
-  .rk.rk1{background:var(--accent)}
-  .rk.rk2{background:var(--silver)}
-  .rk.rk3{background:var(--green)}
+  /* rank number — the site's outlined Boldonse numeral (transparent fill + stroke) */
+  .rk{flex:none;width:56px;text-align:center;font-family:'Boldonse',sans-serif;font-weight:400;font-size:26px;line-height:1;
+    letter-spacing:-.02em;color:transparent;-webkit-text-stroke:1.5px var(--ink);text-stroke:1.5px var(--ink);opacity:.45}
+  .rk.top{opacity:1}
   .nm{flex:1;min-width:0;font-weight:600;font-size:16px;letter-spacing:.04em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .nm em{font-style:normal;display:inline-block;margin-left:6px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
     background:var(--ink);color:#fff;border-radius:999px;padding:2px 8px;vertical-align:1px}
@@ -95,7 +90,6 @@
   </div>
 
   <div class="hero">
-    <span class="livepill"><span class="dot"></span><span id="liveLbl">Live</span></span>
     <h1 id="title">Topplista</h1>
     <p class="sub" id="sub"></p>
   </div>
@@ -164,7 +158,6 @@
   function $(id){return document.getElementById(id);}
   document.documentElement.lang=lang;
   $("title").textContent=T.title;
-  $("liveLbl").textContent=T.live;
   $("sub").innerHTML=T.sub;
   $("boardTitle").textContent=T.board;
   $("youLabel").textContent=T.you;
@@ -209,7 +202,7 @@
     rows.forEach(function(row){
       var r=+row.rank, n=+row.referrals, mine=(myRank&&r===myRank);
       html+='<li class="'+(mine?"me":"")+'">'
-        +'<span class="rk rk'+(r<=3?r:"n")+'">'+r+'</span>'
+        +'<span class="rk'+(r<=3?" top":"")+'">'+(r<10?("0"+r):r)+'</span>'
         +'<span class="nm">'+esc(row.handle||"")+(mine?' <em>'+T.me+'</em>':"")+'</span>'
         +'<span class="ct">'+n+'<span>'+refsWord(n)+'</span></span>'
         +'</li>';

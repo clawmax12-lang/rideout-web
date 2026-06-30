@@ -1,6 +1,6 @@
 # Tablehopp-web — Session state & hard-won agent lessons
 
-_Last updated: 2026-06-29. Read this FIRST before touching this repo again._
+_Last updated: 2026-06-30. Read this FIRST before touching this repo again._
 
 ## 0. TL;DR for next time
 - Static **Framer export** marketing site for **Tablehopp** (the "cykelfest" — a progressive dinner on bikes). Production deploys from **`main`** → Vercel project **`rideout-site`**, live at **https://tablehopp.app** (apex domain on Vercel; `rideout-site.vercel.app` also serves it).
@@ -9,6 +9,9 @@ _Last updated: 2026-06-29. Read this FIRST before touching this repo again._
 - Infra names still say "rideout" (repo `rideout-web`, Vercel `rideout-site`, Supabase ref `sjesxyievpxkcmsunjfp`). Cosmetic; not renamed.
 - **The sandbox cannot load external sites** (proxy blocks the headless browser; `curl` works). Verify backend via curl, and have the founder eyeball the live site. Vercel previews are auth-protected (401 to curl/headless).
 - Founder values premium polish, tests edge cases hard, wants plain honesty. Don't claim "done/verified" without proof.
+- **Founder's delivery workflow (STRICT — learned the hard way):** push every change to the dev branch `claude/epic-dirac-5TzaV` + a **draft PR**, share the Vercel **preview** link + a headless render screenshot, and **NEVER merge to `main` until he explicitly says so** ("mergea"/"klartecken"). Before merging, create a `backup/<desc>-YYYYMMDD` branch off `main` (restore point) — he asks for this. He iterates on visuals through the preview; expect several rounds.
+- **Verify visuals by RENDERING and actually LOOKING** (he said "var kritisk mot dig själv"). Playwright + the pre-installed Chromium (`/opt/pw-browsers/chromium-1223/chrome-linux64/chrome`; `playwright-core` is installed in node_modules) renders local files faithfully (CSS/layout exact; Framer JS modules error under the local `python3 -m http.server` but the SSR DOM + our `ro-*` scripts run). To test a language, `addInitScript(()=>localStorage.setItem('thlang','en'))` before `goto`. The sandbox CANNOT reach the deployed site (preview is 401; prod reachable via `curl` only).
+- **`assets/i18n.js` is served `immutable` (max-age 1 yr).** After ANY edit to it, **BUMP the `?v=` query** on its `<script src>` in `index.html`, `app-embed/index.html`, `cta-embed/index.html` — otherwise the change never reaches returning browsers (a fresh headless browser hides this; Lesson 38). Current version tag: `?v=20260630b`.
 
 ## 1. CURRENT production state (2026-06-28) — supersedes the older §A below
 Live on **tablehopp.app**:
@@ -24,6 +27,10 @@ Live on **tablehopp.app**:
 - **Clouds-CTA mockup** (`cta-embed`): real app screenshot composited into the hand-in-clouds phone (`Yxyz4xAO2…png`), original wrist-clouds re-draped.
 - **Manifesto section** ("Varför Tablehopp finns") translates to English via a **height-locked ghost overlay** — the one section with a scroll-reveal word animation. See Lesson 29 (the crack).
 - **"Vår historia" section removed** (2026-06-30) — hidden via CSS `section[data-framer-name="Why Choose Us Section"]{display:none!important}` in the `ro-history-hide` style block (the template's "Why Choose Us Section" was the Vår historia / Vårt uppdrag / Allt i appen block). Same hydration-proof pattern as the hidden Contact/Event sections.
+- **Referral leaderboard: LIVE** (PR #41, 2026-06-30) — every welcome email carries the recipient's personal link (`tablehopp.app/?ref=CODE`) + a button to a live **`/leaderboard`** page (`leaderboard/index.html`, brand-styled, polls Supabase RPCs every 12 s, anonymized, display name derived from the email local-part). Signup captures `?ref=` (`WL_REF`) and `/api/join` stores `ref_code`/`referred_by`. Founder ran the SQL (columns + `get_leaderboard`/`get_referral_rank`, granted to anon). See Lessons 36–37.
+- **App-embed feature bullets now reliable in EN** (PR #41) — were racy (h3-text-regex vs the i18n walker); now order-keyed + source-rendered. See Lesson 37.
+- **EN copy standardized** (PR #42, 2026-06-30) — "cykelfest" → **"progressive dinner"** everywhere (was inconsistently "bike party"/"bike festival"/"cycling festival"); mistranslations fixed (`lag`=teams, `rätt`=course, `Notiser`=Notifications); nav fully EN (`Hem`→Home, `Kontakt`→Contact).
+- **Hero fit** (PR #42, 2026-06-30) — the long EN headline overflowed the viewport; `ro-hero-fit` sets the hero to **65px / line-height 1.42**, drops it down, and raises the waitlist (`.ro-wl{margin-top:-70px}`) so the image carousel's start peeks. Both languages, desktop+tablet; **mobile untouched**. See Lesson 39. (SV hero text is short so it fit at 80px, but founder chose 65px for both.)
 - **"Läs fler berättelser" button removed** (2026-06-30) from the testimonials (`Brands Section`) — hidden its container via `ro-stories-btn-hide`: `section[data-framer-name="Brands Section"] .framer-1ba5eg1-container{display:none!important}`. Hiding the flex *container* (not just the `<a>`) collapses the slot cleanly so the quote + attribution stay centered with no gap (verified headless).
 - **Referral leaderboard (2026-06-29):** every welcome email carries the recipient's **personal referral link** (`tablehopp.app/?ref=CODE`) + a button to a **live `/leaderboard` page** (`leaderboard/index.html`, polls Supabase RPCs every 12 s, anonymized handles, viewer's own rank highlighted). Signup captures `?ref=` (`WL_REF` in `ro-waitlist-js`) → `/api/join` stores `ref_code` + `referred_by`. **Depends on founder running the referral SQL** (columns `ref_code`/`referred_by` + RPCs `get_leaderboard`/`get_referral_rank`); until then `/api/join` falls back gracefully and the email link is generic. See Lesson 36.
 

@@ -155,6 +155,7 @@ section.framer-1lr98a4 [data-framer-name^="BG "]{border:3px solid #111!important
 section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
 </style><script id="ro-app-embed-js">
 (function(){
+ var FLAT=/[?&]flat=1/.test(location.search); /* mobile: fully static section, no animation */
  var topM,botM;
  function sec(){return document.querySelector('section.framer-1lr98a4');}
  function ensure(){
@@ -162,13 +163,26 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
    if(!botM){botM=document.createElement('div');botM.id='ro-mask-bot';botM.className='ro-mask';document.body.appendChild(botM);}
  }
  var RO_BYSTEP={1:'assets/img/rideout-phone-program.png',2:'assets/img/rideout-phone-ledtradar.png',3:'assets/img/rideout-phone-poang.png'};
+ function bgNum(w){var m=(w.getAttribute('data-framer-name')||'').match(/\d+/);return m?Math.max(1,Math.min(3,parseInt(m[0],10))):1;}
+ /* Desktop = stacked single-phone illusion: every phone shows the CURRENT step.
+    Mobile (flatMode) = the 3 cards lay out separately, so each keeps its OWN screen
+    (BG 1 = Program, BG 2 = Ledtrådar, BG 3 = Poäng) instead of all following the step. */
+ function paintPhones(){
+   document.querySelectorAll('section.framer-1lr98a4 [data-framer-name^="BG "]').forEach(function(w){
+     var im=w.querySelector('.ro-phone'); if(!im) return;
+     var src=flatMode?(RO_BYSTEP[bgNum(w)]||RO_BYSTEP[1]):(RO_BYSTEP[curStep]||RO_BYSTEP[1]);
+     if(im.getAttribute('src')!==src) im.src=src;
+   });
+ }
  function phone(){
+   var made=false;
    document.querySelectorAll('section.framer-1lr98a4 [data-framer-name^="BG "]').forEach(function(w){
      if(!w.querySelector('.ro-phone')){
        var im=document.createElement('img'); im.className='ro-phone'; im.src=RO_BYSTEP[1]; im.alt='';
-       w.appendChild(im);
+       w.appendChild(im); made=true;
      }
    });
+   if(made) paintPhones();
  }
  var RO_ICONS={
    zap:'<svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>',
@@ -212,7 +226,7 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
      if(pwrap) pwrap.insertAdjacentElement('afterend', box); else wrap.appendChild(box);
    });
  }
- var curtains=null, curStep=0, forcedStep=-1, flatMode=false, _phook=false, _rqf=false;addEventListener('message',function(ev){var d=ev.data;if(!d||!d.roStep)return;forcedStep=Math.max(1,Math.min(3,d.roStep));flatMode=!!d.roFlat;if(flatMode&&!_phook){_phook=true;try{parent.addEventListener('scroll',function(){if(_rqf)return;_rqf=true;requestAnimationFrame(function(){_rqf=false;if(hlReady)highlight(innerHeight);});},{passive:true});}catch(e){}}curtainFrame(innerHeight);});
+ var curtains=null, curStep=0, forcedStep=-1, flatMode=false, _phook=false, _rqf=false;addEventListener('message',function(ev){if(FLAT)return;var d=ev.data;if(!d||!d.roStep)return;forcedStep=Math.max(1,Math.min(3,d.roStep));flatMode=!!d.roFlat;if(flatMode&&!_phook){_phook=true;try{parent.addEventListener('scroll',function(){if(_rqf)return;_rqf=true;requestAnimationFrame(function(){_rqf=false;if(hlReady)highlight(innerHeight);});},{passive:true});}catch(e){}}curtainFrame(innerHeight);paintPhones();});
  function ensureCurtains(){
    if(curtains) return;
    curtains=['rgb(225,193,255)','rgb(143,205,255)','rgb(158,230,138)'].map(function(c,i){
@@ -238,7 +252,7 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
    ensureCurtains();
    var st=activeStep(ih);
    if(st!==curStep){
-     curStep=st; var _src=RO_BYSTEP[st]||RO_BYSTEP[1]; document.querySelectorAll('section.framer-1lr98a4 .ro-phone').forEach(function(im){if(im.getAttribute('src')!==_src)im.src=_src;});
+     curStep=st; paintPhones();
      for(var i=1;i<3;i++){
        curtains[i].style.transform = (st>=i+1)?'translateY(0%)':'translateY(100%)';
      }
@@ -297,7 +311,26 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
    requestAnimationFrame(frame);
  }
  function report(){var e=sec();if(!e)return;try{parent.postMessage({roApp:1,secTop:Math.round(e.offsetTop),secH:Math.round(e.getBoundingClientRect().height),ih:innerHeight},'*');}catch(_){}}
- function boot(){ensure();requestAnimationFrame(frame);}
+ function injectFlatPhones(){
+   /* On mobile Framer hydration renames all 3 cards to "BG 1", so the data-framer-name
+      is useless here — assign each card its screen by VISUAL ORDER instead
+      (top = Program = step 1, middle = Ledtrådar = 2, bottom = Poäng = 3). */
+   var cards=[].slice.call(document.querySelectorAll('section.framer-1lr98a4 [data-framer-name^="BG "]'))
+     .filter(function(w){var r=w.getBoundingClientRect();return r.width>0&&r.height>0;})
+     .sort(function(a,b){var ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();return (ra.top-rb.top)||(ra.left-rb.left);});
+   cards.forEach(function(w,i){
+     var im=w.querySelector('.ro-phone');
+     if(!im){im=document.createElement('img');im.className='ro-phone';im.alt='';w.appendChild(im);}
+     var src=RO_BYSTEP[Math.min(3,i+1)]||RO_BYSTEP[1];
+     if(im.getAttribute('src')!==src)im.src=src;
+   });
+ }
+ /* Mobile = fully static: inject each card's own screen + the feature bullets, no
+    animation loop (no curtains, no word-reveal, no step swapping, no masks). Poll a
+    few seconds to catch Framer's late hydration, then stop. Height is still reported
+    via the load/timeout/interval report() calls below so the parent sizes the section. */
+ function bootFlat(){ flatMode=true; var n=0,iv=setInterval(function(){injectFlatPhones();bullets();report();if(++n>40)clearInterval(iv);},150); }
+ function boot(){ if(FLAT){bootFlat();return;} ensure();requestAnimationFrame(frame);}
  if(document.readyState!=='loading')boot();else addEventListener('DOMContentLoaded',boot);
  addEventListener('load',report); addEventListener('resize',report);
  [120,400,900,1600,2600].forEach(function(t){setTimeout(report,t)});

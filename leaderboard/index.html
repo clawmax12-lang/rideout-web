@@ -57,6 +57,24 @@
   .btn:active{transform:translateY(1px)}
   .btn.copied{background:var(--green)}
 
+  /* share */
+  .you .linkfield{margin-top:16px}
+  .sharebtn{display:block;width:100%;margin-top:12px;appearance:none;-webkit-appearance:none;cursor:pointer;
+    font-family:inherit;font-weight:700;font-size:17px;border:2px solid var(--ink);border-radius:12px;padding:15px;
+    background:var(--accent);color:var(--ink);box-shadow:4px 4px 0 var(--ink);
+    transition:transform .15s ease,box-shadow .15s ease,background .2s ease}
+  .sharebtn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+  .sharebtn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+  .sharebtn.done{background:var(--green)}
+  .chans{display:flex;gap:8px;margin-top:10px}
+  .chan{flex:1;text-align:center;appearance:none;-webkit-appearance:none;cursor:pointer;font-family:inherit;
+    font-weight:600;font-size:13.5px;border:2px solid var(--ink);border-radius:10px;padding:11px 4px;
+    background:#fff;color:var(--ink);text-decoration:none;transition:transform .12s ease,background .2s ease}
+  .chan:hover{transform:translateY(-1px)}
+  .chan:active{transform:translateY(1px)}
+  .chan.copied{background:var(--green)}
+  .sharehint{min-height:18px;margin:12px 2px 0;font-size:13.5px;font-weight:600;color:#1d7a3a;text-align:center}
+
   /* board */
   .listhead{display:flex;align-items:baseline;justify-content:space-between;margin:0 2px 8px}
   .listhead .t{font-family:'Boldonse',sans-serif;font-size:14px;letter-spacing:.01em;text-transform:uppercase}
@@ -103,10 +121,15 @@
         <p class="small" id="youSmall"></p>
       </div>
     </div>
-    <div class="linkrow">
-      <div class="linkfield"><input id="youLink" readonly value=""></div>
-      <button class="btn" id="copyBtn" type="button">Kopiera</button>
+    <div class="linkfield"><input id="youLink" readonly value=""></div>
+    <button class="sharebtn" id="shareBtn" type="button">Dela din länk</button>
+    <div class="chans">
+      <a class="chan" id="waBtn" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="chan" id="smsBtn">SMS</a>
+      <a class="chan" id="mailBtn">Mejl</a>
+      <button class="chan" id="copyBtn" type="button">Kopiera</button>
     </div>
+    <p class="sharehint" id="shareHint" aria-live="polite"></p>
   </div>
 
   <div class="card">
@@ -118,7 +141,7 @@
     <a class="cta" id="joinCta" href="/" style="display:none">Gå med i väntelistan →</a>
   </div>
 
-  <p class="foot">Tablehopp · cykelfesten · tablehopp.app</p>
+  <p class="foot" id="foot">Tablehopp · cykelfesten · tablehopp.app</p>
 </div>
 
 <script>
@@ -139,6 +162,9 @@
       sub:'Värva flest vänner till väntelistan. Den som toppar kör sin <b>första cykelfest gratis</b>.',
       you:"Din placering",board:"Topp 10",updated:"Uppdaterad",
       copy:"Kopiera",copied:"Kopierad!",ref1:"värvning",refN:"värvningar",
+      share:"Dela din länk",shared:"Delad! ✓",chMail:"Mejl",
+      shareMsg:"Jag har gått med i Tablehopps väntelista — en cykelfest där gänget cyklar runt och äter förrätt, varmrätt och efterrätt hos olika grannar. Häng med:",
+      mailSubj:"Häng med på Tablehopp 🚲",
       norank:"Dela din länk för att ta dig in på listan.",
       rankline:function(r,t){return "Du är #"+r+" av "+t+" som värvat.";},
       empty:"Ingen har värvat någon än — bli den första!",
@@ -148,11 +174,15 @@
       sub:'Refer the most friends to the waitlist. Whoever tops it runs their <b>first progressive dinner free</b>.',
       you:"Your spot",board:"Top 10",updated:"Updated",
       copy:"Copy",copied:"Copied!",ref1:"referral",refN:"referrals",
+      share:"Share your link",shared:"Shared! ✓",chMail:"Email",
+      shareMsg:"I just joined the Tablehopp waitlist — a progressive dinner on bikes where the crew bikes between neighbors for the starter, main and dessert. Come along:",
+      mailSubj:"Come join Tablehopp 🚲",
       norank:"Share your link to get on the board.",
       rankline:function(r,t){return "You're #"+r+" of "+t+" referrers.";},
       empty:"No one has referred anyone yet — be the first!",
       joincta:"Join the waitlist →",
-      back:"← tablehopp.app",err:"Couldn't load the leaderboard right now. Try again shortly.",me:"you"}
+      back:"← tablehopp.app",err:"Couldn't load the leaderboard right now. Try again shortly.",me:"you",
+      foot:"Tablehopp · the progressive dinner · tablehopp.app"}
   }[lang];
 
   function $(id){return document.getElementById(id);}
@@ -162,8 +192,13 @@
   $("boardTitle").textContent=T.board;
   $("youLabel").textContent=T.you;
   $("copyBtn").textContent=T.copy;
+  $("shareBtn").textContent=T.share;
+  $("waBtn").textContent="WhatsApp";
+  $("smsBtn").textContent="SMS";
+  $("mailBtn").textContent=T.chMail;
   $("joinCta").textContent=T.joincta;
   $("backLink").textContent=T.back;
+  if(T.foot)$("foot").textContent=T.foot;
   var qsLang=lang==="en"?"?lang=en":"";
   $("backLink").href="/"+qsLang;
   $("joinCta").href="/"+qsLang;
@@ -178,14 +213,36 @@
   if(ref){
     $("youCard").style.display="block";
     var link=SITE+"/?ref="+encodeURIComponent(ref);
+    var msg=T.shareMsg+" "+link;
     $("youLink").value=link;
-    var copyBtn=$("copyBtn");
-    copyBtn.addEventListener("click",function(){
+    var shareBtn=$("shareBtn"),copyBtn=$("copyBtn"),hint=$("shareHint");
+    var waBtn=$("waBtn"),smsBtn=$("smsBtn"),mailBtn=$("mailBtn");
+    waBtn.href="https://wa.me/?text="+encodeURIComponent(msg);
+    smsBtn.href="sms:?&body="+encodeURIComponent(msg);
+    mailBtn.href="mailto:?subject="+encodeURIComponent(T.mailSubj)+"&body="+encodeURIComponent(msg);
+
+    // sending the link once credits +1 on the board (server-side one-time, can't be farmed).
+    var credited=false;
+    function credit(){
+      hint.textContent=T.shared;
+      shareBtn.classList.add("done");
+      if(credited)return; credited=true;
+      rpc("register_share",{code:ref}).then(function(){load();},function(){load();});
+    }
+    function doCopy(){
       var done=function(){copyBtn.textContent=T.copied;copyBtn.classList.add("copied");setTimeout(function(){copyBtn.textContent=T.copy;copyBtn.classList.remove("copied");},1600);};
-      function fallbackCopy(){var i=$("youLink");i.focus();i.select();try{document.execCommand("copy");done();}catch(e){}}
-      if(navigator.share&&/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)){try{navigator.share({title:"Tablehopp",url:link});}catch(e){}}
-      try{navigator.clipboard.writeText(link).then(done,fallbackCopy);}catch(e){fallbackCopy();}
+      function fb(){var i=$("youLink");i.focus();i.select();try{document.execCommand("copy");done();}catch(e){}}
+      try{navigator.clipboard.writeText(link).then(done,fb);}catch(e){fb();}
+    }
+    // primary: native OS share sheet (Apple/Android); desktop without it -> copy
+    shareBtn.addEventListener("click",function(){
+      if(navigator.share){
+        navigator.share({title:"Tablehopp",text:T.shareMsg,url:link}).then(credit,function(){});
+      } else { doCopy(); }
     });
+    // opening a channel counts as sending
+    [waBtn,smsBtn,mailBtn].forEach(function(a){ a.addEventListener("click",credit); });
+    copyBtn.addEventListener("click",doCopy);
   } else { $("joinCta").style.display="block"; }
 
   function rpc(fn,body){

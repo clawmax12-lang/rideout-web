@@ -156,6 +156,9 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
 </style><script id="ro-app-embed-js">
 (function(){
  var FLAT=/[?&]flat=1/.test(location.search); /* mobile: fully static section, no animation */
+ /* site language (same detection as assets/i18n.js) so we render bullets in the
+    right language at the source instead of depending on the runtime walker */
+ var RO_LANG=(function(){var l=null;try{l=localStorage.getItem("thlang");}catch(e){}if(l==="en"||l==="sv")return l;var n=(navigator.language||"sv").toLowerCase();return /^en/.test(n)?"en":"sv";})();
  var topM,botM;
  function sec(){return document.querySelector('section.framer-1lr98a4');}
  function ensure(){
@@ -195,31 +198,39 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
    bell:'<svg viewBox="0 0 24 24"><path d="M6 17h12c-1.4-1.4-2-3-2-5.5 0-3-1.6-5-4-5s-4 2-4 5c0 2.5-.6 4.1-2 5.5z"/><path d="M10.5 20a1.8 1.8 0 0 0 3 0"/></svg>',
    trophy:'<svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0V4zM8 5H5a3 3 0 0 0 3 4M16 5h3a3 3 0 0 1-3 4M12 13v4m-3 3h6m-5-3h4"/></svg>'
  };
+ /* Bullet blocks in DOM order: 0 = knapptryck, 1 = uträknat, 2 = handen live.
+    Assigned to the 3 feature h3s by ORDER (language-agnostic), so the i18n walker
+    translating the headings to EN can't break injection. Each item: [icon, sv, en]. */
  var RO_BULLETS=[
-  {re:/knapptryck/i, items:[
-    ['zap','Schemat klart på minuter — inte veckor.'],
-    ['chef','Rättvist fördelat: alla är värd för exakt en rätt.'],
-    ['users','Nya ansikten vid varje bord, automatiskt.']]},
-  {re:/uträknat/i, items:[
-    ['key','Skattjakt mellan stoppen — kvällen blir ett spel.'],
-    ['route','Rutter anpassade efter ert kvarter.'],
-    ['flag','Sista ledtråden leder alla till efterfesten.']]},
-  {re:/handen, live/i, items:[
-    ['radar','Livekarta över alla lag, hela kvällen.'],
-    ['bell','Notiser når varje gäst på sekunden.'],
-    ['trophy','Leaderboard, quiz och omröstningar inbyggt.']]}
+  {items:[
+    ['zap','Schemat klart på minuter — inte veckor.','Schedule ready in minutes — not weeks.'],
+    ['chef','Rättvist fördelat: alla är värd för exakt en rätt.','Fairly split — everyone hosts exactly one course.'],
+    ['users','Nya ansikten vid varje bord, automatiskt.','New faces at every table, automatically.']]},
+  {items:[
+    ['key','Skattjakt mellan stoppen — kvällen blir ett spel.','A treasure hunt between stops — the night becomes a game.'],
+    ['route','Rutter anpassade efter ert kvarter.','Routes tailored to your neighborhood.'],
+    ['flag','Sista ledtråden leder alla till efterfesten.','The final clue leads everyone to the after-party.']]},
+  {items:[
+    ['radar','Livekarta över alla lag, hela kvällen.','A live map of every team, all night.'],
+    ['bell','Notiser når varje gäst på sekunden.','Notifications reach every guest in a second.'],
+    ['trophy','Leaderboard, quiz och omröstningar inbyggt.','Leaderboard, quizzes and polls built in.']]}
  ];
  function bullets(){
+   /* feature blocks = unique [data-framer-name="Content"] wraps that contain an h3,
+      in DOM order. Assign RO_BULLETS by index — no dependency on the (translated) h3 text. */
+   var seen=[],blocks=[];
    document.querySelectorAll('section.framer-1lr98a4 h3').forEach(function(h){
-     var blk=null; for(var i=0;i<RO_BULLETS.length;i++){ if(RO_BULLETS[i].re.test(h.textContent)){blk=RO_BULLETS[i];break;} }
-     if(!blk) return;
-     var wrap=h.closest('[data-framer-name="Content"]'); if(!wrap) return;
+     var wrap=h.closest('[data-framer-name="Content"]');
+     if(wrap && seen.indexOf(wrap)===-1){ seen.push(wrap); blocks.push(wrap); }
+   });
+   blocks.forEach(function(wrap,idx){
+     var blk=RO_BULLETS[idx]; if(!blk) return;
      if(wrap.querySelector('.ro-bullets')) return;
      var box=document.createElement('div'); box.className='ro-bullets';
      blk.items.forEach(function(it){
        var row=document.createElement('div'); row.className='ro-bullet';
        var ic=document.createElement('span'); ic.className='ic'; ic.innerHTML=RO_ICONS[it[0]];
-       var tx=document.createElement('span'); tx.textContent=it[1];
+       var tx=document.createElement('span'); tx.textContent=(RO_LANG==='en'?it[2]:it[1])||it[1];
        row.appendChild(ic); row.appendChild(tx); box.appendChild(row);
      });
      var pwrap=wrap.querySelector('.framer-vm4d9q');

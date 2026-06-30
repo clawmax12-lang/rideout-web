@@ -29,7 +29,7 @@
     var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null),n;
     while((n=w.nextNode())){
       var p=n.parentNode; if(!p||SKIP[p.nodeName])continue;
-      if(p.closest&&p.closest(".ro-lang,#th-splash"))continue;
+      if(p.closest&&p.closest(".ro-lang,#th-splash,.ro-bullets"))continue;
       translateNode(n);
     }
   }

@@ -595,13 +595,20 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
 })();
 </script><script id="ro-faq">
 (function(){
+  /* Language-aware at the SOURCE (Lesson 28/42): ensure() used to force the Swedish
+     strings back every 250ms while the i18n walker translated them -> SV/EN ping-pong
+     flicker in EN. Both systems now converge on the same language. */
+  var EN=(function(){var l=null;try{l=localStorage.getItem("thlang");}catch(e){}
+    if(l==="en")return true; if(l==="sv")return false;
+    return /^en/.test((navigator.language||"sv").toLowerCase());})();
+  var HV=EN?"Frequently Asked Questions":"Vanliga frågor";
   var FAQ=[
-    {q:"Vad är en cykelfest?",a:"En progressiv middag på cykel. Ni äter förrätt hos en värd, cyklar vidare till nästa för varmrätten och avslutar efterrätten hos en tredje. Mellan rätterna trampar ni runt i kvarteret och löser ledtrådar om vart kvällen tar er härnäst."},
-    {q:"Vad gör Tablehopp-appen?",a:"Appen är kvällens spelplan. Den släpper ledtrådar, visar vägen till nästa värd, kör quiz och omröstningar och håller poängen live på en gemensam leaderboard – alla ser samma sak samtidigt i sin telefon. Som arrangör styr du hela kvällen därifrån: lag, värdar, teman och notiser. Inga papperslappar, inget krångel – allt i appen."},
-    {q:"Hur går en kväll till?",a:"Du samlar gänget och anmäler er. Appen delar in alla i lag och värdar och skickar er till den första adressen. Därifrån guidar ledtrådarna er vidare, hållplats för hållplats, tills hela sällskapet möts för en gemensam efterfest. En kväll, fem hållplatser – ni behöver bara dyka upp och trampa."},
-    {q:"Måste man kunna laga mat?",a:"Nej. Varje värd bjuder på en enda rätt – förrätt, varmrätt eller efterrätt – aldrig hela middagen. Kan du koka pasta eller breda en riktigt god macka klarar du en cykelfest. Resten är sällskapet."},
-    {q:"Behöver alla en cykel – och hur långt cyklar man?",a:"Ja, var och en tar sig fram på egen cykel, och elcykel funkar lika bra. Avstånden är korta och lokala: värdarna ligger inom bekvämt trampavstånd från varandra, oftast bara några minuter mellan hållplatserna. Det handlar om stämningen på vägen, inte om att svettas."},
-    {q:"Hur många kan vara med och vad kostar det?",a:"Allt från ett litet kvarter till en riktigt stor fest. Ni betalar ett fast pris per fest, utan abonnemang: 595 kr för upp till 30 personer, 895 kr för 31–60 och 1 395 kr för 61–100. Blir ni ännu fler? Hör av er till hej@tablehopp.app så löser vi det."}
+    {qe:"What is a progressive dinner?",ae:"A progressive dinner by bike. You’ll enjoy the appetizer at one host’s home, cycle on to the next for the main course, and finish with dessert at a third host’s home. Between courses, you’ll cycle around the neighborhood and solve clues to find out where the evening will take you next.",q:"Vad är en cykelfest?",a:"En progressiv middag på cykel. Ni äter förrätt hos en värd, cyklar vidare till nästa för varmrätten och avslutar efterrätten hos en tredje. Mellan rätterna trampar ni runt i kvarteret och löser ledtrådar om vart kvällen tar er härnäst."},
+    {qe:"What does the Tablehopp app do?",ae:"The app is the game plan for the evening. It provides clues, shows the way to the next host, runs quizzes and polls, and keeps the scores updated in real time on a shared leaderboard—everyone sees the same thing at the same time on their phones. As the organizer, you manage the entire evening from there: teams, hosts, themes, and announcements. No paper slips, no hassle—everything is in the app.",q:"Vad gör Tablehopp-appen?",a:"Appen är kvällens spelplan. Den släpper ledtrådar, visar vägen till nästa värd, kör quiz och omröstningar och håller poängen live på en gemensam leaderboard – alla ser samma sak samtidigt i sin telefon. Som arrangör styr du hela kvällen därifrån: lag, värdar, teman och notiser. Inga papperslappar, inget krångel – allt i appen."},
+    {qe:"What's an evening like?",ae:"Gather your friends and sign up. The app divides everyone into teams and hosts, then sends you to the first location. From there, the clues guide you onward, stop by stop, until the whole group meets up for an after-party. One evening, five stops—all you have to do is show up and pedal.",q:"Hur går en kväll till?",a:"Du samlar gänget och anmäler er. Appen delar in alla i lag och värdar och skickar er till den första adressen. Därifrån guidar ledtrådarna er vidare, hållplats för hållplats, tills hela sällskapet möts för en gemensam efterfest. En kväll, fem hållplatser – ni behöver bara dyka upp och trampa."},
+    {qe:"Do you have to know how to cook?",ae:"No. Each host serves just one course—an appetizer, a main course, or a dessert—never the entire meal. If you can cook pasta or make a really good sandwich, you can pull off a progressive dinner. The rest is all about the company.",q:"Måste man kunna laga mat?",a:"Nej. Varje värd bjuder på en enda rätt – förrätt, varmrätt eller efterrätt – aldrig hela middagen. Kan du koka pasta eller breda en riktigt god macka klarar du en cykelfest. Resten är sällskapet."},
+    {qe:"Does everyone need a bike—and how far do people ride?",ae:"Yes, everyone gets around on their own bike—and an e-bike works just as well. The distances are short and local: hosts live within comfortable pedaling distance of each other, usually just a few minutes between stops. It's about the vibe along the way, not breaking a sweat.",q:"Behöver alla en cykel – och hur långt cyklar man?",a:"Ja, var och en tar sig fram på egen cykel, och elcykel funkar lika bra. Avstånden är korta och lokala: värdarna ligger inom bekvämt trampavstånd från varandra, oftast bara några minuter mellan hållplatserna. Det handlar om stämningen på vägen, inte om att svettas."},
+    {qe:"How many people can participate, and how much does it cost?",ae:"Everything from a small neighborhood gathering to a really big party. You pay a fixed price per party, with no subscription required: 595 SEK for up to 30 people, 895 SEK for 31–60, and 1,395 SEK for 61–100. Will there be even more of you? Contact us at hej@tablehopp.app and we’ll work something out.",q:"Hur många kan vara med och vad kostar det?",a:"Allt från ett litet kvarter till en riktigt stor fest. Ni betalar ett fast pris per fest, utan abonnemang: 595 kr för upp till 30 personer, 895 kr för 31–60 och 1 395 kr för 61–100. Blir ni ännu fler? Hör av er till hej@tablehopp.app så löser vi det."}
   ];
   function lblOf(a){return [].slice.call(a.querySelectorAll("p,span,h1,h2,h3,h4,h5,h6")).filter(function(e){return e.children.length===0 && e.textContent.trim();})[0];}
   function handler(ev){ ev.preventDefault(); ev.stopPropagation();
@@ -612,7 +619,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   }
   function ensure(){
     [].slice.call(document.querySelectorAll("h6")).forEach(function(e){
-      if(e.getAttribute("data-ro-faqh")==="1" || e.textContent.trim()==="Snabblänkar"){ e.setAttribute("data-ro-faqh","1"); if(e.textContent.trim()!=="Vanliga frågor") e.textContent="Vanliga frågor"; }
+      if(e.getAttribute("data-ro-faqh")==="1" || e.textContent.trim()==="Snabblänkar"){ e.setAttribute("data-ro-faqh","1"); if(e.textContent.trim()!==HV) e.textContent=HV; }
     });
     var links=[].slice.call(document.querySelectorAll('a[data-framer-name="Footer Nav"]'));
     // The footer ships 4 nav links but we have 6 questions. Clone the last
@@ -638,14 +645,14 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
         c.removeAttribute("href"); c.removeAttribute("data-framer-page-link-current"); c.removeAttribute("data-nce-checked");
         c.setAttribute("role","button"); c.__roFaq=true;
         a.parentNode.replaceChild(c,a); a=c;
-        var lbl=lblOf(a); if(lbl) lbl.textContent=FAQ[i].q;
-        var ans=document.createElement("div"); ans.className="ro-faq-answer"; ans.textContent=FAQ[i].a;
+        var lbl=lblOf(a); if(lbl) lbl.textContent=(EN?FAQ[i].qe:FAQ[i].q);
+        var ans=document.createElement("div"); ans.className="ro-faq-answer"; ans.textContent=(EN?FAQ[i].ae:FAQ[i].a);
         a.insertAdjacentElement("afterend", ans);
         a.addEventListener("click", handler, true);
       } else {
-        var lbl=lblOf(a); if(lbl && lbl.textContent.trim()!==FAQ[i].q) lbl.textContent=FAQ[i].q;
+        var qq=(EN?FAQ[i].qe:FAQ[i].q); var lbl=lblOf(a); if(lbl && lbl.textContent.trim()!==qq) lbl.textContent=qq;
         var ans=a.nextElementSibling;
-        if(!(ans&&ans.classList&&ans.classList.contains("ro-faq-answer"))){ ans=document.createElement("div"); ans.className="ro-faq-answer"; ans.textContent=FAQ[i].a; a.insertAdjacentElement("afterend",ans); }
+        if(!(ans&&ans.classList&&ans.classList.contains("ro-faq-answer"))){ ans=document.createElement("div"); ans.className="ro-faq-answer"; ans.textContent=(EN?FAQ[i].ae:FAQ[i].a); a.insertAdjacentElement("afterend",ans); }
       }
     });
   }

@@ -32,7 +32,7 @@ const htmlSv = () => `<!doctype html><html lang="sv"><head><meta charset="utf-8"
     </td></tr>
     <tr><td style="padding:10px 34px 0;">
       <p style="margin:0 0 6px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#9a8a1f;">Vad h&auml;nder nu</p>
-      <p style="margin:0 0 26px;font-size:17px;line-height:1.6;color:#222;">Vi &ouml;ppnar stad f&ouml;r stad. Du f&aring;r ett mejl s&aring; fort din &auml;r ig&aring;ng &mdash; inget tjat, bara n&auml;r det &auml;r skarpt.</p>
+      <p style="margin:0 0 26px;font-size:17px;line-height:1.6;color:#222;">Vi lanserar p&aring; App Store inom n&aring;gra veckor. Du f&aring;r ett mejl s&aring; fort appen &auml;r ute &mdash; inget tjat, bara n&auml;r det &auml;r skarpt.</p>
     </td></tr>
     <tr><td style="padding:26px 34px 34px;">
       <p style="margin:0;font-size:17px;line-height:1.6;color:#222;">Vi ses p&aring; sadeln.<br><strong>// William</strong>, grundare</p>
@@ -62,7 +62,7 @@ const htmlEn = () => `<!doctype html><html lang="en"><head><meta charset="utf-8"
     </td></tr>
     <tr><td style="padding:10px 34px 0;">
       <p style="margin:0 0 6px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#9a8a1f;">What happens next</p>
-      <p style="margin:0 0 26px;font-size:17px;line-height:1.6;color:#222;">We're opening city by city. You'll get an email the moment yours goes live &mdash; no spam, only when it's for real.</p>
+      <p style="margin:0 0 26px;font-size:17px;line-height:1.6;color:#222;">We're launching on the App Store in a few weeks. You'll get an email the moment the app is out &mdash; no spam, only when it's for real.</p>
     </td></tr>
     <tr><td style="padding:26px 34px 34px;">
       <p style="margin:0;font-size:17px;line-height:1.6;color:#222;">See you in the saddle.<br><strong>// William</strong>, founder</p>
@@ -75,9 +75,9 @@ const htmlEn = () => `<!doctype html><html lang="en"><head><meta charset="utf-8"
 </td></tr></table>
 </body></html>`;
 
-const textSv = () => "Hej!\n\nTack för att du hoppade på väntelistan — på riktigt, det betyder mycket så här tidigt.\n\nJag heter William och jag bygger Tablehopp. Idén är enkel: en cykelfest. Ni äter förrätt hos en granne, trampar vidare till varmrätten hos nästa och efterrätten hos en tredje — och löser ledtrådar på vägen. En kväll, flera stopp, hela gänget.\n\nVAD HÄNDER NU\nVi öppnar stad för stad. Du får ett mejl så fort din är igång — inget tjat, bara när det är skarpt.\n\nVi ses på sadeln.\n// William, grundare\n\n—\nDu får det här mejlet för att du gick med i Tablehopps väntelista. Undrar du något? hej@tablehopp.app. Vill du avsluta? Svara med 'avsluta'.";
+const textSv = () => "Hej!\n\nTack för att du hoppade på väntelistan — på riktigt, det betyder mycket så här tidigt.\n\nJag heter William och jag bygger Tablehopp. Idén är enkel: en cykelfest. Ni äter förrätt hos en granne, trampar vidare till varmrätten hos nästa och efterrätten hos en tredje — och löser ledtrådar på vägen. En kväll, flera stopp, hela gänget.\n\nVAD HÄNDER NU\nVi lanserar på App Store inom några veckor. Du får ett mejl så fort appen är ute — inget tjat, bara när det är skarpt.\n\nVi ses på sadeln.\n// William, grundare\n\n—\nDu får det här mejlet för att du gick med i Tablehopps väntelista. Undrar du något? hej@tablehopp.app. Vill du avsluta? Svara med 'avsluta'.";
 
-const textEn = () => "Hi there!\n\nThanks for joining the waitlist — truly, it means a lot this early.\n\nI'm William, and I'm building Tablehopp. The idea is simple: a progressive dinner on bikes. You have the starter at one neighbor's place, pedal on to the main course at the next and dessert at a third — solving clues along the way. One evening, several stops, the whole crew.\n\nWHAT HAPPENS NEXT\nWe're opening city by city. You'll get an email the moment yours goes live — no spam, only when it's for real.\n\nSee you in the saddle.\n// William, founder\n\n—\nYou're getting this email because you joined Tablehopp's waitlist. Got a question? hej@tablehopp.app. Want out? Reply with 'unsubscribe'.";
+const textEn = () => "Hi there!\n\nThanks for joining the waitlist — truly, it means a lot this early.\n\nI'm William, and I'm building Tablehopp. The idea is simple: a progressive dinner on bikes. You have the starter at one neighbor's place, pedal on to the main course at the next and dessert at a third — solving clues along the way. One evening, several stops, the whole crew.\n\nWHAT HAPPENS NEXT\nWe're launching on the App Store in a few weeks. You'll get an email the moment the app is out — no spam, only when it's for real.\n\nSee you in the saddle.\n// William, founder\n\n—\nYou're getting this email because you joined Tablehopp's waitlist. Got a question? hej@tablehopp.app. Want out? Reply with 'unsubscribe'.";
 
 // build the welcome email for a language
 function content(lang) {

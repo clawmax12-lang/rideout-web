@@ -15,7 +15,7 @@ const PRIVACY = SITE + "/integritet";
 
 // Simple welcome email: warm hello + "we'll email you when your city goes live".
 // No leaderboard/referral content (removed 2026-07-03 by founder decision).
-const htmlSv = () => `<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+const htmlSv = () => `<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>@font-face{font-family:'Boldonse';font-style:normal;font-weight:900;src:url(https://tablehopp.app/assets/fonts/Boldonse-latin.woff2) format('woff2')}</style></head>
 <body style="margin:0;padding:0;background:#bfe2f1;-webkit-font-smoothing:antialiased;">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#bfe2f1;font-size:1px;line-height:1px;">Tack f&ouml;r att du hoppade p&aring; &mdash; h&auml;r &auml;r vad som h&auml;nder nu.</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#bfe2f1;padding:42px 16px;font-family:Arial,Helvetica,'Segoe UI',sans-serif;">
@@ -25,7 +25,7 @@ const htmlSv = () => `<!doctype html><html lang="sv"><head><meta charset="utf-8"
       <img src="https://tablehopp.app/assets/img/tablehopp-logo-email.png" width="60" height="60" alt="Tablehopp" style="display:block;border:0;outline:none;">
     </td></tr>
     <tr><td style="padding:24px 34px 8px;">
-      <h1 style="margin:0 0 26px;font-size:42px;line-height:.98;font-weight:900;letter-spacing:-.02em;color:#191919;text-transform:uppercase;">Du &auml;r<br>inne!</h1>
+      <h1 style="margin:0 0 24px;font-family:'Boldonse','Arial Black','Helvetica Neue',Arial,sans-serif;font-size:32px;line-height:1.3;font-weight:900;letter-spacing:.01em;color:#191919;text-transform:uppercase;">Du &auml;r <span style="background:#EEFF2E;padding:0 .14em;">inne!</span></h1>
       <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Hej!</p>
       <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Tack f&ouml;r att du hoppade p&aring; v&auml;ntelistan &mdash; p&aring; riktigt, det betyder mycket s&aring; h&auml;r tidigt.</p>
       <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Jag heter <strong>William</strong> och jag bygger Tablehopp. Id&eacute;n &auml;r enkel: en cykelfest. Ni &auml;ter f&ouml;rr&auml;tt hos en granne, trampar vidare till varmr&auml;tten hos n&auml;sta och efterr&auml;tten hos en tredje &mdash; och l&ouml;ser ledtr&aring;dar p&aring; v&auml;gen. En kv&auml;ll, flera stopp, hela g&auml;nget.</p>
@@ -45,7 +45,7 @@ const htmlSv = () => `<!doctype html><html lang="sv"><head><meta charset="utf-8"
 </td></tr></table>
 </body></html>`;
 
-const htmlEn = () => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+const htmlEn = () => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>@font-face{font-family:'Boldonse';font-style:normal;font-weight:900;src:url(https://tablehopp.app/assets/fonts/Boldonse-latin.woff2) format('woff2')}</style></head>
 <body style="margin:0;padding:0;background:#bfe2f1;-webkit-font-smoothing:antialiased;">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#bfe2f1;font-size:1px;line-height:1px;">Thanks for hopping on &mdash; here's what happens next.</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#bfe2f1;padding:42px 16px;font-family:Arial,Helvetica,'Segoe UI',sans-serif;">
@@ -55,7 +55,7 @@ const htmlEn = () => `<!doctype html><html lang="en"><head><meta charset="utf-8"
       <img src="https://tablehopp.app/assets/img/tablehopp-logo-email.png" width="60" height="60" alt="Tablehopp" style="display:block;border:0;outline:none;">
     </td></tr>
     <tr><td style="padding:24px 34px 8px;">
-      <h1 style="margin:0 0 26px;font-size:42px;line-height:.98;font-weight:900;letter-spacing:-.02em;color:#191919;text-transform:uppercase;">You're<br>in!</h1>
+      <h1 style="margin:0 0 24px;font-family:'Boldonse','Arial Black','Helvetica Neue',Arial,sans-serif;font-size:32px;line-height:1.3;font-weight:900;letter-spacing:.01em;color:#191919;text-transform:uppercase;">You're <span style="background:#EEFF2E;padding:0 .14em;">in!</span></h1>
       <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Hi there!</p>
       <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">Thanks for joining the waitlist &mdash; truly, it means a lot this early.</p>
       <p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:#222;">I'm <strong>William</strong>, and I'm building Tablehopp. The idea is simple: a progressive dinner on bikes. You have the starter at one neighbor's place, pedal on to the main course at the next and dessert at a third &mdash; solving clues along the way. One evening, several stops, the whole crew.</p>

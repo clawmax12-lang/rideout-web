@@ -770,8 +770,8 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   function ensure(){
     if(document.querySelector(".ro-privacy-link"))return;
     var cand=[].slice.call(document.querySelectorAll("footer p")).filter(function(e){
-      var t=e.textContent||"";
-      return /©\s*2026/.test(t) && /Tablehopp/.test(t);
+      // brand-agnostic: stale year-cached bundles can still render the old brand name
+      return /©\s*2026/.test(e.textContent||"");
     })[0];
     if(!cand)return;
     var s=document.createElement("span");s.className="ro-privacy-link";
@@ -787,6 +787,7 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   }
   ensure(); document.addEventListener("DOMContentLoaded",ensure); window.addEventListener("load",ensure);
   var n=0,iv=setInterval(function(){ensure(); if(++n>48)clearInterval(iv);},250);
+  setInterval(ensure,1500); /* hydration can replace the © line late — keep re-attaching (cheap: one querySelector when present) */
 })();
 </script><script id="ro-waitlist-js">
 (function(){

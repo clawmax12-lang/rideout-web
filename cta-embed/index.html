@@ -396,4 +396,21 @@ section.framer-ujanuw .framer-styles-preset-1k95bq5,section.framer-ujanuw .frame
         }, true);
     });
 })();
+</script><script id="ro-dl-wl">
+(function(){
+  /* "Ladda ner för iPhone/Android" -> tell the parent page to scroll to the waitlist
+     (pre-launch: no app to download yet). Covers SV + walker-translated EN labels. */
+  var RE=/ladda ner för|download for/i;
+  document.addEventListener("click",function(ev){
+    var n=ev.target,hit=null,hops=0;
+    while(n&&n!==document.body&&hops++<8){
+      var t=(n.textContent||"").replace(/\s+/g," ").trim();
+      if(t.length<60&&RE.test(t)){hit=n;break;}
+      n=n.parentElement;
+    }
+    if(!hit)return;
+    ev.preventDefault();ev.stopPropagation();
+    try{if(window.parent&&window.parent!==window)window.parent.postMessage({roGoWaitlist:1},"*");}catch(e){}
+  },true);
+})();
 </script></body></html>

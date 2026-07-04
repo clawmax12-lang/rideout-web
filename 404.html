@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sidan finns inte · Tablehopp</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#bfe2f1">
+<link rel="icon" href="/assets/img/tablehopp-logo-email.png">
+<style>
+  @font-face{font-family:'Boldonse';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/Boldonse-latin.woff2) format('woff2')}
+  @font-face{font-family:'Geist';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/gyByhwUxId8gMEwcGFU.woff2) format('woff2')}
+  @font-face{font-family:'Geist';font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/gyByhwUxId8gMEwcGFU.woff2) format('woff2')}
+  :root{--ink:#191919}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%}
+  body{background:#bfe2f1;background-image:linear-gradient(180deg,#cfeaf9 0%,#bfe2f1 55%,#aed9ee 100%);
+    font-family:'Geist','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;
+    display:flex;align-items:center;justify-content:center;padding:24px}
+  .card{position:relative;max-width:540px;width:100%;background:#fff;border:2px solid var(--ink);border-radius:20px;
+    box-shadow:8px 8px 0 var(--ink);padding:52px 42px 44px;text-align:center}
+  .code{font-family:'Boldonse',sans-serif;font-weight:400;font-size:88px;line-height:1.1;letter-spacing:.02em;
+    color:transparent;-webkit-text-stroke:2px var(--ink);margin:0 0 18px}
+  h1{font-family:'Boldonse',sans-serif;font-weight:400;text-transform:uppercase;font-size:24px;line-height:1.55;margin:0 0 16px}
+  h1 .hl{background:#EEFF2E;padding:0 .12em}
+  p{font-size:16px;line-height:1.6;color:#1d4253;margin:0 0 28px;font-weight:400}
+  .btn{display:inline-block;background:#efdf5c;color:var(--ink);border:2px solid var(--ink);border-radius:12px;
+    box-shadow:4px 4px 0 var(--ink);padding:15px 28px;font-weight:600;font-size:16px;text-decoration:none;
+    transition:transform .15s ease,box-shadow .15s ease}
+  .btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+  .btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+  .sticker{position:absolute;right:-18px;top:-20px;background:#b9b3f5;border:2px solid var(--ink);border-radius:999px;
+    box-shadow:4px 4px 0 var(--ink);padding:10px 18px;font-family:'Boldonse',sans-serif;font-size:13px;
+    text-transform:uppercase;transform:rotate(7deg)}
+  .foot{position:fixed;left:0;right:0;bottom:18px;text-align:center;font-size:12px;color:#3a5663;font-weight:500}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="sticker" translate="no">Cykelfest 2026</div>
+  <p class="code">404</p>
+  <h1 id="h">Sidan finns inte.<br>Men det gör <span class="hl">cykelfesten.</span></h1>
+  <p id="p">Länken du följde verkar ha trampat fel. Häng med till startsidan och ställ dig i väntelistan istället.</p>
+  <a class="btn" id="cta" href="/">Till startsidan →</a>
+</div>
+<p class="foot" id="foot">Tablehopp · cykelfesten · tablehopp.app</p>
+<script>
+(function(){
+  "use strict";
+  var l=null;try{l=localStorage.getItem("thlang");}catch(e){}
+  if(l==="en"){
+    document.documentElement.lang="en";
+    document.title="Page not found · Tablehopp";
+    document.getElementById("h").innerHTML='This page doesn’t exist.<br>But the <span class="hl">progressive dinner</span> does.';
+    document.getElementById("p").textContent="The link you followed seems to have taken a wrong turn. Head to the start page and join the waitlist instead.";
+    document.getElementById("cta").textContent="To the start page →";
+    document.getElementById("foot").textContent="Tablehopp · the progressive dinner · tablehopp.app";
+  }
+})();
+</script>
+</body>
+</html>

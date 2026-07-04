@@ -396,6 +396,36 @@ section.framer-ujanuw .framer-styles-preset-1k95bq5,section.framer-ujanuw .frame
         }, true);
     });
 })();
+</script><style id="ro-qr-soon-css">
+@font-face{font-family:'Boldonse';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/Boldonse-latin.woff2) format('woff2')}
+section.framer-ujanuw [data-framer-name="Right"]>[data-framer-name="Content"]>*:not(.ro-soon){display:none!important}
+.ro-soon{display:flex;align-items:center;justify-content:center;pointer-events:none;padding:8px 0}
+.ro-soon-txt{font-family:'Boldonse',sans-serif;font-weight:400;font-size:27px;line-height:1.5;letter-spacing:.01em;color:#191919;text-transform:uppercase;text-align:center;background:#efdf5c;border:2px solid #191919;border-radius:18px;box-shadow:6px 6px 0 #191919;padding:22px 28px;transform:rotate(-6deg);animation:roSoonFloat 4.5s ease-in-out infinite}
+@keyframes roSoonFloat{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(-4.5deg) translateY(-9px)}}
+@media (prefers-reduced-motion:reduce){.ro-soon-txt{animation:none}}
+</style><script id="ro-qr-soon">
+(function(){
+  /* The QR card next to the phone -> a brand sticker "Kommer snart..."/"Coming soon..."
+     (no app to scan yet). Content replaced INSIDE the existing container so Framer's
+     cloud-reveal animation still carries it — seamless. Source-rendered language. */
+  var EN=(function(){var l=null;try{l=localStorage.getItem("thlang");}catch(e){}
+    if(l==="en")return true; if(l==="sv")return false;
+    return /^en/.test((navigator.language||"sv").toLowerCase());})();
+  function ensure(){
+    var conts=document.querySelectorAll('section.framer-ujanuw [data-framer-name="Right"]>[data-framer-name="Content"]');
+    for(var i=0;i<conts.length;i++){
+      var c=conts[i];
+      if(c.querySelector(".ro-soon"))continue;
+      var w=document.createElement("div");w.className="ro-soon";
+      var t=document.createElement("span");t.className="ro-soon-txt";
+      t.innerHTML=EN?"Coming<br>soon...":"Kommer<br>snart...";
+      w.appendChild(t);c.appendChild(w);
+    }
+  }
+  ensure(); document.addEventListener("DOMContentLoaded",ensure); window.addEventListener("load",ensure);
+  var n=0,iv=setInterval(function(){ensure(); if(++n>48)clearInterval(iv);},250);
+  setInterval(ensure,1500);
+})();
 </script><script id="ro-dl-wl">
 (function(){
   /* "Ladda ner för iPhone/Android" -> tell the parent page to scroll to the waitlist

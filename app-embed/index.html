@@ -165,7 +165,8 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
    if(!topM){topM=document.createElement('div');topM.id='ro-mask-top';topM.className='ro-mask';document.body.appendChild(topM);}
    if(!botM){botM=document.createElement('div');botM.id='ro-mask-bot';botM.className='ro-mask';document.body.appendChild(botM);}
  }
- var RO_BYSTEP={1:'assets/img/rideout-phone-program.png',2:'assets/img/rideout-phone-ledtradar.png',3:'assets/img/rideout-phone-poang.png'};
+ var RO_PSUF=(RO_LANG==='en'?'-en':'-sv'); /* app screens exist in both languages — pick at the source (Lesson 28/37), no swap race */
+  var RO_BYSTEP={1:'assets/img/rideout-phone-program'+RO_PSUF+'.png',2:'assets/img/rideout-phone-ledtradar'+RO_PSUF+'.png',3:'assets/img/rideout-phone-poang'+RO_PSUF+'.png'};
  function bgNum(w){var m=(w.getAttribute('data-framer-name')||'').match(/\d+/);return m?Math.max(1,Math.min(3,parseInt(m[0],10))):1;}
  /* Desktop = stacked single-phone illusion: every phone shows the CURRENT step.
     Mobile (flatMode) = the 3 cards lay out separately, so each keeps its OWN screen

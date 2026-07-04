@@ -93,7 +93,7 @@
 (function(){
   "use strict";
   var lang=(function(){var l=null;try{l=localStorage.getItem("thlang");}catch(e){}
-    if(l==="en"||l==="sv")return l;var n=(navigator.language||"sv").toLowerCase();return /^en/.test(n)?"en":"sv";})();
+    if(l==="en"||l==="sv")return l;return "sv"; /* default SV — EN only by explicit choice (Googlebot must index Swedish) */})();
   function apply(){
     document.documentElement.lang=lang;
     document.getElementById("sv").style.display=lang==="sv"?"block":"none";

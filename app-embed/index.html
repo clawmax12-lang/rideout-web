@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" data-redirect-timezone="1" dir="ltr"><head>
 	<meta charset="utf-8">
-<script src="/assets/i18n.js?v=20260630b"></script>
+<script src="/assets/i18n.js?v=20260704"></script>
 	
 	
 	
@@ -158,7 +158,7 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
  var FLAT=/[?&]flat=1/.test(location.search); /* mobile: fully static section, no animation */
  /* site language (same detection as assets/i18n.js) so we render bullets in the
     right language at the source instead of depending on the runtime walker */
- var RO_LANG=(function(){var l=null;try{l=localStorage.getItem("thlang");}catch(e){}if(l==="en"||l==="sv")return l;var n=(navigator.language||"sv").toLowerCase();return /^en/.test(n)?"en":"sv";})();
+ var RO_LANG=(function(){var l=null;try{l=localStorage.getItem("thlang");}catch(e){}if(l==="en"||l==="sv")return l;return "sv"; /* default SV — EN only by explicit choice (Googlebot must index Swedish) */})();
  var topM,botM;
  function sec(){return document.querySelector('section.framer-1lr98a4');}
  function ensure(){

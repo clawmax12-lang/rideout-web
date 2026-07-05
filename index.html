@@ -817,9 +817,18 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   var RE=/skapa er cykelfest|create your own progressive dinner/i;
   function goWL(){
     var wl=document.querySelector(".ro-wl"); if(!wl) return;
-    try{wl.scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"});}catch(e){wl.scrollIntoView();}
-    setTimeout(function(){var i=document.querySelector(".ro-wl-input");
-      if(i&&!i.hasAttribute("disabled")){try{i.focus({preventScroll:true});}catch(e){}}},reduce?60:650);
+    /* long journeys pass the pinned embed sections whose height changes cancel a
+       smooth scroll mid-flight (scroll anchoring) — jump instantly when far away,
+       then re-assert once in case a late relayout nudged us off. */
+    var far=Math.abs(wl.getBoundingClientRect().top)>2500;
+    var smooth=!reduce&&!far;
+    try{wl.scrollIntoView({behavior:smooth?"smooth":"auto",block:"center"});}catch(e){wl.scrollIntoView();}
+    setTimeout(function(){
+      var r=wl.getBoundingClientRect();
+      if(r.top<-80||r.bottom>innerHeight+80){try{wl.scrollIntoView({behavior:"auto",block:"center"});}catch(e){}}
+      var i=document.querySelector(".ro-wl-input");
+      if(i&&!i.hasAttribute("disabled")){try{i.focus({preventScroll:true});}catch(e){}}
+    },smooth?700:150);
   }
   function isCta(el){
     if(!el||(el.closest&&el.closest(".ro-wl")))return false;

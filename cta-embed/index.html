@@ -431,7 +431,10 @@ section.framer-ujanuw [data-framer-name="Right"]>[data-framer-name="Content"]>*:
   /* "Ladda ner för iPhone/Android" -> tell the parent page to scroll to the waitlist
      (pre-launch: no app to download yet). Covers SV + walker-translated EN labels. */
   var RE=/ladda ner för|download for/i;
-  document.addEventListener("click",function(ev){
+  /* window-capture + stopImmediatePropagation: first in the event path, registered
+     pre-hydration — Framer's own handlers (or the link-guard's _top target on the
+     template's apple.com href) must never win a download-button click. */
+  window.addEventListener("click",function(ev){
     var n=ev.target,hit=null,hops=0;
     while(n&&n!==document.body&&hops++<8){
       var t=(n.textContent||"").replace(/\s+/g," ").trim();
@@ -439,7 +442,7 @@ section.framer-ujanuw [data-framer-name="Right"]>[data-framer-name="Content"]>*:
       n=n.parentElement;
     }
     if(!hit)return;
-    ev.preventDefault();ev.stopPropagation();
+    ev.preventDefault();ev.stopImmediatePropagation();
     try{if(window.parent&&window.parent!==window)window.parent.postMessage({roGoWaitlist:1},"*");}catch(e){}
   },true);
 })();

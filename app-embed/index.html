@@ -605,32 +605,4 @@ section.framer-1lr98a4 a[data-framer-name="Black"]{display:none!important}
         }, true);
     });
 })();
-</script><script id="ro-img-trim">
-(function(){
-  /* This embed is a FULL template export but only ONE section is ever shown
-     (the rest are permanently display:none) — yet their images still download.
-     Strip src/srcset from images outside the used section; re-strip whenever
-     hydration re-adds them. */
-  var USED="section.framer-1lr98a4";
-  function strip(el){
-    if(!el.tagName)return;
-    var t=el.tagName;
-    if(t!=="IMG"&&t!=="SOURCE"&&t!=="VIDEO")return;
-    if(el.closest&&el.closest(USED))return;
-    if(el.getAttribute("src"))el.removeAttribute("src");
-    if(el.getAttribute("srcset"))el.removeAttribute("srcset");
-  }
-  function pass(root){var im=(root||document).querySelectorAll?(root||document).querySelectorAll("img,source,video"):[];for(var i=0;i<im.length;i++)strip(im[i]);}
-  pass(document);
-  document.addEventListener("DOMContentLoaded",function(){pass(document);});
-  try{
-    new MutationObserver(function(ms){
-      for(var i=0;i<ms.length;i++){var m=ms[i];
-        if(m.type==="attributes"){strip(m.target);continue;}
-        for(var j=0;j<m.addedNodes.length;j++){var n=m.addedNodes[j];
-          if(n.nodeType!==1)continue;
-          strip(n);if(n.querySelectorAll)pass(n);}}
-    }).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:["src","srcset"]});
-  }catch(e){}
-})();
 </script></body></html>

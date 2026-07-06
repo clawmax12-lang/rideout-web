@@ -402,7 +402,11 @@ section.framer-ujanuw [data-framer-name="Right"]>[data-framer-name="Content"]>*:
 .ro-soon{display:flex;align-items:center;justify-content:center;pointer-events:none;padding:8px 0}
 .ro-soon-txt{font-family:'Boldonse',sans-serif;font-weight:400;font-size:27px;line-height:1.5;letter-spacing:.01em;color:#191919;text-transform:uppercase;text-align:center;background:#efdf5c;border:2px solid #191919;border-radius:18px;box-shadow:6px 6px 0 #191919;padding:22px 28px;transform:rotate(-6deg);animation:roSoonFloat 4.5s ease-in-out infinite}
 @keyframes roSoonFloat{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(-4.5deg) translateY(-9px)}}
-@media (prefers-reduced-motion:reduce){.ro-soon-txt{animation:none}}
+/* mobile: the right-side sticker is hidden by Framer's layout, so the two download
+   buttons in the Left column become the "Coming soon" sticker instead */
+.ro-soon-mob-wrap>*:not(.ro-soon-mob){display:none!important}
+.ro-soon-mob{display:inline-flex;align-items:center;justify-content:center;font-family:'Boldonse',sans-serif;font-weight:400;font-size:19px;line-height:1.5;letter-spacing:.01em;color:#191919;text-transform:uppercase;text-align:center;background:#efdf5c;border:2px solid #191919;border-radius:16px;box-shadow:5px 5px 0 #191919;padding:15px 26px;transform:rotate(-4deg);animation:roSoonFloat 4.5s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.ro-soon-txt,.ro-soon-mob{animation:none}}
 </style><script id="ro-qr-soon">
 (function(){
   /* The QR card next to the phone -> a brand sticker "Kommer snart..."/"Coming soon..."
@@ -411,7 +415,9 @@ section.framer-ujanuw [data-framer-name="Right"]>[data-framer-name="Content"]>*:
   var EN=(function(){var l=null;try{l=localStorage.getItem("thlang");}catch(e){}
     if(l==="en")return true; if(l==="sv")return false;
     return false; /* default SV — EN only by explicit choice */})();
+  var LABEL=EN?"Coming soon...":"Kommer snart...";
   function ensure(){
+    // desktop: replace the QR card next to the phone
     var conts=document.querySelectorAll('section.framer-ujanuw [data-framer-name="Right"]>[data-framer-name="Content"]');
     for(var i=0;i<conts.length;i++){
       var c=conts[i];
@@ -421,8 +427,27 @@ section.framer-ujanuw [data-framer-name="Right"]>[data-framer-name="Content"]>*:
       t.innerHTML=EN?"Coming<br>soon...":"Kommer<br>snart...";
       w.appendChild(t);c.appendChild(w);
     }
+    // mobile: the whole Right column (with the sticker) is collapsed by Framer's
+    // layout -> turn the two download buttons in the Left column into the sticker.
+    var right=document.querySelector('section.framer-ujanuw [data-framer-name="Right"]');
+    var mobile=!right||right.getBoundingClientRect().width<1;
+    var btns=document.querySelectorAll('section.framer-ujanuw [data-framer-name="Buttons"]');
+    for(var j=0;j<btns.length;j++){
+      var g=btns[j];
+      if(mobile){
+        if(!g.querySelector(".ro-soon-mob")){
+          g.classList.add("ro-soon-mob-wrap");
+          var m=document.createElement("span");m.className="ro-soon-mob";m.textContent=LABEL;
+          g.appendChild(m);
+        }
+      }else{
+        g.classList.remove("ro-soon-mob-wrap");
+        var ex=g.querySelector(".ro-soon-mob");if(ex)ex.parentNode.removeChild(ex);
+      }
+    }
   }
   ensure(); document.addEventListener("DOMContentLoaded",ensure); window.addEventListener("load",ensure);
+  window.addEventListener("resize",ensure,{passive:true});
   var n=0,iv=setInterval(function(){ensure(); if(++n>48)clearInterval(iv);},250);
   setInterval(ensure,1500);
 })();

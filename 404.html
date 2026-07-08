@@ -49,7 +49,8 @@
 (function(){
   "use strict";
   var l=null;try{l=localStorage.getItem("thlang");}catch(e){}
-  if(l==="en"){
+  var lang=(l==="en"||l==="sv")?l:(function(){try{var a=navigator.languages||[navigator.language||""];for(var i=0;i<a.length;i++)if(/^sv/i.test(a[i]||""))return"sv";if((Intl.DateTimeFormat().resolvedOptions().timeZone||"")==="Europe/Stockholm")return"sv";}catch(e){}return"en";})();
+  if(lang==="en"){
     document.documentElement.lang="en";
     document.title="Page not found · Tablehopp";
     document.getElementById("h").innerHTML='This page doesn’t exist.<br>But the <span class="hl">progressive dinner</span> does.';

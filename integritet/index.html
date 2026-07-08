@@ -94,7 +94,7 @@
 (function(){
   "use strict";
   var lang=(function(){var l=null;try{l=localStorage.getItem("thlang");}catch(e){}
-    if(l==="en"||l==="sv")return l;return "sv"; /* default SV — EN only by explicit choice (Googlebot must index Swedish) */})();
+    if(l==="en"||l==="sv")return l;return (function(){try{var a=navigator.languages||[navigator.language||""];for(var i=0;i<a.length;i++)if(/^sv/i.test(a[i]||""))return"sv";if((Intl.DateTimeFormat().resolvedOptions().timeZone||"")==="Europe/Stockholm")return"sv";}catch(e){}return"en";})(); /* default EN; Swedish only for Swedish-locale devices */})();
   function apply(){
     document.documentElement.lang=lang;
     document.getElementById("sv").style.display=lang==="sv"?"block":"none";

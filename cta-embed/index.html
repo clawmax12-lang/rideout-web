@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" data-redirect-timezone="1" dir="ltr" class="lenis"><head>
 	<meta charset="utf-8">
-<script src="/assets/i18n.js?v=20260704"></script>
+<script src="/assets/i18n.js?v=20260706"></script>
 	
 	
 	
@@ -414,7 +414,7 @@ section.framer-ujanuw [data-framer-name="Right"]>[data-framer-name="Content"]>*:
      cloud-reveal animation still carries it — seamless. Source-rendered language. */
   var EN=(function(){var l=null;try{l=localStorage.getItem("thlang");}catch(e){}
     if(l==="en")return true; if(l==="sv")return false;
-    return false; /* default SV — EN only by explicit choice */})();
+    return (function(){try{var a=navigator.languages||[navigator.language||""];for(var i=0;i<a.length;i++)if(/^sv/i.test(a[i]||""))return false;if((Intl.DateTimeFormat().resolvedOptions().timeZone||"")==="Europe/Stockholm")return false;}catch(e){}return true;})(); /* default EN; Swedish only for Swedish-locale devices */})();
   var LABEL=EN?"Coming soon...":"Kommer snart...";
   function ensure(){
     // desktop: replace the QR card next to the phone

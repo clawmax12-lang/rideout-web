@@ -49,7 +49,7 @@
 (function(){
   "use strict";
   var l=null;try{l=localStorage.getItem("thlang");}catch(e){}
-  var lang=(l==="en"||l==="sv")?l:(function(){try{var a=navigator.languages||[navigator.language||""];for(var i=0;i<a.length;i++)if(/^sv/i.test(a[i]||""))return"sv";if((Intl.DateTimeFormat().resolvedOptions().timeZone||"")==="Europe/Stockholm")return"sv";}catch(e){}return"en";})();
+  var lang=(l==="en"||l==="sv")?l:(function(){try{if(/bot|crawl|spider|slurp|mediapartners/i.test(navigator.userAgent||""))return"sv";var a=navigator.languages||[navigator.language||""];for(var i=0;i<a.length;i++)if(/^sv/i.test(a[i]||""))return"sv";if((Intl.DateTimeFormat().resolvedOptions().timeZone||"")==="Europe/Stockholm")return"sv";}catch(e){}return"en";})();
   if(lang==="en"){
     document.documentElement.lang="en";
     document.title="Page not found · Tablehopp";

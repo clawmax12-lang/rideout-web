@@ -25,8 +25,10 @@ const SKIP_DIRS = new Set([".git", "archive", "node_modules", ".github", "cta-em
 // Longer/overlapping extensions first; the trailing boundary lookahead also
 // prevents `.json` from matching as `.js`, `.jpeg` as `.jpg`, etc.
 const EXT = "webmanifest|woff2|woff|jpeg|jpg|json|mjs|svg|png|gif|webp|avif|ico|mp4|webm|mov|m4v|ttf|otf|eot|css|txt|xml|js";
-// require a sub-directory after `assets/` to skip legacy root-path manifest noise
-const RE = new RegExp(`/?assets/[A-Za-z0-9_\\-]+/[A-Za-z0-9_\\-./]+?\\.(?:${EXT})(?![A-Za-z0-9])`, "gi");
+// require a sub-directory after `assets/` to skip legacy root-path manifest noise;
+// keep an `app-embed/`/`cta-embed/` prefix when present (the main site may reference
+// files inside the embeds, e.g. for cache warming) so those resolve in the right tree
+const RE = new RegExp(`/?(?:(?:app-embed|cta-embed)/)?assets/[A-Za-z0-9_\\-]+/[A-Za-z0-9_\\-./]+?\\.(?:${EXT})(?![A-Za-z0-9])`, "gi");
 
 function walk(dir, acc = []) {
   for (const name of readdirSync(dir)) {

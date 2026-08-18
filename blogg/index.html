@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guider för dig som arrangerar cykelfest · Tablehopp</title>
+<meta name="description" content="Guider för cykelfest-arrangörer: lottning och schema, tidsschema med exakta klockslag, inbjudningsmallar, regler, Excel-mallen och krishantering vid avhopp.">
+<link rel="canonical" href="https://tablehopp.app/blogg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Guider för dig som arrangerar cykelfest">
+<meta property="og:description" content="Guider för cykelfest-arrangörer: lottning och schema, tidsschema med exakta klockslag, inbjudningsmallar, regler, Excel-mallen och krishantering vid avhopp.">
+<meta property="og:url" content="https://tablehopp.app/blogg">
+<meta property="og:image" content="https://tablehopp.app/assets/img/og-tablehopp-v2.jpg">
+<meta property="og:locale" content="sv_SE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#bfe2f1">
+<link rel="icon" href="/assets/img/tablehopp-logo-email.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"tablehopp.app","item":"https://tablehopp.app/"},{"@type":"ListItem","position":2,"name":"Guider","item":"https://tablehopp.app/blogg"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://tablehopp.app/blogg/arrangera-cykelfest","name":"Cykelfest – så funkar det: kompletta guiden för dig som arrangerar"},{"@type":"ListItem","position":2,"url":"https://tablehopp.app/blogg/cykelfest-schema-lottning","name":"Cykelfest-schemat: så lottar du värdpar så att ingen möter samma gäster två gånger"},{"@type":"ListItem","position":3,"url":"https://tablehopp.app/blogg/cykelfest-tidsschema","name":"Tidsschema för cykelfest: exakta klockslag för förrätt, varmrätt och efterrätt"},{"@type":"ListItem","position":4,"url":"https://tablehopp.app/blogg/cykelfest-inbjudan-mall","name":"Inbjudan till cykelfest: färdiga mallar och texter att kopiera"},{"@type":"ListItem","position":5,"url":"https://tablehopp.app/blogg/cykelfest-excel-mall","name":"Sluta planera cykelfest i Excel – mallen, och varför det spricker vid 20 par"},{"@type":"ListItem","position":6,"url":"https://tablehopp.app/blogg/cykelfest-regler","name":"Cykelfestens regler: 15 regler alla arrangörer borde skriva ner"},{"@type":"ListItem","position":7,"url":"https://tablehopp.app/blogg/cykelfest-avhopp","name":"Udda antal par, avhopp och sjukdom – så räddar du cykelfestens schema"}]}</script>
+<style>
+  @font-face{font-family:'Boldonse';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/Boldonse-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:'Boldonse';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/Boldonse-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:'Geist';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/gyByhwUxId8gMEwcGFU.woff2) format('woff2')}
+  :root{--ink:#191919;--muted:#43606f;--mark:#EEFF2E;--card:#ffffff;--lav:#b5b6ef;--grn:#9fe6a0}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#bfe2f1;background-image:linear-gradient(180deg,#cfeaf9 0%,#bfe2f1 55%,#aed9ee 100%);min-height:100vh;
+    font-family:'Geist','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;
+    padding:24px 18px 72px;font-size:16.5px;line-height:1.7}
+  .wrap{max-width:720px;margin:0 auto}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+  .back{font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;opacity:.75}
+  .back:hover{opacity:1}
+  .crumb{font-size:13px;font-weight:600;color:var(--muted)}
+  .crumb a{color:var(--muted);text-decoration:none}
+  .crumb a:hover{text-decoration:underline}
+  .card{background:var(--card);border:2px solid var(--ink);border-radius:18px;box-shadow:7px 7px 0 var(--ink);padding:34px 32px;margin:0 0 24px}
+  @media(max-width:560px){.card{padding:26px 20px}}
+  .kicker{display:inline-block;background:var(--lav);border:2px solid var(--ink);border-radius:999px;padding:4px 13px;
+    font-weight:700;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:16px}
+  h1{font-family:'Boldonse','Arial Black',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(24px,4.6vw,34px);line-height:1.5;letter-spacing:-.005em;margin:0 0 10px;text-wrap:balance}
+  .mk{background:var(--mark);padding:0 .13em;border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .meta{font-size:13px;color:var(--muted);margin:0 0 24px;font-weight:600}
+  .lede{font-size:18px;color:#2a4250;margin:0 0 8px}
+  h2{font-family:'Boldonse','Arial Black',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:17.5px;line-height:1.55;margin:34px 0 10px;text-wrap:balance}
+  h3{font-size:16px;font-weight:600;margin:22px 0 6px}
+  p{margin:0 0 12px;max-width:66ch}
+  ul,ol{margin:0 0 14px;padding-left:22px;max-width:64ch}
+  li{margin:0 0 7px}
+  strong{font-weight:600}
+  a{color:var(--ink);font-weight:600;text-underline-offset:2px}
+  .tablewrap{overflow-x:auto;border:2px solid var(--ink);border-radius:12px;margin:14px 0 18px}
+  table{border-collapse:collapse;width:100%;min-width:440px;font-size:14.5px}
+  th{background:#eef6fb;text-align:left;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
+    padding:10px 14px;border-bottom:2px solid var(--ink)}
+  td{padding:9px 14px;border-bottom:1px solid rgba(25,25,25,.14);vertical-align:top;font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:0}
+  .tip{border-left:5px solid var(--mark);background:#fbfef0;border-radius:0 10px 10px 0;padding:13px 16px;margin:16px 0;font-size:15px;max-width:66ch}
+  .tip .t{font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;color:#5c5a10}
+  .copybox{background:#f4fafd;border:2px dashed var(--ink);border-radius:12px;padding:16px 18px;margin:14px 0 18px;font-size:15px;max-width:66ch}
+  .copybox .t{font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;color:var(--muted)}
+  .cta{background:var(--grn);border:2px solid var(--ink);border-radius:16px;box-shadow:6px 6px 0 var(--ink);padding:24px 26px;margin:34px 0 6px}
+  .cta h2{margin:0 0 6px;font-size:17px}
+  .cta p{margin:0 0 14px;font-size:15px}
+  .cta a.btn{display:inline-block;background:var(--mark);border:2px solid var(--ink);border-radius:999px;
+    padding:10px 22px;font-weight:700;font-size:14.5px;text-decoration:none;box-shadow:3px 3px 0 var(--ink)}
+  .cta a.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+  .rel{margin-top:26px;border-top:2px solid var(--ink);padding-top:18px}
+  .rel .t{font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;color:var(--muted)}
+  .rel ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px}
+  .rel li{margin:0}
+  .foot{text-align:center;font-size:12px;color:#3a5663;margin-top:26px;font-weight:500}
+  .cardlist{display:flex;flex-direction:column;gap:16px}
+  .cardlist a.item{display:block;background:var(--card);border:2px solid var(--ink);border-radius:16px;
+    box-shadow:5px 5px 0 var(--ink);padding:20px 24px;text-decoration:none;transition:transform .08s ease}
+  .cardlist a.item:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+  .cardlist .it{font-family:'Boldonse','Arial Black',sans-serif;font-weight:400;text-transform:uppercase;font-size:15.5px;line-height:1.55;margin-bottom:6px}
+  .cardlist .id{font-size:14px;color:var(--muted);font-weight:400;max-width:64ch}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back" href="/">← tablehopp.app</a>
+    <span class="crumb">Guider</span>
+  </div>
+  <div class="card">
+    <span class="kicker">Tablehopp · Guider</span>
+    <h1>Arrangera cykelfest? <span class="mk">Börja här.</span></h1>
+    
+    <p class="lede">Allt vi vet om att arrangera cykelfester – lottningen, tiderna, inbjudan, reglerna och krisplanen – samlat, fritt och utan utfyllnad. Skrivet av teamet bakom Tablehopp, appen som planerar hela festen i ett knapptryck.</p>
+    <div class="cardlist" style="margin-top:22px"><a class="item" href="/blogg/arrangera-cykelfest"><div class="it">Cykelfest – så funkar det: kompletta guiden för dig som arrangerar</div><div class="id">Vad en cykelfest är, de sju stegen från idé till efterfest, och misstagen som sänker kvällen.</div></a><a class="item" href="/blogg/cykelfest-schema-lottning"><div class="it">Cykelfest-schemat: så lottar du värdpar så att ingen möter samma gäster två gånger</div><div class="id">Rotationen som gör att ingen möter samma par två gånger – med färdig matris och gränsen för handräkning.</div></a><a class="item" href="/blogg/cykelfest-tidsschema"><div class="it">Tidsschema för cykelfest: exakta klockslag för förrätt, varmrätt och efterrätt</div><div class="id">Exakta klockslag för förrätt, varmrätt, efterrätt och efterfest. Två färdiga scheman att kopiera.</div></a><a class="item" href="/blogg/cykelfest-inbjudan-mall"><div class="it">Inbjudan till cykelfest: färdiga mallar och texter att kopiera</div><div class="id">Två inbjudningstexter att kopiera rakt av, plus de nio uppgifterna varje anmälan måste samla in.</div></a><a class="item" href="/blogg/cykelfest-excel-mall"><div class="it">Sluta planera cykelfest i Excel – mallen, och varför det spricker vid 20 par</div><div class="id">Kalkylarkets fem flikar, tre formler som gör grovjobbet – och den ärliga gränsen vid tolv par.</div></a><a class="item" href="/blogg/cykelfest-regler"><div class="it">Cykelfestens regler: 15 regler alla arrangörer borde skriva ner</div><div class="id">De femton reglerna som sitter i väggarna hos rutinerade arrangörer. Kopiera in dem i inbjudan.</div></a><a class="item" href="/blogg/cykelfest-avhopp"><div class="it">Udda antal par, avhopp och sjukdom – så räddar du cykelfestens schema</div><div class="id">Jokerpar, fyrabord och triage när någon hoppar av dagen innan. Krisplanen, sorterad efter tidsbrist.</div></a></div>
+    <div class="cta">
+      <h2>Slipp kalkylbladet helt</h2>
+      <p>Tablehopp lottar lagen, fördelar rätterna, bygger rutterna och håller poängen live — hela cykelfesten planerad i ett knapptryck. Appen lanseras snart.</p>
+      <a class="btn" href="/">Gå med i väntelistan →</a>
+    </div>
+    
+  </div>
+  <p class="foot">Tablehopp · cykelfest-plattformen · Byggd i Uppsala</p>
+</div>
+</body>
+</html>

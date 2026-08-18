@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sluta planera cykelfest i Excel – mallen, och varför det spricker vid 20 par · Tablehopp</title>
+<meta name="description" content="Planera cykelfest i Excel? Kalkylarkets fem flikar, de tre formlerna som gör grovjobbet – och den ärliga gränsen där arket slutar fungera.">
+<link rel="canonical" href="https://tablehopp.app/blogg/cykelfest-excel-mall">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sluta planera cykelfest i Excel – mallen, och varför det spricker vid 20 par">
+<meta property="og:description" content="Planera cykelfest i Excel? Kalkylarkets fem flikar, de tre formlerna som gör grovjobbet – och den ärliga gränsen där arket slutar fungera.">
+<meta property="og:url" content="https://tablehopp.app/blogg/cykelfest-excel-mall">
+<meta property="og:image" content="https://tablehopp.app/assets/img/og-tablehopp-v2.jpg">
+<meta property="og:locale" content="sv_SE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#bfe2f1">
+<link rel="icon" href="/assets/img/tablehopp-logo-email.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"tablehopp.app","item":"https://tablehopp.app/"},{"@type":"ListItem","position":2,"name":"Guider","item":"https://tablehopp.app/blogg"},{"@type":"ListItem","position":3,"name":"Sluta planera cykelfest i Excel – mallen, och varför det spricker vid 20 par","item":"https://tablehopp.app/blogg/cykelfest-excel-mall"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Sluta planera cykelfest i Excel – mallen, och varför det spricker vid 20 par","inLanguage":"sv-SE","mainEntityOfPage":"https://tablehopp.app/blogg/cykelfest-excel-mall","datePublished":"2026-08-18","dateModified":"2026-08-18","author":{"@type":"Organization","name":"Tablehopp","url":"https://tablehopp.app/"},"publisher":{"@type":"Organization","name":"Tablehopp","logo":{"@type":"ImageObject","url":"https://tablehopp.app/assets/img/tablehopp-logo-email.png"}},"description":"Planera cykelfest i Excel? Kalkylarkets fem flikar, de tre formlerna som gör grovjobbet – och den ärliga gränsen där arket slutar fungera."}</script>
+<style>
+  @font-face{font-family:'Boldonse';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/Boldonse-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:'Boldonse';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/Boldonse-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:'Geist';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/gyByhwUxId8gMEwcGFU.woff2) format('woff2')}
+  :root{--ink:#191919;--muted:#43606f;--mark:#EEFF2E;--card:#ffffff;--lav:#b5b6ef;--grn:#9fe6a0}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#bfe2f1;background-image:linear-gradient(180deg,#cfeaf9 0%,#bfe2f1 55%,#aed9ee 100%);min-height:100vh;
+    font-family:'Geist','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;
+    padding:24px 18px 72px;font-size:16.5px;line-height:1.7}
+  .wrap{max-width:720px;margin:0 auto}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+  .back{font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;opacity:.75}
+  .back:hover{opacity:1}
+  .crumb{font-size:13px;font-weight:600;color:var(--muted)}
+  .crumb a{color:var(--muted);text-decoration:none}
+  .crumb a:hover{text-decoration:underline}
+  .card{background:var(--card);border:2px solid var(--ink);border-radius:18px;box-shadow:7px 7px 0 var(--ink);padding:34px 32px;margin:0 0 24px}
+  @media(max-width:560px){.card{padding:26px 20px}}
+  .kicker{display:inline-block;background:var(--lav);border:2px solid var(--ink);border-radius:999px;padding:4px 13px;
+    font-weight:700;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:16px}
+  h1{font-family:'Boldonse','Arial Black',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(24px,4.6vw,34px);line-height:1.5;letter-spacing:-.005em;margin:0 0 10px;text-wrap:balance}
+  .mk{background:var(--mark);padding:0 .13em;border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .meta{font-size:13px;color:var(--muted);margin:0 0 24px;font-weight:600}
+  .lede{font-size:18px;color:#2a4250;margin:0 0 8px}
+  h2{font-family:'Boldonse','Arial Black',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:17.5px;line-height:1.55;margin:34px 0 10px;text-wrap:balance}
+  h3{font-size:16px;font-weight:600;margin:22px 0 6px}
+  p{margin:0 0 12px;max-width:66ch}
+  ul,ol{margin:0 0 14px;padding-left:22px;max-width:64ch}
+  li{margin:0 0 7px}
+  strong{font-weight:600}
+  a{color:var(--ink);font-weight:600;text-underline-offset:2px}
+  .tablewrap{overflow-x:auto;border:2px solid var(--ink);border-radius:12px;margin:14px 0 18px}
+  table{border-collapse:collapse;width:100%;min-width:440px;font-size:14.5px}
+  th{background:#eef6fb;text-align:left;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
+    padding:10px 14px;border-bottom:2px solid var(--ink)}
+  td{padding:9px 14px;border-bottom:1px solid rgba(25,25,25,.14);vertical-align:top;font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:0}
+  .tip{border-left:5px solid var(--mark);background:#fbfef0;border-radius:0 10px 10px 0;padding:13px 16px;margin:16px 0;font-size:15px;max-width:66ch}
+  .tip .t{font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;color:#5c5a10}
+  .copybox{background:#f4fafd;border:2px dashed var(--ink);border-radius:12px;padding:16px 18px;margin:14px 0 18px;font-size:15px;max-width:66ch}
+  .copybox .t{font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;color:var(--muted)}
+  .cta{background:var(--grn);border:2px solid var(--ink);border-radius:16px;box-shadow:6px 6px 0 var(--ink);padding:24px 26px;margin:34px 0 6px}
+  .cta h2{margin:0 0 6px;font-size:17px}
+  .cta p{margin:0 0 14px;font-size:15px}
+  .cta a.btn{display:inline-block;background:var(--mark);border:2px solid var(--ink);border-radius:999px;
+    padding:10px 22px;font-weight:700;font-size:14.5px;text-decoration:none;box-shadow:3px 3px 0 var(--ink)}
+  .cta a.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+  .rel{margin-top:26px;border-top:2px solid var(--ink);padding-top:18px}
+  .rel .t{font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;color:var(--muted)}
+  .rel ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px}
+  .rel li{margin:0}
+  .foot{text-align:center;font-size:12px;color:#3a5663;margin-top:26px;font-weight:500}
+  .cardlist{display:flex;flex-direction:column;gap:16px}
+  .cardlist a.item{display:block;background:var(--card);border:2px solid var(--ink);border-radius:16px;
+    box-shadow:5px 5px 0 var(--ink);padding:20px 24px;text-decoration:none;transition:transform .08s ease}
+  .cardlist a.item:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+  .cardlist .it{font-family:'Boldonse','Arial Black',sans-serif;font-weight:400;text-transform:uppercase;font-size:15.5px;line-height:1.55;margin-bottom:6px}
+  .cardlist .id{font-size:14px;color:var(--muted);font-weight:400;max-width:64ch}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back" href="/">← tablehopp.app</a>
+    <span class="crumb"><a href="/blogg">Guider</a></span>
+  </div>
+  <div class="card">
+    <span class="kicker">Excel-flykten</span>
+    <h1>Cykelfest i Excel: mallen – och <span class="mk">var den spricker</span></h1>
+    <p class="meta">Uppdaterad 18 augusti 2026 · av Tablehopp — appen som planerar hela cykelfesten</p>
+    <p class="lede">Varje svensk cykelfest har samma ursprungsmyt: någons partner som satt med kalkylarket till midnatt. Excel klarar faktiskt en liten cykelfest utmärkt. Här är strukturen som fungerar – och den ärliga gränsen där handkraften tar slut.</p>
+    
+<h2>Arket som fungerar: fem flikar</h2>
+<ol>
+<li><strong>Anmälningar.</strong> En rad per par: namn, adress, telefon, allergier, anmälningsdatum. Inget annat på den här fliken – den är din rådata.</li>
+<li><strong>Lottning.</strong> Parnummer + tilldelad rätt. Med sex par: två förrättsvärdar, två varmrätts, två efterrätts. Regeln: par i samma trappuppgång ska inte ha samma rätt (då äter grannarna aldrig hos varandra).</li>
+<li><strong>Rotationsmatris.</strong> Kvällens kärna – vem äter var, rätt för rätt. Bygg den som ett rutnät: rader = par, kolumner = rätter, celler = värdparets nummer. Ett färdigt exempel finns i <a href="/blogg/cykelfest-schema-lottning">lottningsguiden</a>.</li>
+<li><strong>Utskick.</strong> En rad per par med exakt vad de ska få veta och när: sin rätt, sitt gästantal, sina allergier att ta hänsyn till – och adresserna de får först under kvällen.</li>
+<li><strong>Kvällen.</strong> Tidsschemat med klockslag (kopiera från <a href="/blogg/cykelfest-tidsschema">tidsschema-guiden</a>) och en kolumn för "utskickat ✓".</li>
+</ol>
+
+<h2>Tre formler som gör grovjobbet</h2>
+<ul>
+<li><strong>Dubblettvakten:</strong> räkna för varje par hur många gånger de delar bord med varje annat par. En <code>COUNTIFS</code> över rotationsmatrisen som visar rött vid ≥2 fångar de flesta misstag.</li>
+<li><strong>Bordsräknaren:</strong> <code>COUNTIF</code> per värdcell – varje bord ska ha exakt tre par (värd + två gäster). Fyra betyder felskrivning; två betyder att någon glömts.</li>
+<li><strong>Allergiflödet:</strong> <code>TEXTJOIN</code> som samlar gästernas allergier per värd, så utskicksfliken alltid är i synk med anmälningarna.</li>
+</ul>
+
+<h2>Var det spricker</h2>
+<p>Upp till nio par är arket ett trevligt pussel. Sedan händer tre saker samtidigt:</p>
+<ol>
+<li><strong>Villkoren växer kvadratiskt.</strong> Dubblettvakten jämför alla par mot alla — vid 20 par är det 190 relationer som ska hållas rena över tre rätter, och varje manuell ändring kan förstöra vilken som helst av dem.</li>
+<li><strong>Ändringarna kaskadar.</strong> Ett sent avhopp river inte en rad – det river bord på alla tre rätter, och lagningen skapar ofta nya dubbletter någon annanstans i matrisen. (Det är ett så vanligt haveri att vi skrivit <a href="/blogg/cykelfest-avhopp">en egen guide om det</a>.)</li>
+<li><strong>Geografin syns inte.</strong> Arket vet inte att par 7 och par 12 bor tre kilometer isär. Rutterna får du ändå rita på en karta – för hand.</li>
+</ol>
+<p>Det är ingen slump att båda de gamla svenska planeringsverktygen föddes ur exakt den här frustrationen – "handskrivna lappar eller krångliga Excel-listor", som ett av dem beskriver sitt eget ursprung. Kalkylarket är formatets gemensamma ärr.</p>
+
+<h2>Ärliga rekommendationen</h2>
+<ul>
+<li><strong>6–9 par:</strong> kör Excel med strukturen ovan. Det funkar, och pusslet är halva charmen för en viss sorts arrangör.</li>
+<li><strong>12+ par, eller om du vill ha ledtrådar, poäng och livekarta:</strong> låt mjukvara göra det mjukvara är bra på. <a href="/">Tablehopp</a> lottar utan dubbletter, tar hänsyn till var folk bor, räknar om allt vid avhopp – och du får kvällen i stället för kalkylarket.</li>
+</ul>
+
+    <div class="cta">
+      <h2>Slipp kalkylbladet helt</h2>
+      <p>Tablehopp lottar lagen, fördelar rätterna, bygger rutterna och håller poängen live — hela cykelfesten planerad i ett knapptryck. Appen lanseras snart.</p>
+      <a class="btn" href="/">Gå med i väntelistan →</a>
+    </div>
+    <div class="rel"><div class="t">Läs vidare</div><ul><li><a href="/blogg/cykelfest-regler">Cykelfestens regler: 15 regler alla arrangörer borde skriva ner</a></li><li><a href="/blogg/arrangera-cykelfest">Cykelfest – så funkar det: kompletta guiden för dig som arrangerar</a></li></ul></div>
+  </div>
+  <p class="foot">Tablehopp · cykelfest-plattformen · Byggd i Uppsala</p>
+</div>
+</body>
+</html>

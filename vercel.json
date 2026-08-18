@@ -6,6 +6,14 @@
     {
       "source": "/integritet",
       "destination": "/integritet/index.html"
+    },
+    {
+      "source": "/blogg",
+      "destination": "/blogg/index.html"
+    },
+    {
+      "source": "/blogg/:slug",
+      "destination": "/blogg/:slug/index.html"
     }
   ],
   "redirects": [

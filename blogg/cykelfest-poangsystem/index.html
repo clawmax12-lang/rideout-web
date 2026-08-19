@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Poängsystemet: så bygger du en cykelfest med tävling och topplista · Tablehopp</title>
+<meta name="description" content="Hur bygger man ett poängsystem för cykelfesten? Kategorier, viktning och hur ni håller topplistan levande utan att det blir för seriöst.">
+<link rel="canonical" href="https://tablehopp.app/blogg/cykelfest-poangsystem">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Poängsystemet: så bygger du en cykelfest med tävling och topplista">
+<meta property="og:description" content="Hur bygger man ett poängsystem för cykelfesten? Kategorier, viktning och hur ni håller topplistan levande utan att det blir för seriöst.">
+<meta property="og:url" content="https://tablehopp.app/blogg/cykelfest-poangsystem">
+<meta property="og:image" content="https://tablehopp.app/assets/img/og-tablehopp-v2.jpg">
+<meta property="og:locale" content="sv_SE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#bfe2f1">
+<link rel="icon" href="/assets/img/tablehopp-logo-email.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"tablehopp.app","item":"https://tablehopp.app/"},{"@type":"ListItem","position":2,"name":"Guider","item":"https://tablehopp.app/blogg"},{"@type":"ListItem","position":3,"name":"Poängsystemet: så bygger du en cykelfest med tävling och topplista","item":"https://tablehopp.app/blogg/cykelfest-poangsystem"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Poängsystemet: så bygger du en cykelfest med tävling och topplista","inLanguage":"sv-SE","mainEntityOfPage":"https://tablehopp.app/blogg/cykelfest-poangsystem","datePublished":"2026-08-18","dateModified":"2026-08-18","author":{"@type":"Person","name":"William Svanqvist","jobTitle":"Grundare, Tablehopp","url":"https://tablehopp.app/"},"publisher":{"@type":"Organization","name":"Tablehopp","logo":{"@type":"ImageObject","url":"https://tablehopp.app/assets/img/tablehopp-logo-email.png"}},"description":"Hur bygger man ett poängsystem för cykelfesten? Kategorier, viktning och hur ni håller topplistan levande utan att det blir för seriöst."}</script>
+<style>
+  @font-face{font-family:'Boldonse';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/Boldonse-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:'Boldonse';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/Boldonse-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:'Geist';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/gyByhwUxId8gMEwcGFU.woff2) format('woff2')}
+  :root{--ink:#191919;--muted:#43606f;--mark:#EEFF2E;--card:#ffffff;--lav:#b5b6ef;--grn:#9fe6a0}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#bfe2f1;background-image:linear-gradient(180deg,#cfeaf9 0%,#bfe2f1 55%,#aed9ee 100%);min-height:100vh;
+    font-family:'Geist','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;
+    padding:24px 18px 72px;font-size:16.5px;line-height:1.7}
+  .wrap{max-width:720px;margin:0 auto}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+  .back{font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;opacity:.75}
+  .back:hover{opacity:1}
+  .crumb{font-size:13px;font-weight:600;color:var(--muted)}
+  .crumb a{color:var(--muted);text-decoration:none}
+  .crumb a:hover{text-decoration:underline}
+  .card{background:var(--card);border:2px solid var(--ink);border-radius:18px;box-shadow:7px 7px 0 var(--ink);padding:34px 32px;margin:0 0 24px}
+  @media(max-width:560px){.card{padding:26px 20px}}
+  .kicker{display:inline-block;background:var(--lav);border:2px solid var(--ink);border-radius:999px;padding:4px 13px;
+    font-weight:700;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:16px}
+  h1{font-family:'Boldonse','Arial Black',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:clamp(24px,4.6vw,34px);line-height:1.5;letter-spacing:-.005em;margin:0 0 10px;text-wrap:balance}
+  .mk{background:var(--mark);padding:0 .13em;border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .meta{font-size:13px;color:var(--muted);margin:0 0 24px;font-weight:600}
+  .lede{font-size:18px;color:#2a4250;margin:0 0 8px}
+  h2{font-family:'Boldonse','Arial Black',sans-serif;font-weight:400;text-transform:uppercase;
+    font-size:17.5px;line-height:1.55;margin:34px 0 10px;text-wrap:balance}
+  h3{font-size:16px;font-weight:600;margin:22px 0 6px}
+  p{margin:0 0 12px;max-width:66ch}
+  ul,ol{margin:0 0 14px;padding-left:22px;max-width:64ch}
+  li{margin:0 0 7px}
+  strong{font-weight:600}
+  a{color:var(--ink);font-weight:600;text-underline-offset:2px}
+  .tablewrap{overflow-x:auto;border:2px solid var(--ink);border-radius:12px;margin:14px 0 18px}
+  table{border-collapse:collapse;width:100%;min-width:440px;font-size:14.5px}
+  th{background:#eef6fb;text-align:left;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
+    padding:10px 14px;border-bottom:2px solid var(--ink)}
+  td{padding:9px 14px;border-bottom:1px solid rgba(25,25,25,.14);vertical-align:top;font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:0}
+  .meta .au{font-weight:600;color:var(--ink)}
+  figure{margin:20px 0 22px}
+  figure svg{display:block;width:100%;height:auto;border:2px solid var(--ink);border-radius:12px;background:#fff}
+  figcaption{font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.5}
+  .tip{border-left:5px solid var(--mark);background:#fbfef0;border-radius:0 10px 10px 0;padding:13px 16px;margin:16px 0;font-size:15px;max-width:66ch}
+  .tip .t{font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;color:#5c5a10}
+  .copybox{background:#f4fafd;border:2px dashed var(--ink);border-radius:12px;padding:16px 18px;margin:14px 0 18px;font-size:15px;max-width:66ch}
+  .copybox .t{font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;color:var(--muted)}
+  .cta{background:var(--grn);border:2px solid var(--ink);border-radius:16px;box-shadow:6px 6px 0 var(--ink);padding:24px 26px;margin:34px 0 6px}
+  .cta h2{margin:0 0 6px;font-size:17px}
+  .cta p{margin:0 0 14px;font-size:15px}
+  .cta a.btn{display:inline-block;background:var(--mark);border:2px solid var(--ink);border-radius:999px;
+    padding:10px 22px;font-weight:700;font-size:14.5px;text-decoration:none;box-shadow:3px 3px 0 var(--ink)}
+  .cta a.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+  .rel{margin-top:26px;border-top:2px solid var(--ink);padding-top:18px}
+  .rel .t{font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;color:var(--muted)}
+  .rel ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px}
+  .rel li{margin:0}
+  .foot{text-align:center;font-size:12px;color:#3a5663;margin-top:26px;font-weight:500}
+  .cardlist{display:flex;flex-direction:column;gap:16px}
+  .cardlist a.item{display:block;background:var(--card);border:2px solid var(--ink);border-radius:16px;
+    box-shadow:5px 5px 0 var(--ink);padding:20px 24px;text-decoration:none;transition:transform .08s ease}
+  .cardlist a.item:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+  .cardlist .it{font-family:'Boldonse','Arial Black',sans-serif;font-weight:400;text-transform:uppercase;font-size:15.5px;line-height:1.55;margin-bottom:6px}
+  .cardlist .id{font-size:14px;color:var(--muted);font-weight:400;max-width:64ch}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back" href="/">← tablehopp.app</a>
+    <span class="crumb"><a href="/blogg">Guider</a></span>
+  </div>
+  <div class="card">
+    <span class="kicker">Poäng &amp; tävling</span>
+    <h1>Poängsystemet som gör kvällen till <span class="mk">ett spel</span></h1>
+    <p class="meta">Uppdaterad 18 augusti 2026 · av <span class="au">William Svanqvist</span>, grundare av Tablehopp — appen som planerar hela cykelfesten</p>
+    <p class="lede">Ledtrådar, lekar och en gemensam topplista förvandlar en cykelfest till något mer — men bara om poängen är balanserade. Ett system som premierar fel saker (bara snabbhet, till exempel) river sönder stämningen. Här är hur ni bygger ett som faktiskt håller kvällen kul för alla, oavsett placering.</p>
+    
+<h2>Varför poäng överhuvudtaget?</h2>
+<p>Poäng ger kvällen en gemensam berättelse — något att prata om vid nästa bord, en spänning inför prisutdelningen på efterfesten. Men syftet är socialt, inte sportsligt: den bästa cykelfesten är den där sällskapet på sista platsen haft lika roligt som vinnarna.</p>
+
+<h2>Kategorierna som faktiskt fungerar</h2>
+<p>Blanda kategorier så att olika styrkor belönas — annars vinner alltid samma sorts sällskap:</p>
+<div class="tablewrap"><table>
+<tr><th>Kategori</th><th>Vad den mäter</th><th>Ungefärlig vikt</th></tr>
+<tr><td>Ledtrådslösning</td><td>Hur snabbt sällskapet knäcker gåtan till nästa adress</td><td>40%</td></tr>
+<tr><td>Minitävlingar</td><td>Långsamcykling, korvsnappet, fotouppdrag — se <a href="/blogg/cykelfest-lekar-ledtradar">lekguiden</a></td><td>25%</td></tr>
+<tr><td>Kreativitet</td><td>Temaefterlevnad, roligaste svaret på en fråga, bästa foto</td><td>20%</td></tr>
+<tr><td>Punktlighet</td><td>Ankomst inom tidsfönstret för varje rätt</td><td>15%</td></tr>
+</table></div>
+<p>Notera att <strong>ren snabbhet väger under hälften.</strong> Ett sällskap som cyklar fort men löser ledtrådar dåligt ska inte automatiskt vinna — annars blir kvällen ett lopp i stället för en fest.</p>
+<figure>
+<svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="pt">
+<title id="pt">Poängflödet genom kvällen</title>
+<style>
+  .lbl{font:700 12px 'Inter',system-ui,sans-serif;fill:#191919}
+  .sub{font:600 10.5px 'Inter',system-ui,sans-serif;fill:#43606f}
+  .pct{font:800 15px 'Inter',system-ui,sans-serif;fill:#191919}
+  .box{stroke:#191919;stroke-width:2}
+  .arrow{stroke:#191919;stroke-width:2;fill:none;marker-end:url(#ah)}
+</style>
+<defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+<path d="M0,0 L8,4 L0,8 z" fill="#191919"/></marker></defs>
+<rect x="14" y="30" width="128" height="92" rx="12" class="box" fill="#EEFF2E"/>
+<text x="78" y="58" text-anchor="middle" class="lbl">Ledtrådslösning</text>
+<text x="78" y="76" text-anchor="middle" class="sub">tid till adress</text>
+<text x="78" y="102" text-anchor="middle" class="pct">40%</text>
+
+<rect x="170" y="30" width="128" height="92" rx="12" class="box" fill="#b5b6ef"/>
+<text x="234" y="58" text-anchor="middle" class="lbl">Minitävlingar</text>
+<text x="234" y="76" text-anchor="middle" class="sub">lekar mellan stopp</text>
+<text x="234" y="102" text-anchor="middle" class="pct">25%</text>
+
+<rect x="326" y="30" width="128" height="92" rx="12" class="box" fill="#9fe6a0"/>
+<text x="390" y="58" text-anchor="middle" class="lbl">Kreativitet</text>
+<text x="390" y="76" text-anchor="middle" class="sub">tema, foto, svar</text>
+<text x="390" y="102" text-anchor="middle" class="pct">20%</text>
+
+<rect x="482" y="30" width="128" height="92" rx="12" class="box" fill="#bfe2f1"/>
+<text x="546" y="58" text-anchor="middle" class="lbl">Punktlighet</text>
+<text x="546" y="76" text-anchor="middle" class="sub">ankomst i tid</text>
+<text x="546" y="102" text-anchor="middle" class="pct">15%</text>
+
+<path d="M78,122 L78,150 L546,150 L546,150" class="arrow" style="marker-end:none"/>
+<path d="M78,122 L78,150" class="arrow" style="marker-end:none"/>
+<path d="M234,122 L234,150" class="arrow" style="marker-end:none"/>
+<path d="M390,122 L390,150" class="arrow" style="marker-end:none"/>
+<path d="M546,122 L546,150" class="arrow" style="marker-end:none"/>
+<path d="M78,150 L546,150" stroke="#191919" stroke-width="2" fill="none"/>
+<path d="M312,150 L312,178" class="arrow"/>
+<rect x="212" y="178" width="200" height="34" rx="17" class="box" fill="#191919"/>
+<text x="312" y="200" text-anchor="middle" font="800 13px 'Inter',system-ui,sans-serif" fill="#fff">Gemensam topplista</text>
+</svg>
+<figcaption>Så viktas poängen genom kvällen — ren snabbhet (punktlighet) väger bara 15%, ledtrådslösning och kreativitet väger tyngre.</figcaption>
+</figure>
+
+<h2>Hur poängen samlas in i praktiken</h2>
+<ul>
+<li><strong>En poängansvarig per rätt.</strong> Värdparet för den rätten antecknar minitävlingsresultat och kreativitetspoäng innan gästerna cyklar vidare.</li>
+<li><strong>Ledtrådstiden mäts vid avslöjandet.</strong> Notera klockslaget adressen skickades ut och när sällskapet dyker upp — differensen ger ledtrådspoängen.</li>
+<li><strong>Ett gemensamt protokoll</strong> (ett delat dokument, eller en enkel lapp som cirkulerar) håller allt samlat till efterfesten.</li>
+<li><strong>Räkna aldrig ut totalen förrän alla är på plats.</strong> Spänningen inför avslöjandet är hälften av nöjet.</li>
+</ul>
+
+<h2>Undvik de här tre felen</h2>
+<ol>
+<li><strong>Att göra det för seriöst.</strong> Om folk börjar bråka om poängräkningen har systemet tagit över festen. Håll det lekfullt — runda poäng uppåt vid tveksamma fall.</li>
+<li><strong>Att bara mäta en sak.</strong> Ett system som enbart belönar snabbhet gör kvällen till stress i stället för äventyr.</li>
+<li><strong>Att glömma bort de sista platserna.</strong> Ge alltid ett pris för något annat än förstaplatsen — "kvällens mest kreativa lösning" eller "bästa comeback" håller alla investerade hela vägen.</li>
+</ol>
+
+<h2>Prisutdelningen</h2>
+<p>Gör den kort och rolig, inte högtidlig. Symboliska priser (en handskriven diplom, en medalj av kartong) fungerar bättre än något dyrt — poängen är erkännandet, inte vinsten. Se <a href="/blogg/cykelfest-lekar-ledtradar">lekguiden</a> för fler idéer till kategorierna.</p>
+
+<h2>Ett räkneexempel: en full kväll för ett sällskap</h2>
+<p>Så kan poängen se ut för ett enskilt sällskap genom kvällens tre rätter:</p>
+<div class="tablewrap"><table>
+<tr><th>Moment</th><th>Max poäng</th><th>Exempel: sällskap A</th></tr>
+<tr><td>Ledtråd 1 (förrätt)</td><td>40</td><td>32 (löste på 6 min)</td></tr>
+<tr><td>Minitävling 1</td><td>25</td><td>20 (andraplats i långsamcykling)</td></tr>
+<tr><td>Ledtråd 2 (varmrätt)</td><td>40</td><td>40 (löste direkt)</td></tr>
+<tr><td>Kreativitet (tema)</td><td>20</td><td>18</td></tr>
+<tr><td>Ledtråd 3 (efterrätt)</td><td>40</td><td>25 (behövde en extra hint)</td></tr>
+<tr><td>Punktlighet (alla tre)</td><td>15×3=45</td><td>45 (alltid i tid)</td></tr>
+<tr><td><strong>Totalt</strong></td><td><strong>210</strong></td><td><strong>180</strong></td></tr>
+</table></div>
+<p>Ett enkelt sätt att presentera resultatet: räkna om till procent av max (180/210 ≈ 86%) så att sällskap som missat en enskild kategori inte känns utslagna av en enda sifferskillnad.</p>
+
+<h2>En enklare variant om ni inte vill räkna alls</h2>
+<p>Tycker ni att fyra kategorier känns för mycket administration, går det utmärkt med en enda gemensam poängpott: en poäng per löst ledtråd, en poäng per minitävling — inget mer. Enklare att hålla reda på, men ger mindre variation i vem som vinner.</p>
+
+<h2>Vanliga frågor om poängsystemet</h2>
+<h3>Måste vi ha poäng alls?</h3>
+<p>Nej. Många cykelfester körs helt utan poäng och tävlingsmoment — se <a href="/blogg/arrangera-cykelfest">kompletta guiden</a> för grundupplägget utan spelelement. Poäng är ett tillval för sällskap som gillar lite extra tävlingskänsla.</p>
+<h3>Vad händer vid oavgjort?</h3>
+<p>Dela förstaplatsen, eller låt en snabb tilläggsfråga (musikquiz-fråga, till exempel) avgöra på efterfesten — gör det till ett skämt, inte en tvist.</p>
+<h3>Bör barn och vuxna ha samma poängsystem?</h3>
+<p>Om festen är åldersblandad, vikta gärna ner de fysiska minitävlingarna och upp kreativitet och ledtrådslösning — det jämnar ut chanserna bättre.</p>
+<div class="tip"><div class="t">Poängen räknas live i appen</div>
+Tablehopp håller en gemensam topplista som uppdateras i realtid genom hela kvällen — ingen lapp som cirkulerar, ingen manuell sammanräkning på efterfesten. Alla ser samma sak samtidigt.</div>
+
+    <div class="cta">
+      <h2>Slipp kalkylbladet helt</h2>
+      <p>Tablehopp lottar lagen, fördelar rätterna, bygger rutterna och håller poängen live — hela cykelfesten planerad i ett knapptryck. Appen lanseras snart.</p>
+      <a class="btn" href="/">Gå med i väntelistan →</a>
+    </div>
+    <div class="rel"><div class="t">Läs vidare</div><ul><li><a href="/blogg/cykelfest-varmratt-snabb">Varmrätt till cykelfest: 12 rätter du förbereder dagen innan och blir klar med på 10 minuter</a></li><li><a href="/blogg/cykelfest-allergier">Allergier och specialkost på cykelfest: så samlar du in behoven och fördelar rätterna rätt</a></li></ul></div>
+  </div>
+  <p class="foot">Tablehopp · cykelfest-plattformen · Byggd i Uppsala</p>
+</div>
+</body>
+</html>

@@ -73,6 +73,23 @@ Där är vi "syns ej" idag — allt utom noll är framsteg.
 
 ---
 
+## Händelselogg
+
+Referenspunkter som behövs för att tolka mätserien.
+
+| Datum | Händelse |
+|---|---|
+| 2026-08-18 | Baslinje mätt (se ovan) — före utrullning |
+| 2026-08-18 | **Utrullning live**: JSON-LD, embed-noindex, meta-trim, /blogg med 8 sidor. Sitemap 1 → 9 URL:er |
+| 2026-08-18 | **Google Search Console verifierad** (Domän-egendom, DNS-TXT via Vercel) |
+| 2026-08-18 | **sitemap.xml inskickad** i Search Console |
+
+Notera för framtida tolkning: Search Console har ingen historik före verifieringsdatumet. All
+prestandadata börjar 2026-08-18 — det går alltså inte att jämföra mot tiden före utrullningen där.
+Det är därför baslinjen ovan finns.
+
+---
+
 ## Mätpunkt 2 — (fylls i)
 
 *Kör om exakt samma tabell ovan och notera skillnaden mot baslinjen.*

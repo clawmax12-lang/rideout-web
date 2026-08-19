@@ -83,6 +83,7 @@ Referenspunkter som behövs för att tolka mätserien.
 | 2026-08-18 | **Utrullning live**: JSON-LD, embed-noindex, meta-trim, /blogg med 8 sidor. Sitemap 1 → 9 URL:er |
 | 2026-08-18 | **Google Search Console verifierad** (Domän-egendom, DNS-TXT via Vercel) |
 | 2026-08-18 | **sitemap.xml inskickad** i Search Console |
+| 2026-08-19 | **Innehållsvåg 2 live** (PR #61): 10 nya djupguider (lekar/ledtrådar, tema, poängsystem, snabb varmrätt, allergier, alkohol/hjälm/ansvar, budget, BRF/villaförening, namn-hub dinnersafari/matstafett, grannfest-vinkel). Sitemap 9 → 19 URL:er. Startsidan orörd förutom fotlänksblocket (6 → 7 länkar) |
 
 Notera för framtida tolkning: Search Console har ingen historik före verifieringsdatumet. All
 prestandadata börjar 2026-08-18 — det går alltså inte att jämföra mot tiden före utrullningen där.

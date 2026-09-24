@@ -1,0 +1,164 @@
+{
+  "_comment": "Batch 1 (hero, section 2, meta). Applied by tools/apply-copy.mjs onto the PRISTINE files from origin/main. Each entry's 'files' counts were hand-verified against index.html and the page bundle before being written here; the apply script re-verifies them at run time and refuses to apply on a mismatch.",
+  "simple": [
+    {
+      "id": "meta-title",
+      "old": "Tablehopp — cykelfest-plattformen",
+      "new": "Tablehopp: app för cykelfest, pubrunda och nollning",
+      "files": {
+        "index.html": 5,
+        "assets/scripts/shared-lib.Cz7fyOg9.mjs": 1
+      }
+    },
+    {
+      "id": "meta-description",
+      "old": "Tablehopp planerar hela cykelfesten i ett knapptryck – lag, rutter, ledtrådar och poäng i realtid. Förrätt hos en granne, varmrätt hos nästa.",
+      "new": "Du arrangerar festen, Tablehopp sköter resten. Bygg kvällen i appen med lag, schema, uppgifter och topplista. Gästerna går med via en länk.",
+      "files": {
+        "index.html": 4,
+        "assets/scripts/shared-lib.Cz7fyOg9.mjs": 1
+      }
+    },
+    {
+      "id": "hero-h1",
+      "old": "Hela cykelfesten. Planerad i ett knapptryck.",
+      "new": "Du arrangerar festen. Tablehopp sköter resten.",
+      "files": {
+        "index.html": 2,
+        "assets/scripts/8GPhkq_ajAaqmVWr1e--kPgfrz0uq8JyBIQFPGNzu9w.C0NccTdT.mjs": 2
+      }
+    },
+    {
+      "id": "section2-heading",
+      "old": "Okej, men vad är det egentligen?",
+      "new": "Okej, men hur funkar det?",
+      "files": {
+        "index.html": 1,
+        "assets/scripts/8GPhkq_ajAaqmVWr1e--kPgfrz0uq8JyBIQFPGNzu9w.C0NccTdT.mjs": 1
+      }
+    },
+    {
+      "id": "section2-paragraph",
+      "old": "Tänk vanlig middag, fast utspridd över kvarteret. Varje rätt äts hemma hos olika värdar, och mellan rätterna tar ni cykeln dit. Ni vet inte var nästa stopp ligger förrän ni löst kvällens ledtråd.",
+      "new": "Varje gruppkväll har samma delar: lag, stopp, ett schema och någon som håller i allt. Tablehopp samlar dem i en app, så att gästerna vet vad som gäller utan att fråga dig.",
+      "files": {
+        "index.html": 2,
+        "assets/scripts/8GPhkq_ajAaqmVWr1e--kPgfrz0uq8JyBIQFPGNzu9w.C0NccTdT.mjs": 2
+      }
+    },
+    {
+      "id": "card1-heading",
+      "old": ">Cykla<",
+      "new": ">Bygg<",
+      "files": { "index.html": 1 }
+    },
+    {
+      "id": "card1-heading-bundle",
+      "old": "`Cykla`",
+      "new": "`Bygg`",
+      "files": { "assets/scripts/8GPhkq_ajAaqmVWr1e--kPgfrz0uq8JyBIQFPGNzu9w.C0NccTdT.mjs": 5 }
+    },
+    {
+      "id": "card1-subtitle",
+      "old": "Korta sträckor mellan stoppen. Precis lagom efter en tallrik mat.",
+      "new": "Sätt ihop kvällen i kontrollrummet. Program, lag och stopp på ett ställe.",
+      "files": {
+        "index.html": 4,
+        "assets/scripts/8GPhkq_ajAaqmVWr1e--kPgfrz0uq8JyBIQFPGNzu9w.C0NccTdT.mjs": 5
+      }
+    },
+    {
+      "id": "card2-heading",
+      "old": ">Äta<",
+      "new": ">Bjud in<",
+      "files": { "index.html": 1 }
+    },
+    {
+      "id": "card2-heading-bundle",
+      "old": "`Äta`",
+      "new": "`Bjud in`",
+      "files": { "assets/scripts/8GPhkq_ajAaqmVWr1e--kPgfrz0uq8JyBIQFPGNzu9w.C0NccTdT.mjs": 1 }
+    },
+    {
+      "id": "card2-subtitle",
+      "old": "En rätt per värd. Ingen lagar allt, alla bjuder på något.",
+      "new": "Dela en länk eller kod. Inga kuvert, inga lappar.",
+      "files": {
+        "index.html": 1,
+        "assets/scripts/8GPhkq_ajAaqmVWr1e--kPgfrz0uq8JyBIQFPGNzu9w.C0NccTdT.mjs": 1
+      }
+    },
+    {
+      "id": "card3-heading",
+      "old": ">Gissa &amp; tävla<",
+      "new": ">Tävla<",
+      "files": { "index.html": 1 }
+    },
+    {
+      "id": "card3-heading-bundle",
+      "old": "`Gissa & tävla`",
+      "new": "`Tävla`",
+      "files": { "assets/scripts/8GPhkq_ajAaqmVWr1e--kPgfrz0uq8JyBIQFPGNzu9w.C0NccTdT.mjs": 1 }
+    },
+    {
+      "id": "card3-subtitle",
+      "old": "Ledtrådar avslöjar nästa adress. Poäng plockar ni på vägen.",
+      "new": "Uppgifter, quiz och en topplista som uppdateras under kvällen.",
+      "files": {
+        "index.html": 1,
+        "assets/scripts/8GPhkq_ajAaqmVWr1e--kPgfrz0uq8JyBIQFPGNzu9w.C0NccTdT.mjs": 1
+      }
+    }
+  ],
+  "_offset_note": "The remaining two homepage strings each drive TWO different visible things (a Hero-section badge and an unrelated tag under the testimonial share the word 'Cykelfest'; a Section-2 badge and its own Section-2 button share 'Vad är en cykelfest?'). Plain replace-all would corrupt the one we don't mean to touch, so these are anchored to a verified-unique surrounding snippet instead of the bare word. See apply-copy.mjs 'anchored' list.",
+  "anchored": [
+    {
+      "id": "hero-badge",
+      "note": "Hero Section's green 'CYKELFEST' ribbon. NOT the 'Cykelfest' tag under the testimonial in Quote Section, which must stay untouched.",
+      "files": {
+        "index.html": {
+          "old": "data-nce-sid=\"6kga2k\"><p class=\"framer-text framer-styles-preset-r7xmt9\" data-styles-preset=\"RnIYHMTgX\" dir=\"auto\" style=\"--framer-text-color:var(--extracted-r6o4lv, var(--token-6cbb4043-96fb-4c58-b734-e813ac21bc15, rgb(26, 26, 26)))\">Cykelfest</p>",
+          "new": "data-nce-sid=\"6kga2k\"><p class=\"framer-text framer-styles-preset-r7xmt9\" data-styles-preset=\"RnIYHMTgX\" dir=\"auto\" style=\"--framer-text-color:var(--extracted-r6o4lv, var(--token-6cbb4043-96fb-4c58-b734-e813ac21bc15, rgb(26, 26, 26)))\">För arrangörer</p>",
+          "count": 1
+        },
+        "assets/scripts/8GPhkq_ajAaqmVWr1e--kPgfrz0uq8JyBIQFPGNzu9w.C0NccTdT.mjs": {
+          "old": "style:{rotate:15},children:d(de,{eR94JgSCb:`Cykelfest`",
+          "new": "style:{rotate:15},children:d(de,{eR94JgSCb:`För arrangörer`",
+          "count": 1
+        }
+      }
+    },
+    {
+      "id": "section2-badge",
+      "note": "Section 2's pink 'VAD ÄR EN CYKELFEST?' ribbon. Distinct from the button below it, which shares the same original text (see section2-button).",
+      "files": {
+        "index.html": {
+          "old": "data-framer-name=\"Corporate Event\" data-framer-component-type=\"RichTextContainer\" style=\"transform:none;opacity:1\" data-nce-sid=\"6kga2k\"><p class=\"framer-text framer-styles-preset-r7xmt9\" data-styles-preset=\"RnIYHMTgX\" dir=\"auto\" style=\"--framer-text-color:var(--extracted-r6o4lv, var(--token-6cbb4043-96fb-4c58-b734-e813ac21bc15, rgb(26, 26, 26)))\">Vad är en cykelfest?</p>",
+          "new": "data-framer-name=\"Corporate Event\" data-framer-component-type=\"RichTextContainer\" style=\"transform:none;opacity:1\" data-nce-sid=\"6kga2k\"><p class=\"framer-text framer-styles-preset-r7xmt9\" data-styles-preset=\"RnIYHMTgX\" dir=\"auto\" style=\"--framer-text-color:var(--extracted-r6o4lv, var(--token-6cbb4043-96fb-4c58-b734-e813ac21bc15, rgb(26, 26, 26)))\">Så funkar det</p>",
+          "count": 1
+        },
+        "assets/scripts/8GPhkq_ajAaqmVWr1e--kPgfrz0uq8JyBIQFPGNzu9w.C0NccTdT.mjs": {
+          "old": "nodeId:`U7Ae48Lh6`,rendersWithMotion:!0,scopeId:`augiA20Il`,style:{rotate:15},children:d(de,{eR94JgSCb:`Vad är en cykelfest?`",
+          "new": "nodeId:`U7Ae48Lh6`,rendersWithMotion:!0,scopeId:`augiA20Il`,style:{rotate:15},children:d(de,{eR94JgSCb:`Så funkar det`",
+          "count": 1
+        }
+      }
+    },
+    {
+      "id": "section2-button-text",
+      "note": "The button text only. Its href/CTA-hijack behavior is fixed separately by the ro-explainer-cta script, not by this map, because the href is Framer-internal link data, not a literal string.",
+      "files": {
+        "index.html": {
+          "old": "data-styles-preset=\"IYO7huN_v\" dir=\"auto\" style=\"--framer-text-color:var(--extracted-r6o4lv, var(--token-6cbb4043-96fb-4c58-b734-e813ac21bc15, rgb(26, 26, 26)))\">Vad är en cykelfest?</p>",
+          "new": "data-styles-preset=\"IYO7huN_v\" dir=\"auto\" style=\"--framer-text-color:var(--extracted-r6o4lv, var(--token-6cbb4043-96fb-4c58-b734-e813ac21bc15, rgb(26, 26, 26)))\">Guider för arrangörer</p>",
+          "count": 1
+        },
+        "assets/scripts/8GPhkq_ajAaqmVWr1e--kPgfrz0uq8JyBIQFPGNzu9w.C0NccTdT.mjs": {
+          "old": "N3nFBmVf0:e[0],variant:$(`oxVDXZcKa`),width:`100%`,x31YSF4sj:`Vad är en cykelfest?`",
+          "new": "N3nFBmVf0:e[0],variant:$(`oxVDXZcKa`),width:`100%`,x31YSF4sj:`Guider för arrangörer`",
+          "count": 1
+        }
+      }
+    }
+  ]
+}

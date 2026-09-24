@@ -7,6 +7,11 @@ Status: underlag för beslut. Ingen copy är skriven, ingenting är ändrat på 
 > domänen, se rad F1. Innan den här filen når `main` måste `.md`-filer stängas av, annars
 > blir den läsbar på `https://tablehopp.app/docs/gap-analys.md`.
 
+> **Rättelse 2026-09-24.** Citatet i sektionen "Socialt bevis" är enligt William ett verkligt
+> omdöme från en deltagare på Kaninens Cykelfest i Sunnersta, Uppsala. Den ursprungliga
+> analysen kallade det påhittat. Det var fel, och de raderna är rättade nedan. Dokumentet
+> beskriver i övrigt läget den 19 september, och en del har ändrats sedan dess.
+
 ---
 
 ## Sammanfattning
@@ -15,13 +20,11 @@ Sajten säljer en färdig, självbetjänad app med kunder. Det som finns är en 
 tjänst utan betalande kunder, och en app som enligt ditt beslut inte ska presenteras som
 släppt.
 
-Tre saker är allvarligast, och alla tre är synliga för vem som helst utan att klicka:
+Två saker är allvarligast, och båda är synliga för vem som helst utan att klicka:
 
-1. En hel skärmhög sektion märkt **SOCIALT BEVIS** med ett påhittat kundcitat som uttryckligen
-   påstår att en fest **arrangerats via appen**.
-2. Hjältesektionen visar **"Gå med 23+ andra på väntelistan"** med tre ansiktsbilder. Siffran 23
-   är hårdkodad och läggs ovanpå de verkliga anmälningarna.
-3. Två knappar, **LADDA NER FÖR IPHONE** och **LADDA NER FÖR ANDROID**, säger att appen går att
+1. Hjältesektionen visar **"Gå med X+ andra på väntelistan"** med tre ansiktsbilder. X är de
+   verkliga anmälningarna plus en hårdkodad 23.
+2. Två knappar, **LADDA NER FÖR IPHONE** och **LADDA NER FÖR ANDROID**, säger att appen går att
    hämta i dag. Det motsäger väntelistan på samma sida, och Android-appen finns inte alls.
 
 Utöver det ligger två främmande mallsajter publikt på domänen. `/archive/index.original.html`
@@ -68,10 +71,10 @@ Allvarlighetsgrad:
 
 | Vad sajten lovar idag | Vad som faktiskt säljs | Konsekvens om en kund läser detta |
 |---|---|---|
-| **[S1, synligt]** Hela sektionen märkt "Socialt bevis": ”Fantastisk app. Hela festen gick som en väloljad tävlingscykel på vätternrundan.” attribuerat "— deltagare av cykelfest som arrangerats via appen" | Noll betalande kunder. Ingen fest har arrangerats via en såld app. Citatet kommer inte från en kund | Det tar en hel skärm och dess enda syfte är att bevisa att andra använt produkten. Påståendet är inte vagt, det säger att en fest arrangerats via appen. Upptäcks det faller allt annat på sajten med, även det som är sant |
+| **[Rättad 24 sep]** Sektionen märkt "Socialt bevis": ”Fantastisk app. Hela festen gick som en väloljad tävlingscykel på vätternrundan.” attribuerat "— deltagare av cykelfest som arrangerats via appen" | Enligt William ett verkligt omdöme från en deltagare på Kaninens Cykelfest i Sunnersta, Uppsala. Raden stod först som påhittad, vilket var fel | Inget gap i sak |
 | **[S1, synligt]** "Gå med **23**+ andra på väntelistan", med tre ansiktsbilder bredvid | `COUNT_BASE = 23` är hårdkodat och adderas till de verkliga anmälningarna. Repots egna anteckningar anger 6 verkliga anmälningar. Bilderna föreställer inte de som anmält sig | Det är den första siffran en besökare möter. Frågar en kund hur många som står i kön går den inte att svara på ärligt. En kommentar i koden kallar det rakt ut för "social-proof baseline" |
 | **[S1, synligt]** Galleriet under rubriken "De bästa stunderna från kvällen" | Bilderna är generiska stockbilder, inte dokumentation av genomförda fester. Den första visar Stockholm, trots att sajten säger Uppsala | Bestämd form, "kvällen", läses som en specifik fest som ägt rum. Det är samma slags påstående som citatet, fast i bildform |
-| **[S1, synligt]** "En cykelfest för 60 personer brukade kosta 75+ timmar logistik, 200 meddelanden och en utbränd arrangör. Tills nu." | Ingen källa, ingen mätning, inget datum. Siffrorna är påhittade | Det är sajtens enda kvantifiering av problemet. En arrangör som själv planerat en fest vet att 75 timmar är fel storleksordning, och slutar då lita på resten av sidan |
+| **[S1, synligt]** "En cykelfest för 60 personer brukade kosta 75+ timmar logistik, 200 meddelanden och en utbränd arrangör. Tills nu." | Ingen källa, ingen mätning, inget datum | Det är sajtens enda kvantifiering av problemet, och den går inte att belägga om en kund frågar var siffran kommer ifrån |
 | **[S2, synligt]** H1: "Hela cykelfesten. Planerad i ett knapptryck." | Du sätter upp varje fest manuellt åt kunden i dag. Det finns inget knapptryck | Det är hela positioneringen, och det första en kund läser. Varje säljsamtal måste börja med att korrigera rubriken |
 | **[S2, synligt]** Knapparna "LADDA NER FÖR IPHONE" och "LADDA NER FÖR ANDROID" i CTA-sektionen | Appen ska enligt ditt beslut inte presenteras som släppt. Någon Android-app finns inte | Två knappar säger att produkten finns att hämta nu, tre skärmar under en väntelista som säger motsatsen. Klicket är omdirigerat till väntelistan, men texten är ändå påståendet. Android-löftet går inte att infria alls |
 | **[S2, synligt]** Mockupen visar ett app-gränssnitt med "Info om mitt lag", "Info om värdskap & uppdrag", "Info om min förrätt" | Visar en färdig produkt som en kund inte kan få tillgång till | Skärmbilden är det starkaste beviset på att appen finns och är klar. Den motsäger väntelistan mer än någon text gör |
@@ -94,7 +97,7 @@ HTML-svaret. Det syns i visa källa, för crawlers och LLM-botar, och om JS fall
 | Vad sajten lovar idag | Vad som faktiskt säljs | Konsekvens om en kund läser detta |
 |---|---|---|
 | **[S2, dolt]** Hela prissektionen: "Upp till 30 / 595 kr / fest", "31–60 / 895 kr", "61–100 / 1 395 kr", med "Välj"-knappar och rubriken "Ett pris per fest. Inget abonnemang." | Priset är inte beslutat, och abonnemanget som förnekas är en av de två tänkta vägarna | Sektionen är gömd men ligger kvar i det levererade svaret. Samma priser är dessutom synliga via FAQ, så borttagningen är ofullständig och ger falsk trygghet |
-| **[S1, dolt]** "Kaninens Cykelfest 2025" som attribution till citatet | Namnger ett verkligt evenemang som källa för ett omdöme som inte kommer därifrån | Om sektionen någonsin visas igen namnges ett riktigt arrangemang som referenskund |
+| **[Rättad 24 sep]** "Kaninens Cykelfest 2025" som attribution till citatet | Namnger festen där omdömet kommer ifrån, enligt William | Inget gap i sak |
 | **[S1, dolt]** Knappen "Läs fler berättelser" | Det finns inga berättelser | Antyder en samling kundberättelser bakom länken |
 | **[S4, dolt]** "GRAB IT NOW" och "More Templates" | Framers mallreklam, inte Tablehopps text | Engelsk mallreklam i det levererade svaret på en svensk sajt |
 | **[S4, i källan]** "Warm regards" i Quote Section, ersätts vid körning av manifestet | Mallrest | Syns i visa källa och för den som läser rå HTML |
@@ -190,18 +193,13 @@ fyra.
 
 ### 1. Vilket enskilt påstående är mest fel, och vad kostar det
 
-Sektionen märkt "Socialt bevis" med citatet ”Fantastisk app. Hela festen gick som en väloljad
-tävlingscykel på vätternrundan.” attribuerat till "deltagare av cykelfest som arrangerats via
-appen". Den är mest fel därför att den inte överdriver något som finns, utan hittar på en
-händelse och en persons ord om den, i en sektion vars enda funktion är att bevisa att andra
-redan använt produkten, samtidigt som antalet kunder är noll. Den är synlig utan att någon
-behöver klicka och tar en hel skärmhöjd. Kostnaden är att den inte går att förklara bort i ett
-säljsamtal. Ett för högt pris kan förhandlas och ett oklart löfte kan förtydligas, men en kund
-som förstår att omdömet är påhittat har inget skäl kvar att tro på resten av sajten, inklusive
-det som faktiskt är sant om produkten. Närmast efter kommer "23+ andra på väntelistan", som är
-samma sorts fel i sifferform och dessutom det första besökaren ser. Dyrast över tid är dock
-rubriken "planerad i ett knapptryck", eftersom den är fel i varje enskilt samtal och tvingar
-varje möte att börja med en korrigering.
+*Rättat 24 sep. Det ursprungliga svaret pekade på citatet i "Socialt bevis" och byggde på att
+det var påhittat. Det stämmer inte, se rättelsen överst.*
+
+Rubriken "Hela cykelfesten. Planerad i ett knapptryck." Den är fel i varje enskilt samtal:
+uppsättningen tar minuter, inte ett knapptryck, och rubriken låser produkten vid ett enda
+format. Kostnaden är att varje möte måste börja med en korrigering av det första kunden läste,
+och en kund som får rätta sin första förväntan läser resten av sajten mer skeptiskt.
 
 ### 2. Vem sajten säger att köparen är, mot vem köparen faktiskt är
 
@@ -219,17 +217,16 @@ storlek på sällskap.
 
 ### 3. Vad sajten antyder om skala, användning och traction som inte är sant
 
-Sammanlagt elva separata signaler antyder en produkt i drift med användare. Synligt på
-startsidan: väntelistans "23+", tre ansiktsbilder bredvid siffran, kundcitatet, attributionen
-till "cykelfest som arrangerats via appen", galleriet "De bästa stunderna från kvällen" med
-stockbilder, och siffrorna "75+ timmar" och "200 meddelanden". Dolt men levererat: "Kaninens
-Cykelfest 2025" och knappen "Läs fler berättelser", som antyder en hel samling kundberättelser.
+Flera separata signaler antyder en större användning än den som finns. Synligt på
+startsidan: väntelistans siffra, tre ansiktsbilder bredvid den, galleriet "De bästa stunderna
+från kvällen" med stockbilder, och siffrorna "75+ timmar" och "200 meddelanden". Dolt men
+levererat: knappen "Läs fler berättelser", som antyder en hel samling kundberättelser.
 I bloggen: "En stor andel av Sveriges cykelfester arrangeras av bostadsrättsföreningar",
 diagrammet med 30, 18 och 13 procent utan namngiven källa, och det hypotetiska kvarteret som
 växer från sex till femton par och läses som en kund. I de inbäddade mallsidorna, levererade
 men maskerade: "4.7 rating (based on 125 reviews)", "Trusted by 1582+ users", "62,000+" och
-sexton namngivna påhittade personer. Verkligheten bakom allt detta är noll betalande kunder, en
-skickad och osignerad offert, och sex verkliga anmälningar på väntelistan.
+sexton namngivna påhittade personer. Verkligheten bakom allt detta är noll betalande kunder och
+en skickad, osignerad offert.
 
 ### 4. Var samtalet spricker när en prospect som läst sajten möter dig
 
@@ -243,11 +240,11 @@ det är inte det som utlovats, och kunden märker skillnaden direkt när hen fr�
 in. **Sedan på priset.** Kunden har läst 595 kr och meningen "utan abonnemang" och har ankrat
 där. Den modell du faktiskt vill diskutera innehåller ett abonnemang, alltså exakt det sajten
 sagt att det inte finns, och varje avvikelse uppåt uppfattas nu som en prishöjning i stället för
-ett förslag. **Sist, och värst, på referenserna.** Kunden har läst ett kundcitat och sett att 23
-andra står i kön. Frågan "vilka andra har kört det här?" kommer garanterat. Svaret är ingen. I
-det ögonblicket omvärderas de tre tidigare punkterna från optimism till något kunden själv
-kommer att kalla vilseledande, och samtalet handlar inte längre om produkten utan om huruvida
-det går att lita på dig.
+ett förslag. **Sist på referenserna.** Kunden har sett en kö på väntelistan och läst ett
+omdöme. Frågan "vilka andra har kört det här?" kommer garanterat, och svaret är en egen fest,
+inte betalande kunder. Hänger siffrorna på sajten inte ihop med svaret omvärderas de tre
+tidigare punkterna, och samtalet handlar inte längre om produkten utan om huruvida det går att
+lita på dig.
 
 ---
 
@@ -257,8 +254,7 @@ Ingen copy är skriven här. Detta är ordningen jag föreslår, inte formulerin
 
 **Nivå 1, bör bort innan någon mer besökare kommer in. Rena osanningar, synliga.**
 
-1. Sektionen "Socialt bevis" med citatet och attributionen. Ta bort, ersätt inte med något annat
-   omdöme.
+1. *(Struken 24 sep: citatet är verkligt, se rättelsen överst.)*
 2. `COUNT_BASE = 23`. Sätt till 0. Under tio anmälningar visar koden redan "Bli bland de första
    på väntelistan", vilket är sant och fungerar bra.
 3. Ansiktsbilderna vid väntelistan, om de inte föreställer personer som faktiskt anmält sig och

@@ -910,6 +910,139 @@ a[data-framer-name="Button White/Blue"]{display:none!important}
   setInterval(ensure,1500);
 })();
 </script>
+<script id="ro-hero-rotate">
+(function(){
+  /* Rotating word in the H1, night-explore prototype (25/26 Sep). Isolated branch only —
+     not part of batch 1, not yet reviewed. Recommendation from reference research: vertical
+     roll (not a 3D flip — Boldonse's blocky uppercase glyphs don't have the ascenders/
+     descenders a flip needs to read as dimensional), ~2.5s hold, ~500ms transition.
+
+     Word list is the SHORT, pre-1.1.0 set only (festen, cykelfesten, eventet, kvällen) per
+     the plan: pubrunda/nollning/afterwork/kickoff don't exist in the app yet and must not be
+     named until 1.1.0 ships. Swap WORDS to the full list at that point, nothing else.
+
+     Lesson learned building this tonight: the first version set the real <h1>'s OWN style
+     attribute directly (to visually clip it) and inserted the animated duplicate once,
+     guarded by a one-shot JS flag. That mutated a node React still owns mid-hydration —
+     confirmed via a headless test that this throws React's hydration-mismatch error (#425)
+     and Framer then wipes and re-renders the whole Hero Section subtree, silently deleting
+     both the style change and the duplicate. Because the flag was one-shot, it never
+     rebuilt. Result: the effect visually never appeared, with no visible error to the user.
+
+     Fixed by following the SAME rule every other ro-* block in this file already follows:
+     never write to an element React/Framer still hydrates. The h1's OWN attributes are never
+     touched, at all. It's hidden purely via a CSS `:has()` rule keyed off the sibling we add
+     (ADDING a sibling, exactly like ro-hero-sub already does safely) — and `ensure()` re-checks
+     live DOM state on every call instead of trusting a flag, so if Framer ever wipes the
+     sibling again, it's simply rebuilt on the next 250ms/1500ms tick, matching this repo's
+     established idempotent pattern (ro-hero-mark, ro-title-keeper, ro-privacy-link).
+
+     Accessibility: the real <h1> (the plain static sentence already in SSR/bundle) is the
+     only accessible name, untouched, and what crawlers/no-JS see. The rotating duplicate is
+     aria-hidden. If reduced motion is requested, no duplicate is created at all — the plain
+     H1 stays exactly as it is: simplest correct reduced-motion behavior. */
+  var WORDS = ["festen","cykelfesten","eventet","kvällen"];
+  var HOLD = 2500, TRANS = 500;
+  var EXPECTED = "Du arrangerar festen. Tablehopp sköter resten.";
+
+  function reduced(){
+    try { return matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e){ return false; }
+  }
+  function findH1(){
+    return document.querySelector('[data-framer-name="Hero Section"] h1, section[data-framer-name="Hero Section"] h1');
+  }
+  function ensureCss(){
+    if (document.getElementById("ro-hero-rotate-css")) return;
+    var s = document.createElement("style");
+    s.id = "ro-hero-rotate-css";
+    // :has() hides the real h1 purely in CSS, conditioned on our sibling existing — the h1
+    // element itself is never written to.
+    s.textContent = '[data-framer-name="Hero Section"] h1:has(+ .ro-hero-rotate-visual){' +
+      'position:absolute!important;width:1px!important;height:1px!important;padding:0!important;' +
+      'margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;' +
+      'white-space:nowrap!important;border:0!important}';
+    document.head.appendChild(s);
+  }
+  function wordEl(text){
+    var s = document.createElement("span");
+    s.textContent = text;
+    s.style.cssText = "display:block;position:absolute;left:0;top:0;width:100%;white-space:nowrap;" +
+      "transition:transform " + TRANS + "ms cubic-bezier(.65,0,.35,1), opacity " + TRANS + "ms ease";
+    return s;
+  }
+
+  // Rotation state (word index, next-change timestamp) lives as data attributes ON the
+  // visual element itself, not in a JS closure — so it always travels with the DOM node and
+  // there's nothing to resync if that node gets rebuilt.
+  function build(h1){
+    var full = (h1.textContent || "").replace(/\s+/g," ").trim();
+    // Defensive: only enhance the exact sentence this was built for. If batch-1 copy ever
+    // changes again, this silently no-ops instead of animating stale/wrong text.
+    if (full !== EXPECTED) return;
+    if (!h1.parentElement) return;
+
+    var visStyle = getComputedStyle(h1);
+    var visual = document.createElement("p");
+    visual.className = h1.className + " ro-hero-rotate-visual";
+    visual.setAttribute("aria-hidden", "true");
+    visual.setAttribute("data-i", "0");
+    visual.setAttribute("data-next", String(Date.now() + HOLD));
+    visual.style.cssText = "text-align:" + visStyle.textAlign + ";font-family:" + visStyle.fontFamily +
+      ";font-size:" + visStyle.fontSize + ";font-weight:" + visStyle.fontWeight +
+      ";line-height:" + visStyle.lineHeight + ";letter-spacing:" + visStyle.letterSpacing +
+      ";text-transform:" + visStyle.textTransform + ";color:" + visStyle.color + ";margin:0";
+
+    var slot = document.createElement("span");
+    slot.className = "ro-hero-rotate-slot";
+    slot.style.cssText = "display:inline-block;position:relative;overflow:hidden;vertical-align:top;" +
+      "min-height:" + visStyle.lineHeight;
+    var cur = wordEl(WORDS[0]);
+    cur.style.position = "relative"; cur.style.transform = "none"; cur.style.opacity = "1";
+    slot.appendChild(cur);
+
+    visual.appendChild(document.createTextNode("Du arrangerar "));
+    visual.appendChild(slot);
+    visual.appendChild(document.createTextNode(". Tablehopp sköter resten."));
+    h1.parentElement.insertBefore(visual, h1.nextSibling);
+  }
+
+  function step(visual, slot, i){
+    var next = (i + 1) % WORDS.length;
+    var curEl = slot.querySelector("span");
+    var nextEl = wordEl(WORDS[next]);
+    nextEl.style.transform = "translateY(100%)"; nextEl.style.opacity = "0";
+    slot.appendChild(nextEl);
+    void nextEl.offsetWidth;
+    if (curEl){ curEl.style.transform = "translateY(-100%)"; curEl.style.opacity = "0"; }
+    requestAnimationFrame(function(){ nextEl.style.transform = "translateY(0)"; nextEl.style.opacity = "1"; });
+    setTimeout(function(){ if (curEl && curEl.parentNode) curEl.parentNode.removeChild(curEl); }, TRANS + 30);
+    visual.setAttribute("data-i", String(next));
+    visual.setAttribute("data-next", String(Date.now() + HOLD));
+  }
+
+  function ensure(){
+    if (reduced()) return; // never build under reduced motion; nothing to tear down either
+    var h1 = findH1();
+    if (!h1) return;
+    ensureCss();
+    var visual = h1.nextElementSibling;
+    if (!visual || !visual.classList.contains("ro-hero-rotate-visual") || !visual.isConnected){
+      build(h1); // missing (first run, or Framer wiped the subtree) — rebuild, h1 untouched
+      return;
+    }
+    var next = +visual.getAttribute("data-next") || 0;
+    if (Date.now() >= next){
+      var i = +visual.getAttribute("data-i") || 0;
+      step(visual, visual.querySelector(".ro-hero-rotate-slot"), i);
+    }
+  }
+
+  ensure();
+  document.addEventListener("DOMContentLoaded", ensure);
+  window.addEventListener("load", ensure);
+  setInterval(ensure, 100); // fast enough for smooth rotation timing and quick repair
+})();
+</script>
 <script id="ro-explainer-cta">
 (function(){
   /* Section-2 button, repurposed from the old "Vad är en cykelfest?" explainer into a link
